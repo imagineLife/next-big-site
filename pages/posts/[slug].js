@@ -115,7 +115,14 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async (props) => {
+  console.log(
+    '%c getStaticPaths at [slug]',
+    'background-color: pink; color: black;'
+  );
+  console.log('props');
+  console.log(props);
+
   const paths = postFilePaths
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))

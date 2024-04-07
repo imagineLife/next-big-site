@@ -1,16 +1,13 @@
 {
-  "name": "nextjs-blog-theme",
-  "description": "A customizable Next.js and Tailwind blog starter. Designed by the Bejamas agency.",
-  "author": "Bejamas and Netlify Inc.",
+  "name": "nextjs-big-site",
+  "description": "A Blog",
+  "author": "Eric (Jake) Laursen",
   "contributors": [
-    "Charlie Gerard",
-    "Prince Wilson",
-    "Tara Manicsic",
-    "Thom Krupa"
+    "Eric (Jake) Laursen"
   ],
-  "homepage": "https://github.com/netlify-templates/nextjs-blog-theme",
+  "homepage": "https://github.com/imagineLife/next-big-site",
   "bugs": {
-    "url": "https://github.com/netlify-templates/nextjs-blog-theme/issues"
+    "url": "https://github.com/imagineLife/next-big-site/issues"
   },
   "scripts": {
     "dev": "next",

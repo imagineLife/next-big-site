@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout, { GradientBackground } from '../components/Layout';
 import ArrowIcon from '../components/ArrowIcon';
-import { getGlobalData } from '../utils/global-data';
+import { getGlobalData } from '../utils';
 import SEO from '../components/SEO';
 
 export default function Index({ posts, globalData }) {
@@ -60,7 +60,11 @@ export default function Index({ posts, globalData }) {
 }
 
 export function getStaticProps() {
-  const posts = getPosts();
+  console.log('---DOCKER getStaticProps');
+  const posts = getPosts('docker');
+  // console.log('posts');
+  // console.log(posts);
+
   const globalData = getGlobalData();
 
   return { props: { posts, globalData } };

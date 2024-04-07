@@ -1,0 +1,40 @@
+@import 'src/globals/styles/vars';
+
+.hero {
+  // background-image: url('/images/farm.jpg');
+  // background-position: top 20% center;
+  // background-size: cover;
+  // height: 50vh;
+  + * {
+    margin-top: 0;
+  }
+
+  > #text-wrapper {
+    background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.5) 2rem,
+      #ddbbff00
+    );
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0 $min-hz-padding;
+
+    padding: 0 calc((100vw - 550px) / 2) 1rem;
+
+    h1 {
+      text-shadow: 1px 1px 3px #eeddff66;
+      color: rgb(215, 215, 215);
+    }
+
+    p{
+      color: rgb(215, 215, 215);
+      margin: 0 $min-hz-padding;
+    }
+    a {
+      color: rgb(215, 215, 215);
+      margin-top: 0.5rem;
+    }
+  }
+}
