@@ -34,9 +34,6 @@ const DockerIndex = (params) => {
       <Layout>
         <section className="toc-wrapper">
           <h1>Docker</h1>
-          <a href="/docker#getting-started">Getting Started</a>
-          <br />
-          <a href="/docker#docker-node-intro">Docker With Node: An Intro</a>
           <h2
             id="getting-started"
             title="Thanks to Brian Holt from Frontend Masters for Sparking some Curiosity here!"

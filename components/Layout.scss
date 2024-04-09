@@ -1,3 +1,36 @@
+.toc-wrapper {
+  max-width: 90%;
+  margin: 0 auto;margin
+  h1 {
+    padding: 10px 0 0;
+  }
+  p.subtitle {
+    text-align: center;
+  }
+  .toc-card {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 15px;
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+
+    .content {
+      // padding: 0 15px;
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+  }
+}
+
+
 .colorBackground {
   left: 50%;
   transform: translateX(-50%);
@@ -18,7 +51,8 @@
   max-width: 1400px;
   width: 70vw;
   width: 100%;
-  filter: blur(44px);
+  -webkit-filter: blur(44px);
+          filter: blur(44px);
   z-index: -1;
 }
 
@@ -41,6 +75,7 @@
   max-width: 900px;
   width: 55vw;
   width: 100%;
-  filter: blur(44px);
+  -webkit-filter: blur(44px);
+          filter: blur(44px);
   z-index: -1;
 }
