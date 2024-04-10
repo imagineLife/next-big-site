@@ -1,9 +1,7 @@
 import { getGlobalData } from '../../utils/global-data';
 import {
-  getNextPostBySlug,
+  getPrevNextPostBySlug,
   getPostBySlug,
-  getPreviousPostBySlug,
-  // postsMdPaths,
   dockerMdPaths,
 } from '../../utils/mdx-utils';
 
@@ -104,8 +102,8 @@ export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
   const { mdxSource, data } = await getPostBySlug(params.slug, 'docker');
 
-  const prevPost = getPreviousPostBySlug(params.slug, 'docker');
-  const nextPost = getNextPostBySlug(params.slug, 'docker');
+  const prevPost = getPrevNextPostBySlug(params.slug, 'docker', 'prev');
+  const nextPost = getPrevNextPostBySlug(params.slug, 'docker', 'next');
 
   return {
     props: {

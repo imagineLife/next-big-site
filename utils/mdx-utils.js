@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypePrism from '@mapbox/rehype-prism';
+import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
 //
@@ -88,7 +89,7 @@ export const getPostBySlug = async (slug, section) => {
     // Optionally pass remark/rehype plugins
     mdxOptions: {
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypePrism],
+      rehypePlugins: [rehypePrism, rehypeSlug],
     },
     scope: data,
   });
@@ -96,28 +97,25 @@ export const getPostBySlug = async (slug, section) => {
   return { mdxSource, data, postFilePath };
 };
 
-export const getNextPostBySlug = (slug, section) => {
-  console.log('getNextPostBySlug');
-
+export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
   const posts = getPosts(section);
   const currentFileName = `${slug}.md`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
   const currentPostIndex = posts.indexOf(currentPost);
-  console.log('currentPostIndex');
-  console.log(currentPostIndex);
 
-  const post = posts[currentPostIndex - 1];
-  console.log('Boolean(post)');
-  console.log(Boolean(post));
+  const post =
+    prevOrNext === 'prev'
+      ? posts[currentPostIndex - 1]
+      : posts[currentPostIndex + 1];
 
   // no prev post found
   if (!post) return null;
 
-  const nextPostSlug = post?.filePath.replace(/\.md?$/, '');
+  const postSlug = post?.filePath.replace(/\.md?$/, '');
 
   return {
     title: post.frontmatter.title,
-    slug: nextPostSlug,
+    slug: postSlug,
   };
 };
 
