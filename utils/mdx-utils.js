@@ -24,7 +24,7 @@ console.log({
 export const postsMdPaths = fs
   .readdirSync(posts_path)
   // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path));
+  .filter((path) => /\.md?$/.test(path));
 
 export const dockerMdPaths = fs
   .readdirSync(docker_path)
@@ -73,8 +73,13 @@ export const getPosts = (pathDir = 'posts') => {
   return posts;
 };
 
-export const getPostBySlug = async (slug) => {
-  const postFilePath = path.join(posts_path, `${slug}.mdx`);
+export const getPostBySlug = async (slug, section) => {
+  console.log('---getPostsBySlug---');
+  console.log('slug, section');
+  console.log(slug, section);
+
+  // `${slug}.md`
+  const postFilePath = path.join(dirPaths[section], `${slug}.md`);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);
@@ -91,29 +96,34 @@ export const getPostBySlug = async (slug) => {
   return { mdxSource, data, postFilePath };
 };
 
-export const getNextPostBySlug = (slug) => {
+export const getNextPostBySlug = (slug, section) => {
   console.log('getNextPostBySlug');
 
-  const posts = getPosts();
-  const currentFileName = `${slug}.mdx`;
+  const posts = getPosts(section);
+  const currentFileName = `${slug}.md`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
   const currentPostIndex = posts.indexOf(currentPost);
+  console.log('currentPostIndex');
+  console.log(currentPostIndex);
 
   const post = posts[currentPostIndex - 1];
+  console.log('Boolean(post)');
+  console.log(Boolean(post));
+
   // no prev post found
   if (!post) return null;
 
-  const nextPostSlug = post?.filePath.replace(/\.mdx?$/, '');
+  const nextPostSlug = post?.filePath.replace(/\.md?$/, '');
 
   return {
-    title: post.data.title,
+    title: post.frontmatter.title,
     slug: nextPostSlug,
   };
 };
 
-export const getPreviousPostBySlug = (slug) => {
-  const posts = getPosts();
-  const currentFileName = `${slug}.mdx`;
+export const getPreviousPostBySlug = (slug, section) => {
+  const posts = getPosts(section);
+  const currentFileName = `${slug}.md`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
   const currentPostIndex = posts.indexOf(currentPost);
 
@@ -121,10 +131,10 @@ export const getPreviousPostBySlug = (slug) => {
   // no prev post found
   if (!post) return null;
 
-  const previousPostSlug = post?.filePath.replace(/\.mdx?$/, '');
+  const previousPostSlug = post?.filePath.replace(/\.md?$/, '');
 
   return {
-    title: post.data.title,
+    title: post.frontmatter.title,
     slug: previousPostSlug,
   };
 };
