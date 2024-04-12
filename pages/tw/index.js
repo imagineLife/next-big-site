@@ -1,6 +1,6 @@
 export default function TailwindRoot() {
   return (
-    <main>
+    <main className="prose">
       <h1>Tailwind: Some Details</h1>
       <a href="https://tailwind-workshop.vercel.app/introduction">
         A FrontendMasters slide deck on tailwind (thanks!!)
@@ -28,6 +28,26 @@ export default function TailwindRoot() {
           adjustment) gets its own &quot;utility class&quot;
         </li>
       </ol>
+      <h2>Layers</h2>
+      <p>
+        Tailwind, and{' '}
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">
+          native css
+        </a>
+        , have layers:
+      </p>
+      <ul>
+        <li>
+          <b>base:</b> some html reset-like settings
+        </li>
+        <li>
+          <b>components:</b> reusable bits for common ui components
+        </li>
+        <li>
+          <b>utilities:</b> perhaps the most-used elements, encapsulating css
+          attributes & settings
+        </li>
+      </ul>
     </main>
   );
 }
