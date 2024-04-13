@@ -1,9 +1,13 @@
 # Tailwind
 
+A Brief intro to tailwind.  
+Tailwind can be configured to be a robust design-system-inspired styling setup. Here, just a beginning.
+
 - [Tailwind](#tailwind)
   - [Utility-First](#utility-first)
   - [Layers](#layers)
     - [Base-Layer POC](#base-layer-poc)
+  - [Styling](#styling)
   - [Theming](#theming)
     - [Extending the Tailwind Base Theme](#extending-the-tailwind-base-theme)
     - [Using Configured Theme Values](#using-configured-theme-values)
@@ -45,6 +49,16 @@ A brief illustration using the [tailwind base styles](https://v1.tailwindcss.com
   }
 }
 ```
+
+## Styling
+
+Generally, a `setting-color-shade` paradigm is how tailwind describes css classes. Some examples:
+
+- `bg-green-500`
+- `text-white` (shading not required)
+- `p-4`, `px-4`, `py-2`: padding, x is horizontal, y is vertical
+- `border-2` `border-darkgreen-300`: both border thickness and color separately
+- `h-72` (height of "72"..hmm...), `w-[375px]`: a "one-off" hard-coded width of 375px
 
 ## Theming
 
