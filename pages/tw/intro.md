@@ -8,6 +8,7 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
   - [Layers](#layers)
     - [Base-Layer POC](#base-layer-poc)
   - [Styling](#styling)
+    - [Perhaps common Use-Cases](#perhaps-common-use-cases)
   - [Theming](#theming)
     - [Extending the Tailwind Base Theme](#extending-the-tailwind-base-theme)
     - [Using Configured Theme Values](#using-configured-theme-values)
@@ -59,6 +60,22 @@ Generally, a `setting-color-shade` paradigm is how tailwind describes css classe
 - `p-4`, `px-4`, `py-2`: padding, x is horizontal, y is vertical
 - `border-2` `border-darkgreen-300`: both border thickness and color separately
 - `h-72` (height of "72"..hmm...), `w-[375px]`: a "one-off" hard-coded width of 375px
+
+### Perhaps common Use-Cases
+
+- Spacing
+  - `m-*` is
+    - `m-4`: 1rem
+    - `m-2`: .5rem
+    - `m-8`: 2rem
+  - `p-*` does the same
+- text-sizing
+  - `text-*`
+  - `text-xs`: font-size: .75rem, line-spacing 1rem
+  - `text-base`: font-size 1rem, line-spacing 1.5rem
+- colors
+  - see the "theme" section
+  - check out color tooling like [uicolors](https://uicolors.app/create), and/or [coolors](coolors.co)
 
 ## Theming
 
