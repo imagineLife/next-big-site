@@ -1,3 +1,5 @@
+import React from 'react';
+import { CodeBlock } from 'react-code-blocks';
 export default function TailwindRoot() {
   return (
     <main className="prose">
@@ -28,6 +30,9 @@ export default function TailwindRoot() {
           adjustment) gets its own &quot;utility class&quot;
         </li>
       </ol>
+      {/* 
+        layers 
+      */}
       <h2>Layers</h2>
       <p>
         Tailwind, and{' '}
@@ -46,6 +51,46 @@ export default function TailwindRoot() {
         <li>
           <b>utilities:</b> perhaps the most-used elements, encapsulating css
           attributes & settings
+        </li>
+      </ul>
+      {/* 
+        base styles 
+      */}
+      <h2>Base Styles</h2>
+      <p>
+        Applying styles to the body tag in a stylesheet is one way to create
+        &quot;base&quot; styles.
+      </p>
+      <p>
+        The <b>@layer base</b> directive, in a stylesheet, is another way to
+        extend tailwinds built-in &quot;base&quot; layer.
+      </p>
+      {/* 
+        THEMING
+      */}
+      <h2>Theming</h2>
+      <p>
+        A config file at the root of the directory,
+        &quot;tailwing.config.js&quot;, is where some theme content can be
+        defined. A &quot;theme&quot; object can be present, including many keys.
+        The tailwind docs have a{' '}
+        <a href="https://tailwindcss.com/docs/theme">
+          pretty good write-up on theming.
+        </a>
+      </p>
+      {/* 
+        Intro To Styles
+      */}
+      <h2>Intro To Styling Details</h2>
+      <p>
+        Styles are declared with the built-in class names that tailwind
+        provides.
+      </p>
+      <h3>Colors for Text & Background</h3>
+      <ul>
+        <li>
+          text can be set with &quot;text-color-shade&quot;, i.e text-blue-300.
+          tailwind also includes generic sizes like text-sm
         </li>
       </ul>
     </main>
