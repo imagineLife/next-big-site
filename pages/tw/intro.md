@@ -12,6 +12,7 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
   - [Theming](#theming)
     - [Extending the Tailwind Base Theme](#extending-the-tailwind-base-theme)
     - [Using Configured Theme Values](#using-configured-theme-values)
+  - [Styling a Modal](#styling-a-modal)
 
 ## Utility-First
 
@@ -110,4 +111,51 @@ module.exports = {
   use the font family 
 -->
 <h1 class="bg-primary-dark font-mine">Demo Header</h1>
+```
+
+## Styling a Modal
+
+Here, tailwind classes "in action".
+
+Starting:
+
+```html
+<dialog open>
+  <h1>Do Not Pass Go</h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in metus
+    ornare, volutpat mauris sit amet, ornare est. Praesent massa nulla, lacinia
+    sit amet neque sed, ornare porttitor ante. Nunc vulputate ultrices
+    sollicitudin. Quisque in tristique felis, vel blandit felis. Aliquam ut
+    vestibulum massa. Proin at lectus in risus ultrices interdum a fringilla
+    nisi. Maecenas tristique augue at pretium consectetur.
+  </p>
+  <div>
+    <button>Confirm</button>
+    <button>Cancel</button>
+  </div>
+</dialog>
+```
+
+With Tailwind classes:
+
+```html
+<dialog
+  open
+  class="w-96 mx-auto bg-white p-4 rounded-md border-2 border-green-500 shadow-md"
+>
+  <h1 class=" mb-4 font-semibold text-green-600">Do Not Pass Go</h1>
+  <p class="texttext-sm mb-4">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in metus
+    ornare, volutpat mauris sit amet, ornare est. Praesent massa nulla, lacinia
+    sit amet neque sed, ornare porttitor ante.
+  </p>
+  <div>
+    <!-- bg here, not on 2nd button -->
+    <button class="rounded border-2 border-green-600 px-2 py-1 bg-green-400">
+      Confirm
+    </button>
+    <button class="rounded border-2 border-green-600 px-2 py-1">Cancel</button>
+  </div>
+</dialog>
 ```
