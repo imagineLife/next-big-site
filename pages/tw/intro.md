@@ -23,6 +23,7 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
     - [Peer](#peer)
     - [Group](#group)
     - [Before \& After](#before--after)
+    - [Dark Mode](#dark-mode)
 
 ## Utility-First
 
@@ -252,9 +253,9 @@ Peer is a sibling element "listener".
 Group is a child/descendent element "listener".
 Here....
 
-- the `li` have the `group` class
-- the child label spans has the `group-hover:*` classes
-- when the `li` is hovered, the child `span` gets updated styling
+- the `li` hase the `group` class
+- the child label span has the `group-hover:*` class
+- when the `li` is hovered, the child `span` gets adjusted styling
 
 ```html
 <main class="space-y-4">
@@ -271,26 +272,24 @@ Here....
       </label>
       <button class="invisible group-hover:visible">❌</button>
     </li>
-    <li class="group">
-      <label>
-        <input type="checkbox" class="mr-2 accent-cyan-400" />
-        <span class="group-hover:text-cyan-800 group-hover:underline"
-          >Bake some cookies</span
-        >
-      </label>
-      <button class="invisible group-hover:visible">❌</button>
-    </li>
-    <li class="group">
-      <label>
-        <input type="checkbox" class="mr-2 accent-cyan-400" />
-        <span class="group-hover:text-cyan-800 group-hover:underline"
-          >Do a handstand</span
-        >
-      </label>
-      <button class="invisible group-hover:visible">❌</button>
-    </li>
   </ul>
 </main>
 ```
 
 ### Before & After
+
+Things like...`before:text-red-200`,`after:content-["after text here"]`,`before:border-2`.  
+Here, a `*` is present in the `after` of the label text WHEN the peer input is required (in this case that is true). This is expressed with the class name `peer-required:after:content-['*']`:
+
+```html
+<div>
+  <input required class="peer border-2 rounded-md border-green p-2" />
+  <label class="text-gray peer-required:after:content-['*']"
+    >Required input field here</label
+  >
+</div>
+```
+
+### Dark Mode
+
+things like `dark:text-gray-600`, `dark:selection:text-black`
