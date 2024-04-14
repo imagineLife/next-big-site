@@ -21,6 +21,8 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
   - [Styling a Modal](#styling-a-modal)
   - [Modifiers](#modifiers)
     - [Peer](#peer)
+    - [Group](#group)
+    - [Before \& After](#before--after)
 
 ## Utility-First
 
@@ -231,6 +233,8 @@ With Tailwind classes:
 
 ### Peer
 
+Peer is a sibling element "listener".
+
 ```html
 <div class="space-y-1">
   <label for="input">Email Address</label>
@@ -242,3 +246,51 @@ With Tailwind classes:
   </p>
 </div>
 ```
+
+### Group
+
+Group is a child/descendent element "listener".
+Here....
+
+- the `li` have the `group` class
+- the child label spans has the `group-hover:*` classes
+- when the `li` is hovered, the child `span` gets updated styling
+
+```html
+<main class="space-y-4">
+  <header>
+    <h1 class="text-lg font-bold">Things to Do</h1>
+  </header>
+  <ul class="space-y-2">
+    <li class="group">
+      <label>
+        <input type="checkbox" class="mr-2 accent-cyan-400" />
+        <span class="group-hover:text-cyan-800 group-hover:underline"
+          >Buy vegan bacon</span
+        >
+      </label>
+      <button class="invisible group-hover:visible">❌</button>
+    </li>
+    <li class="group">
+      <label>
+        <input type="checkbox" class="mr-2 accent-cyan-400" />
+        <span class="group-hover:text-cyan-800 group-hover:underline"
+          >Bake some cookies</span
+        >
+      </label>
+      <button class="invisible group-hover:visible">❌</button>
+    </li>
+    <li class="group">
+      <label>
+        <input type="checkbox" class="mr-2 accent-cyan-400" />
+        <span class="group-hover:text-cyan-800 group-hover:underline"
+          >Do a handstand</span
+        >
+      </label>
+      <button class="invisible group-hover:visible">❌</button>
+    </li>
+  </ul>
+</main>
+```
+
+### Before & After
