@@ -1,5 +1,4 @@
 import React from 'react';
-import { CodeBlock } from 'react-code-blocks';
 export default function TailwindRoot() {
   return (
     <main className="prose">
@@ -9,6 +8,9 @@ export default function TailwindRoot() {
       </a>
       . <br />
       <a href="https://play.tailwindcss.com/">A Tailwind playground UI!</a>
+      {/* 
+        layers 
+      */}
       <h2>Utility-First</h2>
       <p>
         <a href="https://tailwindcss.com/docs/utility-first">

@@ -9,6 +9,11 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
     - [Base-Layer POC](#base-layer-poc)
   - [Styling](#styling)
     - [Perhaps common Use-Cases](#perhaps-common-use-cases)
+      - [text-sizing](#text-sizing)
+      - [colors](#colors)
+      - [spacing](#spacing)
+      - [pseudo classes](#pseudo-classes)
+      - [form states](#form-states)
   - [Theming](#theming)
     - [Extending the Tailwind Base Theme](#extending-the-tailwind-base-theme)
     - [Using Configured Theme Values](#using-configured-theme-values)
@@ -70,13 +75,59 @@ Generally, a `setting-color-shade` paradigm is how tailwind describes css classe
     - `m-2`: .5rem
     - `m-8`: 2rem
   - `p-*` does the same
-- text-sizing
-  - `text-*`
-  - `text-xs`: font-size: .75rem, line-spacing 1rem
-  - `text-base`: font-size 1rem, line-spacing 1.5rem
-- colors
-  - see the "theme" section
-  - check out color tooling like [uicolors](https://uicolors.app/create), and/or [coolors](coolors.co)
+
+#### text-sizing
+
+- `text-*`
+- `text-xs`: font-size: .75rem, line-spacing 1rem
+- `text-base`: font-size 1rem, line-spacing 1.5rem
+
+#### colors
+
+- see the "theme" section
+- check out color tooling like [uicolors](https://uicolors.app/create), and/or [coolors](coolors.co)
+
+#### spacing
+
+- `space-x-10`: horizontal space between element, using margin
+- `divide--y-4`
+
+#### pseudo classes
+
+- `hover:bg-blue-200`: `<hover-state>:tailwind-class`
+- `disabled:opacity-30`
+- `active:bg-blue-200 active:border-blue-200` (they can work together, just like css!)
+
+#### form states
+
+Here, some buttons as an example: borders, "utility classes", "states"
+
+<!-- layers & tailwind classes -->
+
+```css
+@layer base {
+  /* ALL buttons get these "default" classes */
+  button {
+    /* NOTE: "current" is a reserved word */
+    @apply rounded-md border-2 border-current px-2 py-1 text-blue-700 disabled:opacity-50 hover:opacity-80;
+  }
+}
+
+/* "utility classes" */
+@layer components {
+  .btn-danger {
+    @apply text-darkred-600;
+  }
+
+  .btn-primary {
+    @apply bg-darkblue/50;
+  }
+}
+```
+
+```html
+
+```
 
 ## Theming
 
