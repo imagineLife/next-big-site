@@ -14,10 +14,13 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
       - [spacing](#spacing)
       - [pseudo classes](#pseudo-classes)
       - [form states](#form-states)
+      - [Official Plugins](#official-plugins)
   - [Theming](#theming)
     - [Extending the Tailwind Base Theme](#extending-the-tailwind-base-theme)
     - [Using Configured Theme Values](#using-configured-theme-values)
   - [Styling a Modal](#styling-a-modal)
+  - [Modifiers](#modifiers)
+    - [Peer](#peer)
 
 ## Utility-First
 
@@ -108,12 +111,15 @@ Here, some buttons as an example: borders, "utility classes", "states"
 @layer base {
   /* ALL buttons get these "default" classes */
   button {
-    /* NOTE: "current" is a reserved word */
+    /* NOTE: "current" is a reserved word
+      "current" writes the css reseved keyword "currentColor"
+      https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword 
+    */
     @apply rounded-md border-2 border-current px-2 py-1 text-blue-700 disabled:opacity-50 hover:opacity-80;
   }
 }
 
-/* "utility classes" */
+/* "utility classes", will overwrite the above base classes when applied */
 @layer components {
   .btn-danger {
     @apply text-darkred-600;
@@ -126,8 +132,18 @@ Here, some buttons as an example: borders, "utility classes", "states"
 ```
 
 ```html
-
+<button class="btn-primary">Submit</button>
+<button class="btn-danger">Cancel</button>
 ```
+
+#### Official Plugins
+
+Tailwind has officially supporting plugins that can be used to abstract-away common use-cases. at the time of writing:
+
+- [typography](https://github.com/tailwindlabs/tailwindcss-typography): exposing a "prose" class for some nice looking font
+- [forms](https://github.com/tailwindlabs/tailwindcss-forms): form "reset" and `form-*` class names
+- [aspect ratio](https://github.com/tailwindlabs/tailwindcss-aspect-ratio)
+- [container queries](https://github.com/tailwindlabs/tailwindcss-container-queries): classes: `@container`, `@lg`, `@md`, `@sm` & more
 
 ## Theming
 
@@ -209,4 +225,20 @@ With Tailwind classes:
     <button class="rounded border-2 border-green-600 px-2 py-1">Cancel</button>
   </div>
 </dialog>
+```
+
+## Modifiers
+
+### Peer
+
+```html
+<div class="space-y-1">
+  <label for="input">Email Address</label>
+  <!-- "peer" class on an element to "watch" -->
+  <input id="input" type="email" class="peer" placeholder="email address" />
+  <!-- peer-* prefix, based on the invalid+focus state of the "peer" class element above -->
+  <p class="invisible text-red-600 peer-invalid:visible peer-focus:invisible">
+    Valid email required
+  </p>
+</div>
 ```
