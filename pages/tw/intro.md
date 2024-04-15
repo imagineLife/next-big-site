@@ -24,6 +24,10 @@ Tailwind can be configured to be a robust design-system-inspired styling setup. 
     - [Group](#group)
     - [Before \& After](#before--after)
     - [Dark Mode](#dark-mode)
+    - [Responsive Breakpoint](#responsive-breakpoint)
+  - [Layouts](#layouts)
+    - [Columns](#columns)
+  - [Flexbox](#flexbox)
 
 ## Utility-First
 
@@ -293,3 +297,42 @@ Here, a `*` is present in the `after` of the label text WHEN the peer input is r
 ### Dark Mode
 
 things like `dark:text-gray-600`, `dark:selection:text-black`
+
+### Responsive Breakpoint
+
+things like `sm`, `md`, `lg`, `xl` and `2xl`.
+Breakpoints COULD be a place to use "abstractions", utility classes.
+
+```html
+<div
+  class="container h-36 bg-hotpink-300 sm:bg-black md:bg-darkred-300 lg:bg-darkgreen-300"
+>
+  <h2>Title Here</h2>
+</div>
+```
+
+## Layouts
+
+### Columns
+
+```html
+<!-- will display across 2 vertical columns -->
+<div class="columns-2">
+  <img src="https://picsum.photos/200" />
+  <img src="https://picsum.photos/200" />
+  <img src="https://picsum.photos/200" />
+</div>
+
+<!-- will set "small" columns widths -->
+<div class="columns-2 columns-xs">
+  <img src="https://picsum.photos/200" />
+  <img src="https://picsum.photos/200" />
+  <img src="https://picsum.photos/200" />
+</div>
+```
+
+- `columns-[25px]`
+- `gap-1` horizontally between columns
+- `space-y-4` vertically between items in each column
+
+## Flexbox
