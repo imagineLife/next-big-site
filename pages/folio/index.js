@@ -196,6 +196,7 @@ const certs = [
       'Influence Leading',
     ],
     imgClass: `cornell-cert-bg`,
+    img: 'cornell_badge.png',
   },
   {
     title: 'Kubernetes Application Developer',
@@ -211,6 +212,7 @@ const certs = [
       'Debugging',
     ],
     imgClass: `k8s-cert-bg`,
+    img: 'k8s_cert_badge.png',
   },
   {
     title: 'MongoDB Certified Developer Associate',
@@ -227,6 +229,7 @@ const certs = [
       'Sharding',
     ],
     imgClass: `mongo-cert-bg`,
+    img: 'mongo-cred.png',
   },
   {
     title: 'OpenJS Certified Node Application Developer',
@@ -242,6 +245,7 @@ const certs = [
       'Unit Testing',
     ],
     imgClass: `node-cert-bg`,
+    img: 'node-cert.png',
   },
   {
     title: 'Certified Professional Scrum Master',
@@ -250,6 +254,7 @@ const certs = [
     aLink: 'https://www.scrum.org/certificates/519854',
     techList: ['Team Process Framework', 'Servant Leadership'],
     imgClass: `psmi-bg`,
+    img: 'psmiBadge.png',
   },
   {
     title: 'How to Manage a Remote Team',
@@ -259,6 +264,7 @@ const certs = [
     aLink: 'https://www.coursera.org/learn/remote-team-management',
     techList: ['Team Process', 'Remote', 'Management'],
     imgClass: `gitlab-bg`,
+    img: 'gitlab.jpg',
   },
 ];
 
@@ -403,10 +409,10 @@ const folioItems = [
 
 export default function Folio() {
   return (
-    <main role="main" className={`${sassMods.folio} flex`}>
-      <section className="welcome">
+    <main role="main" className={`${sassMods.folio} flex flex-col prose`}>
+      <section className="welcome flex flex-col">
         <div className="text-box">
-          <b>Welcome</b>
+          <h1>Welcome</h1>
           <section id="snippets">
             <p>Friends & Family call me Jake. </p>
             <p>
@@ -416,41 +422,48 @@ export default function Folio() {
           </section>
 
           {/* <Link to="/">See some of my notes</Link> */}
-          <div className={sassMods['tech-list-box']}>
+          {/* sassMods['tech-list-box'] */}
+          {/* REMOVE?@ */}
+          {/* <div className="flex">
             <TechList listName="Frontend" itms={techs.frontend} />
             <TechList listName="Server" itms={techs.backend} />
             <TechList listName="DataBase" itms={techs.db} />
             <TechList listName="Teams & People" itms={techs.people} />
-          </div>
+          </div> */}
         </div>
       </section>
 
-      <section id="certs-wrapper" className={sassMods.certsWrapper}>
-        <div className="frosted-bg">
+      <section
+        id="certs-wrapper"
+        className="@container flex flex-wrap gap-2 flex-col"
+      >
+        <div className="flex-1 basis-full">
           <h2>Certifications</h2>
         </div>
-        {certs.map((itm, itmIdex) => (
-          <CertItem key={`folio-item-${itmIdex}`} {...itm} />
-        ))}
+        <div className="grid grid-cols-2 gap-8 px-8">
+          {certs.map((itm, itmIdex) => (
+            <CertItem key={`folio-item-${itmIdex}`} {...itm} />
+          ))}
+        </div>
       </section>
 
-      <section id="technologies-wrapper">
+      {/* <section id="technologies-wrapper" className="@container flex">
         <div className="frosted-bg">
           <h2>Technologies</h2>
         </div>
         {technologies.map((itm, itmIdex) => (
           <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
         ))}
-      </section>
+      </section> */}
 
-      <section id="projects-wrapper">
+      {/* <section id="projects-wrapper">
         <div className="frosted-bg">
           <h2>Projects</h2>
         </div>
         {folioItems.map((itm, itmIdex) => (
           <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
         ))}
-      </section>
+      </section> */}
     </main>
   );
 }

@@ -3,8 +3,10 @@ import sassMods from './../../pages/folio/folio.module.scss';
 
 export default function TechList({ listName, itms }) {
   return (
-    <ul className={sassMods['tech-list']}>
-      <li className={sassMods['tech-li']}>
+    // sassMods['tech-list']
+    <ul>
+      {/* sassMods['tech-li'] */}
+      <li>
         <b>{listName}</b>
       </li>
       <br />

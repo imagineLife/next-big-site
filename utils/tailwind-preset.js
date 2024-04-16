@@ -49,6 +49,12 @@ module.exports = {
         primary: 'var(--font-primary)',
         secondary: 'var(--font-secondary)',
       },
+      fontSize: {
+        xxl: {
+          'font-size': '1.5rem',
+          'line-height': '2rem',
+        },
+      },
       theme: {
         bejamas: {
           colors: {
