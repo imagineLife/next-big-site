@@ -200,7 +200,8 @@ const certs = [
   },
   {
     title: 'Kubernetes Application Developer',
-    subText: 'Through Linux Foundation',
+    subText:
+      'Defining Container resources, pods, deployments, CronJobs, Deployment strategies, kubectl, logging, authn, athz, configmaps, serviceAccounts, netowrking policies...',
     textContext: 'cert no. LF-2jtyhllngl',
     // aLink: 'https://university.mongodb.com/certification/certificate/330208369',
     aLink: 'https://training.linuxfoundation.org/certification/verify/',
@@ -259,8 +260,7 @@ const certs = [
   {
     title: 'How to Manage a Remote Team',
     subText:
-      'Best Practices, Managing Remote Team Members, Distributed Team Cultures & Values - all through a partnership between Gitlab and Coursera',
-    textContext: '(Certificate)',
+      'Best Practices, Managing Remote Team Members, Distributed Team Cultures & Values - through Gitlab/Coursera',
     aLink: 'https://www.coursera.org/learn/remote-team-management',
     techList: ['Team Process', 'Remote', 'Management'],
     imgClass: `gitlab-bg`,
