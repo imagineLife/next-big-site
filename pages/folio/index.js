@@ -58,127 +58,152 @@ const technologies = [
     title: 'HTML',
     subText: 'Webpage structuring - the core of web content delivery.',
     imgClass: `html-bg`,
+    img: `html`,
   },
   {
     title: 'CSS',
     subText: 'Styling HTML',
     imgClass: `css-bg`,
+    img: `css`,
   },
   {
     title: 'JS',
     subText: 'Interacting with the dom && server logic',
     imgClass: `js-bg`,
+    img: `js`,
   },
   {
     title: 'TypeScript',
     subText: 'linting on steroids',
     imgClass: `ts-bg`,
+    img: `ts`,
   },
   {
     title: 'D3',
     subText: 'Data Driven Documents',
     imgClass: `d3-bg`,
+    img: `d3`,
   },
   {
     title: 'React',
     subText: 'UI Component & State Management',
     imgClass: `react-bg`,
+    img: `react`,
   },
   {
     title: 'Storybook',
     subText: 'Component Playground & Documentation',
     imgClass: `storybook-bg`,
+    img: `storybook`,
   },
   {
     title: 'Babel',
     subText: 'Transpiling Dev-Friendly code for browsers',
     imgClass: `babel-bg`,
+    img: `babel`,
   },
   {
     title: 'Webpack',
     subText:
       'Bundling, minifying, chunking, managing code for production optimization',
     imgClass: `webpack-bg`,
+    img: `webpack`,
   },
   {
     title: 'Cypress',
     subText: 'End-To-End Testing with JS',
     imgClass: `cypress-bg`,
+    img: `cypress`,
   },
   {
     title: 'Jest',
     subText: 'JS Testing',
     imgClass: `jest-bg`,
+    img: `jest`,
   },
   {
     title: 'Testing Library',
     subText: 'The modern easy-to-use testing library',
     imgClass: `testing-lib-bg`,
+    img: `testing-lib`,
   },
   {
     title: 'Postman',
     subText: 'API Testing',
     imgClass: `postman-bg`,
+    img: `postman`,
   },
   {
     title: 'Enzyme',
     subText: 'React Component Testing',
     imgClass: `enzyme-bg`,
+    img: `enzyme`,
   },
   {
     title: 'Analytics',
     subText: 'Visualization & Analysis Data',
     imgClass: `dash-bg`,
+    img: `analytics`,
   },
   {
     title: 'Node',
     subText: 'Server-Side JS',
     imgClass: `node-bg`,
+    img: `node`,
   },
   {
     title: 'Nginx',
     subText: 'Rever Proxying, Load Balancing',
     imgClass: `nginx-bg`,
+    img: `nginx`,
   },
   {
     title: 'Express',
     subText: 'Node Server Framework',
     imgClass: `express-bg`,
+    img: `express`,
   },
   {
     title: 'MongoDB',
     subText: 'Document data storage - consumer-first schemas.',
     imgClass: `mongo-bg`,
+    img: `mongo`,
   },
   {
     title: 'PostGres',
     subText: 'The relational datastore',
     imgClass: `postgres-bg`,
+    img: `postgres`,
   },
   {
     title: 'GitLab',
     subText: 'Repo Hosting, CI/CD Automation Pipelines, Workflow Management',
     imgClass: `gitlab-bg`,
+    img: `gitlab`,
   },
   {
     title: 'Docker',
     subText: 'Abstracting-Away the OS',
     imgClass: `docker-bg`,
+    img: `docker`,
   },
   {
     title: 'Kubernetes',
     subText: 'Orchestrating Containers',
     imgClass: `k8s-bg`,
+    img: `k8s`,
   },
   {
     title: 'Bash',
     subText: 'The Shell',
     imgClass: `bash-bg`,
+    img: `bash`,
   },
   {
     title: 'Keynote',
     subText: 'Presenting Ideas alongside Visuals',
     imgClass: `keynote-bg`,
+    img: `keynote`,
   },
 ];
 
@@ -447,14 +472,14 @@ export default function Folio() {
         </div>
       </section>
 
-      {/* <section id="technologies-wrapper" className="@container flex">
-        <div className="frosted-bg">
+      <section id="technologies-wrapper" className="@container flex">
+        <div className="flex-1 basis-full">
           <h2>Technologies</h2>
         </div>
         {technologies.map((itm, itmIdex) => (
           <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
         ))}
-      </section> */}
+      </section>
 
       {/* <section id="projects-wrapper">
         <div className="frosted-bg">
