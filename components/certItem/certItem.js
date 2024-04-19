@@ -14,7 +14,7 @@ export default function CertItem({
   // });
 
   return (
-    <div className="border rounded p-6 w-full text-white border-gray-500 flex justify-between">
+    <div className="border rounded p-6 w-full text-white border-gray-600 flex justify-between">
       <div className="flex-grow-0 flex-shrink-0 m-0">
         <Image
           src={`/${img}`}
@@ -32,7 +32,7 @@ export default function CertItem({
             <i>{textContext}</i>
           </sup>
         )}
-        <p className="text-sm text-right mt-2 max-w-[80%] ml-auto">
+        <p className="text-sm text-right mt-2 max-w-[80%] ml-auto mb-0">
           {subText}
           <br />
         </p>
