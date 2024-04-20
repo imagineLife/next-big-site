@@ -19,3 +19,5 @@
 **Semi-Supervised Learning** is when some of the data given to the machine is labeled and other data given to the machine is not labeled.
 
 **Pre-Trained Models**: Many models are already trained and available for free use. [kaggle](https://www.kaggle.com/models), [tensorflow](https://github.com/tensorflow/tfjs-models) and [huggingface](https://huggingface.co/models) are three places to start to checkout some pre-trained models. Machine learning is significantly more common in python environments than javascript at the moment: there are likely significantly more models for a python env than a js env.
+
+**Transfer Learning**: Using a pre-trained model for NEW trained details. Check out [teachable machine](https://teachablemachine.withgoogle.com/train) for an in-browser GUI-driven approach to using pre-trained models to try out some transfer learning!
