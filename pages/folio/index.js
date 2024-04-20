@@ -3,6 +3,7 @@ import sassMods from './folio.module.scss';
 import FolioItem from './../../components/folioItem';
 import CertItem from './../../components/certItem';
 import TechList from './../../components/techList';
+import Image from 'next/image';
 // import { Link } from "gatsby"
 
 const techs = {
@@ -53,159 +54,209 @@ const techs = {
   ],
 };
 
-const technologies = [
-  {
-    title: 'HTML',
-    subText: 'Webpage structuring - the core of web content delivery.',
-    imgClass: `html-bg`,
-    img: `html`,
-  },
-  {
-    title: 'CSS',
-    subText: 'Styling HTML',
-    imgClass: `css-bg`,
-    img: `css`,
-  },
-  {
-    title: 'JS',
-    subText: 'Interacting with the dom && server logic',
-    imgClass: `js-bg`,
-    img: `js`,
-  },
-  {
-    title: 'TypeScript',
-    subText: 'linting on steroids',
-    imgClass: `ts-bg`,
-    img: `ts`,
-  },
-  {
-    title: 'D3',
-    subText: 'Data Driven Documents',
-    imgClass: `d3-bg`,
-    img: `d3`,
-  },
-  {
-    title: 'React',
-    subText: 'UI Component & State Management',
-    imgClass: `react-bg`,
-    img: `react`,
-  },
-  {
-    title: 'Storybook',
-    subText: 'Component Playground & Documentation',
-    imgClass: `storybook-bg`,
-    img: `storybook`,
-  },
-  {
-    title: 'Babel',
-    subText: 'Transpiling Dev-Friendly code for browsers',
-    imgClass: `babel-bg`,
-    img: `babel`,
-  },
-  {
-    title: 'Webpack',
-    subText:
-      'Bundling, minifying, chunking, managing code for production optimization',
-    imgClass: `webpack-bg`,
-    img: `webpack`,
-  },
-  {
-    title: 'Cypress',
-    subText: 'End-To-End Testing with JS',
-    imgClass: `cypress-bg`,
-    img: `cypress`,
-  },
-  {
-    title: 'Jest',
-    subText: 'JS Testing',
-    imgClass: `jest-bg`,
-    img: `jest`,
-  },
-  {
-    title: 'Testing Library',
-    subText: 'The modern easy-to-use testing library',
-    imgClass: `testing-lib-bg`,
-    img: `testing-lib`,
-  },
-  {
-    title: 'Postman',
-    subText: 'API Testing',
-    imgClass: `postman-bg`,
-    img: `postman`,
-  },
-  {
-    title: 'Enzyme',
-    subText: 'React Component Testing',
-    imgClass: `enzyme-bg`,
-    img: `enzyme`,
-  },
-  {
-    title: 'Analytics',
-    subText: 'Visualization & Analysis Data',
-    imgClass: `dash-bg`,
-    img: `analytics`,
-  },
-  {
-    title: 'Node',
-    subText: 'Server-Side JS',
-    imgClass: `node-bg`,
-    img: `node`,
-  },
-  {
-    title: 'Nginx',
-    subText: 'Rever Proxying, Load Balancing',
-    imgClass: `nginx-bg`,
-    img: `nginx`,
-  },
-  {
-    title: 'Express',
-    subText: 'Node Server Framework',
-    imgClass: `express-bg`,
-    img: `express`,
-  },
-  {
-    title: 'MongoDB',
-    subText: 'Document data storage - consumer-first schemas.',
-    imgClass: `mongo-bg`,
-    img: `mongo`,
-  },
-  {
-    title: 'PostGres',
-    subText: 'The relational datastore',
-    imgClass: `postgres-bg`,
-    img: `postgres`,
-  },
-  {
-    title: 'GitLab',
-    subText: 'Repo Hosting, CI/CD Automation Pipelines, Workflow Management',
-    imgClass: `gitlab-bg`,
-    img: `gitlab`,
-  },
-  {
-    title: 'Docker',
-    subText: 'Abstracting-Away the OS',
-    imgClass: `docker-bg`,
-    img: `docker`,
-  },
-  {
-    title: 'Kubernetes',
-    subText: 'Orchestrating Containers',
-    imgClass: `k8s-bg`,
-    img: `k8s`,
-  },
-  {
-    title: 'Bash',
-    subText: 'The Shell',
-    imgClass: `bash-bg`,
-    img: `bash`,
-  },
-  {
-    title: 'Keynote',
-    subText: 'Presenting Ideas alongside Visuals',
-    imgClass: `keynote-bg`,
-    img: `keynote`,
-  },
-];
+const techSkills = {
+  frontend: [
+    {
+      title: 'HTML',
+      subText: 'Webpage structuring - the core of web content delivery.',
+      imgClass: `html-bg`,
+      img: `html`,
+    },
+    {
+      title: 'CSS',
+      subText: 'Styling HTML',
+      imgClass: `css-bg`,
+      img: `css`,
+    },
+    {
+      title: 'JS',
+      subText: 'Interacting with the dom && server logic',
+      imgClass: `js-bg`,
+      img: `js`,
+    },
+    {
+      title: 'TypeScript',
+      subText: 'linting on steroids',
+      imgClass: `ts-bg`,
+      img: `ts`,
+    },
+    {
+      title: 'D3',
+      subText: 'Data Driven Documents',
+      imgClass: `d3-bg`,
+      img: `d3`,
+    },
+    {
+      title: 'React',
+      subText: 'UI Component & State Management',
+      imgClass: `react-bg`,
+      img: `react`,
+    },
+    {
+      title: 'Storybook',
+      subText: 'Component Playground & Documentation',
+      imgClass: `storybook-bg`,
+      img: `storybook`,
+    },
+    {
+      title: 'Babel',
+      subText: 'Transpiling Dev-Friendly code for browsers',
+      imgClass: `babel-bg`,
+      img: `babel`,
+    },
+    {
+      title: 'Webpack',
+      subText:
+        'Bundling, minifying, chunking, managing code for production optimization',
+      imgClass: `webpack-bg`,
+      img: `webpack`,
+    },
+  ],
+  serverSide: [
+    {
+      title: 'Postman',
+      subText: 'API Testing',
+      imgClass: `postman-bg`,
+      img: `postman`,
+    },
+    {
+      title: 'Node',
+      subText: 'Server-Side JS',
+      imgClass: `node-bg`,
+      img: `node`,
+    },
+    {
+      title: 'Express',
+      subText: 'Node Server Framework',
+      imgClass: `express-bg`,
+      img: `express`,
+    },
+  ],
+  dbs: [
+    {
+      title: 'MongoDB',
+      subText: 'Document data storage - consumer-first schemas.',
+      imgClass: `mongo-bg`,
+      img: `mongo`,
+    },
+    {
+      title: 'PostGres',
+      subText: 'The relational datastore',
+      imgClass: `postgres-bg`,
+      img: `postgres`,
+    },
+  ],
+  devOps: [
+    {
+      title: 'Nginx',
+      subText: 'Rever Proxying, Load Balancing',
+      imgClass: `nginx-bg`,
+      img: `nginx`,
+    },
+    {
+      title: 'GitLab',
+      subText: 'Repo Hosting, CI/CD Automation Pipelines, Workflow Management',
+      imgClass: `gitlab-bg`,
+      img: `gitlab`,
+    },
+    {
+      title: 'GitHub',
+      subText: 'Repo Hosting, CI/CD Automation Pipelines, Workflow Management',
+      imgClass: `gitlab-bg`,
+      img: `github`,
+    },
+    {
+      title: 'GitHub Actions',
+      subText: 'Automated Workflow Management',
+      img: `github-actions`,
+    },
+    {
+      title: 'Docker',
+      subText: 'Abstracting-Away the OS',
+      imgClass: `docker-bg`,
+      img: `docker`,
+    },
+    {
+      title: 'Kubernetes',
+      subText: 'Orchestrating Containers',
+      imgClass: `k8s-bg`,
+      img: `k8s`,
+    },
+    {
+      title: 'Bash',
+      subText: 'The Shell',
+      imgClass: `bash-bg`,
+      img: `bash`,
+    },
+  ],
+  testing: [
+    {
+      title: 'Cypress',
+      subText: 'End-To-End Testing with JS',
+      imgClass: `cypress-bg`,
+      img: `cypress`,
+    },
+    {
+      title: 'Jest',
+      subText: 'JS Testing',
+      imgClass: `jest-bg`,
+      img: `jest`,
+    },
+    {
+      title: 'Testing Library',
+      subText: 'The modern easy-to-use testing library',
+      imgClass: `testing-lib-bg`,
+      img: `testing-lib`,
+    },
+    {
+      title: 'Enzyme',
+      subText: 'React Component Testing',
+      imgClass: `enzyme-bg`,
+      img: `enzyme`,
+    },
+    // {
+    //   title: 'Mocha',
+    //   subText: '',
+    //   imgClass: ``,
+    //   img: `mocha`,
+    // },
+    // {
+    //   title: 'Chai',
+    //   subText: '',
+    //   imgClass: ``,
+    //   img: `mocha`,
+    // },
+  ],
+  teamWork: [
+    {
+      title: 'Keynote',
+      subText: 'Presenting Ideas alongside Visuals',
+      imgClass: `keynote-bg`,
+      img: `keynote`,
+    },
+    // {
+    //   title: 'StrengthsFinder',
+    //   subText: '',
+    //   imgClass: ``,
+    //   img: `keynote`,
+    // },
+    // {
+    //   title: 'Scrum',
+    //   subText: '',
+    //   imgClass: ``,
+    //   img: `keynote`,
+    // },
+  ],
+};
+
+// const technologies = [
+//   {
+//     title: 'Analytics',
+//     subText: 'Visualization & Analysis Data',
+//     imgClass: `dash-bg`,
+//     img: `analytics`,
+//   },
+// ];
 
 const certs = [
   {
@@ -293,11 +344,43 @@ const certs = [
   },
 ];
 
+function FolioBox({ title, aLink, img, subText, techList }) {
+  const imgToShow = 'slice'.includes(img) ? `/${img}.gif` : `/${img}.png`;
+  return (
+    <div className="grid grid-cols-2 px-10">
+      <div>
+        <Image
+          src={imgToShow}
+          width={400}
+          height={300}
+          alt={title}
+          onClick={() => window.open(aLink, '_blank').focus()}
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
+      <div>
+        <h4>{title}</h4>
+        <p>{subText}</p>
+        <sub>
+          {techList.map((tech, idx) => {
+            return (
+              <>
+                <span key={`${title}-${tech}`}>{tech}</span>
+                {idx !== techList.length - 1 && ' | '}
+              </>
+            );
+          })}
+        </sub>
+      </div>
+    </div>
+  );
+}
+
 const folioItems = [
   {
     title: 'Slice-n-Dice Times',
     subText:
-      "An interactive newspaper-influenced UI, analyzing textual themes in the president's Innaugural Address.",
+      "An interactive newspaper-influenced UI, analyzing textual themes in the former president's Innaugural Address.",
     aLink: 'http://laursen.tech/folio/slice-n-dice-times',
     techList: [
       'D3',
@@ -309,6 +392,7 @@ const folioItems = [
       'Data Analysis',
     ],
     imgClass: 'slice-n-dice-bg',
+    img: 'slice',
   },
   {
     title: 'WEO Country Categories Mapped',
@@ -432,6 +516,14 @@ const folioItems = [
   },
 ];
 
+function MyHeader({ text }) {
+  return (
+    <div className="flex-1 basis-full">
+      <h2>{text}</h2>
+    </div>
+  );
+}
+
 export default function Folio() {
   return (
     <main role="main" className={`${sassMods.folio} flex flex-col prose`}>
@@ -462,9 +554,14 @@ export default function Folio() {
         id="certs-wrapper"
         className="@container flex flex-wrap gap-2 flex-col"
       >
-        <div className="flex-1 basis-full">
-          <h2>Certifications</h2>
-        </div>
+        <MyHeader text="A Brief Portfolio" />
+        <section className="grid grid-cols-1">
+          {folioItems.map((itm) => (
+            <FolioBox key={`folio-item-${itm.title}`} {...itm} />
+          ))}
+        </section>
+
+        <MyHeader text="Certifications" />
         <div className="grid grid-cols-2 gap-8 px-8">
           {certs.map((itm, itmIdex) => (
             <CertItem key={`folio-item-${itmIdex}`} {...itm} />
@@ -472,13 +569,40 @@ export default function Folio() {
         </div>
       </section>
 
-      <section id="technologies-wrapper" className="@container flex">
-        <div className="flex-1 basis-full">
-          <h2>Technologies</h2>
-        </div>
-        {technologies.map((itm, itmIdex) => (
+      <section id="technologies-wrapper" className="@container flex flex-col">
+        <MyHeader text="Tech" />
+        {/* {technologies.map((itm, itmIdex) => (
           <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
-        ))}
+        ))} */}
+        <section class="flex flex-wrap">
+          {/* flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */}
+          <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">Frontend</h3>
+          {techSkills.frontend.map((itm, itmIdex) => (
+            <FolioItem key={`frontend-tech-${itmIdex}`} {...itm} size={75} />
+          ))}
+
+          <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">
+            Server-Side
+          </h3>
+          {techSkills.serverSide.map((itm, itmIdex) => (
+            <FolioItem key={`server-side-tech-${itmIdex}`} {...itm} size={75} />
+          ))}
+
+          <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">Database</h3>
+          {techSkills.dbs.map((itm, itmIdex) => (
+            <FolioItem key={`data-tech-${itmIdex}`} {...itm} size={75} />
+          ))}
+
+          <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">DevOps</h3>
+          {techSkills.devOps.map((itm, itmIdex) => (
+            <FolioItem key={`data-tech-${itmIdex}`} {...itm} size={75} />
+          ))}
+
+          <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">Testing</h3>
+          {techSkills.testing.map((itm, itmIdex) => (
+            <FolioItem key={`data-tech-${itmIdex}`} {...itm} size={75} />
+          ))}
+        </section>
       </section>
 
       {/* <section id="projects-wrapper">

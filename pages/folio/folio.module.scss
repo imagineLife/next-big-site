@@ -152,19 +152,24 @@ main.folio {
 	// height: 100vh;
 
 
-  h1 {
+  h1, h2, h3 {
     font-size: 2em;
     margin: 0;
     padding: 0.67em 0;
     text-align: center;
+    color: white;
+    font-weight: lighter;
   }
 
   h2 {
-    color: white;
-    font-weight: lighter;
-    margin: 40px 0 40px 5%;
+    font-size: 1.75em;
+    margin: 40px 0;
   }
-
+  
+  h3 {
+    font-size: 1.45em;
+    margin: unset;
+  }
 }
 
 #projects-wrapper, #certs-wrapper, #technologies-wrapper {

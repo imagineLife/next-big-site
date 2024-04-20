@@ -7,6 +7,7 @@ export default function FolioItem({
   aLink,
   imgClass,
   img,
+  size,
 }) {
   console.log({
     img,
@@ -41,7 +42,7 @@ export default function FolioItem({
     // </div>
 
     <figure>
-      <Image src={`/${img}.png`} width={150} height={150} alt={img} />
+      <Image src={`/${img}.png`} width={size} height={size} alt={img} />
     </figure>
   );
 }
