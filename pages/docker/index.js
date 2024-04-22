@@ -36,23 +36,17 @@ const PostLink = ({ slug, title, excerpt }) => (
   order: { gt: 0 }
 */
 const DockerIndex = (params) => {
-  const intro_max_index = 4;
-  const node_max_index = 9;
   const myPages = {
     intro: [],
     node: [],
   };
   params.posts.forEach((p) => {
-    if (p.frontmatter.order <= intro_max_index) myPages.intro.push(p);
-    else if (
-      p.frontmatter.order > intro_max_index &&
-      p.frontmatter.order <= node_max_index
-    )
+    if (p.frontmatter.slug.includes('node-')) {
       myPages.node.push(p);
+    } else {
+      myPages.intro.push(p);
+    }
   });
-
-  console.log('myPages.node');
-  console.log(myPages.node);
 
   return (
     <Fragment>
@@ -67,11 +61,17 @@ const DockerIndex = (params) => {
             Getting Started
           </h2>
           {myPages.intro.map((itm) => (
-            <PostLink {...itm.frontmatter} key={`docker-node-${itm.title}`} />
+            <PostLink
+              {...itm.frontmatter}
+              key={`docker-node-${itm.frontmatter.title}`}
+            />
           ))}
           <h2 id="docker-node-intro">Docker With Node: An Intro</h2>
           {myPages.node.map((itm) => (
-            <PostLink {...itm.frontmatter} key={`docker-node-${itm.title}`} />
+            <PostLink
+              {...itm.frontmatter}
+              key={`docker-node-${itm.frontmatter.title}`}
+            />
           ))}
         </section>
       </Layout>
@@ -80,19 +80,8 @@ const DockerIndex = (params) => {
 };
 
 export default DockerIndex;
-// export function Head() {
-//   return (
-//     <PageHead {...{
-//       title: "Docker Blog",
-//       excerpt: "A Blog on Learning Docker",
-//       slug: 'docker',
-//       tags: ["docker", "containers"]
-//     }} />
-//   );
-// }
 
 export function getStaticProps() {
-  console.log('---DOCKER getStaticProps');
   const posts = getPosts('docker');
   const globalData = getGlobalData();
   // globalData

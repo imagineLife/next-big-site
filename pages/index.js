@@ -52,11 +52,7 @@ export default function Index({ posts, globalData }) {
 }
 
 export function getStaticProps() {
-  console.log('---DOCKER getStaticProps');
   const posts = getPosts('docker');
-  // console.log('posts');
-  // console.log(posts);
-
   const globalData = getGlobalData();
 
   return { props: { posts, globalData } };

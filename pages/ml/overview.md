@@ -1,3 +1,14 @@
+---
+title: 'Machine Learning: An Overview'
+parentDir: ml
+shortSlug: overview
+slug: ml/overview
+author: Jake Laursen
+excerpt: Common Terms & System Workflows
+tags: ['machine learning', 'models']
+order: 1
+---
+
 ## Machine Learning
 
 - [Machine Learning](#machine-learning)

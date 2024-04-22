@@ -10,16 +10,11 @@ import remarkGfm from 'remark-gfm';
 // BUILD-TIME functionality
 //
 
-// posts_path is useful when you want to get the path to a specific file
+// vars with paths to directories containing md[x] files
 export const posts_path = path.join(process.cwd(), 'posts');
 export const docker_path = path.join(process.cwd(), 'pages', 'docker');
+export const ml_path = path.join(process.cwd(), 'pages', 'ml');
 const cwd = process.cwd();
-console.log('cwd');
-console.log(cwd);
-console.log({
-  posts_path,
-  docker_path,
-});
 
 // postsFiles is the list of all mdx files inside the posts_path directory
 export const postsMdPaths = fs
@@ -32,13 +27,20 @@ export const dockerMdPaths = fs
   // Only include md(x) files
   .filter((path) => /\.md?$/.test(path));
 
+export const mlMdPaths = fs
+  .readdirSync(ml_path)
+  // Only include md(x) files
+  .filter((path) => /\.md?$/.test(path));
+
 const filePaths = {
   posts: postsMdPaths,
   docker: dockerMdPaths,
+  ml: mlMdPaths,
 };
 const dirPaths = {
   posts: posts_path,
   docker: docker_path,
+  ml: ml_path,
 };
 
 //
@@ -54,7 +56,6 @@ export const sortPostsByDate = (posts) => {
 };
 
 export const getPosts = (pathDir = 'posts') => {
-  console.log('---getPosts---- pathDir:', pathDir);
   const pathFilePaths = filePaths[pathDir];
 
   // const filePathToUse = optionalDirPath : ?
@@ -75,10 +76,6 @@ export const getPosts = (pathDir = 'posts') => {
 };
 
 export const getPostBySlug = async (slug, section) => {
-  console.log('---getPostsBySlug---');
-  console.log('slug, section');
-  console.log(slug, section);
-
   // `${slug}.md`
   const postFilePath = path.join(dirPaths[section], `${slug}.md`);
   const source = fs.readFileSync(postFilePath);
@@ -126,11 +123,8 @@ export const getPreviousPostBySlug = (slug, section) => {
   const currentPostIndex = posts.indexOf(currentPost);
 
   const post = posts[currentPostIndex + 1];
-  // no prev post found
   if (!post) return null;
-
   const previousPostSlug = post?.filePath.replace(/\.md?$/, '');
-
   return {
     title: post.frontmatter.title,
     slug: previousPostSlug,
