@@ -11,31 +11,24 @@ import remarkGfm from 'remark-gfm';
 //
 
 // vars with paths to directories containing md[x] files
-export const posts_path = path.join(process.cwd(), 'posts');
 export const docker_path = path.join(process.cwd(), 'pages', 'docker');
 export const ml_path = path.join(process.cwd(), 'pages', 'ml');
 const cwd = process.cwd();
 
 // postsFiles is the list of all mdx files inside the posts_path directory
-export const postsMdPaths = readdirSync(posts_path)
-  // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path));
+export const dockerMdPaths = readdirSync(docker_path).filter((path) =>
+  /\.mdx?$/.test(path)
+);
 
-export const dockerMdPaths = readdirSync(docker_path)
-  // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path));
-
-export const mlMdPaths = readdirSync(ml_path)
-  // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path));
+export const mlMdPaths = readdirSync(ml_path).filter((path) =>
+  /\.mdx?$/.test(path)
+);
 
 const filePaths = {
-  posts: postsMdPaths,
   docker: dockerMdPaths,
   ml: mlMdPaths,
 };
 const dirPaths = {
-  posts: posts_path,
   docker: docker_path,
   ml: ml_path,
 };
@@ -52,7 +45,8 @@ export const sortPostsByDate = (posts) => {
   });
 };
 
-export const getPosts = (pathDir = 'posts') => {
+export const getPosts = (pathDir) => {
+  if (!pathDir) throw new Error('getPosts called without a param');
   const pathFilePaths = filePaths[pathDir];
   let posts = pathFilePaths
     .map((filePath) => {

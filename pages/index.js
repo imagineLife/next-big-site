@@ -9,14 +9,18 @@ import { getGlobalData } from '../utils';
 import SEO from '../components/SEO';
 
 export default function Index({ posts, globalData }) {
+  console.log('posts');
+  console.log(posts);
+
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
-      <main className="w-full">
-        <h1 className="text-3xl lg:text-5xl text-center mb-12">
+      {/* <main className="w-full mt-24 md:mt-18"> */}
+      <main className="container shadow-lg mx-auto mt-24 md:mt-18">
+        {/* <h1 className="text-3xl lg:text-5xl text-center mb-12">
           {globalData.blogTitle}
-        </h1>
+        </h1> */}
         <ul className="w-full">
           {posts.map((post) => (
             <li
@@ -33,10 +37,12 @@ export default function Index({ posts, globalData }) {
                       {post?.data?.date}
                     </p>
                   )}
-                  <h2 className="text-2xl md:text-3xl">{post?.data?.title}</h2>
-                  {post?.data?.description && (
+                  <h2 className="text-2xl md:text-3xl">
+                    {post?.frontmatter?.title}
+                  </h2>
+                  {post?.frontmatter?.excerpt && (
                     <p className="mt-3 text-lg opacity-60">
-                      {post?.data?.description}
+                      {post?.frontmatter?.excerpt}
                     </p>
                   )}
                   <ArrowIcon className="mt-4" />
