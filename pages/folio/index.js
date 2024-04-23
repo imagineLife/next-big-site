@@ -344,13 +344,152 @@ const certs = [
   },
 ];
 
+const folioItems = [
+  {
+    title: 'Slice-n-Dice Times',
+    subText:
+      "An interactive newspaper-influenced UI, analyzing textual themes in the former president's Innaugural Address.",
+    aLink: 'http://laursen.tech/folio/slice-n-dice-times',
+    techList: [
+      'D3',
+      'Data Vizualization',
+      'React',
+      'HTML',
+      'CSS',
+      'JS',
+      'Data Analysis',
+    ],
+    imgClass: 'slice-n-dice-bg',
+    img: 'slice.gif',
+  },
+  {
+    title: 'WEO Country Categories Mapped',
+    subText:
+      'Zoom, toggle, & hover in this map of the countries of the world categorically colored by their GNI per capita.',
+    img: 'worldmap.gif',
+    aLink: '/folio/world-map',
+    techList: [
+      'D3',
+      'Mapping',
+      'GeoJSON (topJSON)',
+      'JS',
+      'HTML',
+      'CSS',
+      'Data Visualization',
+    ],
+  },
+  {
+    title: 'Mastering D3v5',
+    subText:
+      'An online course I created covering D3v5, interactive mapping, linked visualizations, 3rd party api integration & more.',
+    aLink:
+      'https://www.packtpub.com/product/mastering-d3-js-5-video/9781789951332',
+    techList: [
+      'D3',
+      'Data Vizualization',
+      'Curriculum Development',
+      'Audio/Video Recording & Editing',
+    ],
+    img: 'd3Course.gif',
+  },
+  {
+    title: 'Restaurant Node API',
+    subText:
+      'No NPM - No dependencies - just Node: account & cart management (CRUD), a cli, auth, stripe & mailgun api integration, logging & more.',
+    img: 'nodeServer.jpg',
+    aLink: 'https://github.com/imagineLife/nodeWork/tree/master/pizzaAPI',
+    techList: [
+      'Node',
+      'JS',
+      'Auth',
+      'Encryption',
+      'Compression + Decompression',
+      'cli',
+      'logging',
+    ],
+  },
+  // {
+  //   title: 'SayWhat?!',
+  //   subText:
+  //     'Look at patterns in the text of presidential inaugural addresses in this data-viz focused, full-stack, mobile-first responsive project.',
+  //   imgClass: 'say-what-bg',
+  //   aLink: 'https://say-what.netlify.com/',
+  //   techList: [
+  //     'D3',
+  //     'React',
+  //     'MongoDB',
+  //     'Express (Node)',
+  //     'Data Visualization',
+  //     'Responsive Design',
+  //     'Text Analysis',
+  //     'HTML',
+  //     'JS',
+  //     'CSS',
+  //   ],
+  // },
+  {
+    img: 'ristats/1.jpg',
+    title: 'R.I Stats',
+    aLink: 'https://imaginelife.github.io/ristats/',
+    subText:
+      'Review Poverty & Income levels in Rhode Island through simple charts & maps.',
+    techList: [
+      'D3',
+      'Mapping',
+      'GeoJSON (topJSON',
+      'JS',
+      'HTML',
+      'CSS',
+      'Data Visualization',
+    ],
+  },
+  {
+    title: 'CT Housing Permits, Mapped',
+    subText:
+      'An interactive choropleth mapping project, representing the range of housing permits issued per town in Connecticut in 2018.',
+    aLink: 'https://imaginelife.github.io/stateHousingPermits/',
+    img: 'cttowns.gif',
+    techList: [
+      'D3',
+      'Mapping',
+      'Responsive Design',
+      'Data Visualization',
+      'JS',
+      'HTML',
+      'CSS',
+    ],
+  },
+  {
+    title: 'Enterprise Resource Planner',
+    subText:
+      'A time-tracking, ticket-based, resource management system. I do not own the code to this project.',
+    img: 'erp/1.jpg',
+    techList: ['DHTMLX', 'JS', 'HTML', 'CSS', 'PHP'],
+  },
+  {
+    title: 'MyMiles',
+    imgClass: 'my-miles-bg',
+    subText:
+      'Record, edit & export vehicle mileage logs in this responsive app.',
+    aLink: 'https://tranquil-sierra-12911.herokuapp.com/',
+    techList: ['API', 'Responsive Design', 'JS', 'HTML', 'CSS'],
+  },
+  {
+    title: 'MacroRecipes',
+    subText:
+      'Find Recipes based on ingredients and gram counts of carbs, calories, fat, and protein.',
+    imgClass: 'macro-recipes-bg',
+    aLink: 'https://imaginelife.github.io/MacroRecipes/',
+    techList: ['API', 'Responsive Design', 'CSS', 'HTML', 'JS'],
+  },
+];
+
 function FolioBox({ title, aLink, img, subText, techList }) {
-  const imgToShow = 'slice'.includes(img) ? `/${img}.gif` : `/${img}.png`;
   return (
     <div className="grid grid-cols-2 px-10">
       <div>
         <Image
-          src={imgToShow}
+          src={`/${img}`}
           width={400}
           height={300}
           alt={title}
@@ -375,146 +514,6 @@ function FolioBox({ title, aLink, img, subText, techList }) {
     </div>
   );
 }
-
-const folioItems = [
-  {
-    title: 'Slice-n-Dice Times',
-    subText:
-      "An interactive newspaper-influenced UI, analyzing textual themes in the former president's Innaugural Address.",
-    aLink: 'http://laursen.tech/folio/slice-n-dice-times',
-    techList: [
-      'D3',
-      'Data Vizualization',
-      'React',
-      'HTML',
-      'CSS',
-      'JS',
-      'Data Analysis',
-    ],
-    imgClass: 'slice-n-dice-bg',
-    img: 'slice',
-  },
-  {
-    title: 'WEO Country Categories Mapped',
-    subText:
-      'Zoom, toggle, & hover in this map of the countries of the world categorically colored by their GNI per capita.',
-    imgClass: 'world-map-bg',
-    aLink: '/folio/world-map',
-    techList: [
-      'D3',
-      'Mapping',
-      'GeoJSON (topJSON)',
-      'JS',
-      'HTML',
-      'CSS',
-      'Data Visualization',
-    ],
-  },
-  {
-    title: 'Mastering D3v5',
-    subText:
-      'An online course I created covering D3v5, interactive mapping, linked visualizations, 3rd party api integration & more.',
-    aLink:
-      'https://www.packtpub.com/product/mastering-d3-js-5-video/9781789951332',
-    techList: [
-      'D3',
-      'Data Vizualization',
-      'Curriculum Development',
-      'Audio/Video Recording & Editing',
-    ],
-    imgClass: 'mastering-bg',
-  },
-  {
-    title: 'Restaurant Node API',
-    subText:
-      'No NPM - No dependencies - just Node: account & cart management (CRUD), a cli, auth, stripe & mailgun api integration, logging & more.',
-    imgClass: 'pizza-bg',
-    aLink: 'https://github.com/imagineLife/nodeWork/tree/master/pizzaAPI',
-    techList: [
-      'Node',
-      'JS',
-      'Auth',
-      'Encryption',
-      'Compression + Decompression',
-      'cli',
-      'logging',
-    ],
-  },
-  {
-    title: 'SayWhat?!',
-    subText:
-      'Look at patterns in the text of presidential inaugural addresses in this data-viz focused, full-stack, mobile-first responsive project.',
-    imgClass: 'say-what-bg',
-    aLink: 'https://say-what.netlify.com/',
-    techList: [
-      'D3',
-      'React',
-      'MongoDB',
-      'Express (Node)',
-      'Data Visualization',
-      'Responsive Design',
-      'Text Analysis',
-      'HTML',
-      'JS',
-      'CSS',
-    ],
-  },
-  {
-    imgClass: 'rhode-island-bg',
-    title: 'R.I Stats',
-    aLink: 'https://imaginelife.github.io/ristats/',
-    subText:
-      'Review Poverty & Income levels in Rhode Island through simple charts & maps.',
-    techList: [
-      'D3',
-      'Mapping',
-      'GeoJSON (topJSON',
-      'JS',
-      'HTML',
-      'CSS',
-      'Data Visualization',
-    ],
-  },
-  {
-    title: 'CT Housing Permits, Mapped',
-    subText:
-      'An interactive choropleth mapping project, representing the range of housing permits issued per town in Connecticut in 2018.',
-    aLink: 'https://imaginelife.github.io/stateHousingPermits/',
-    imgClass: 'housing-permits-bg',
-    techList: [
-      'D3',
-      'Mapping',
-      'Responsive Design',
-      'Data Visualization',
-      'JS',
-      'HTML',
-      'CSS',
-    ],
-  },
-  {
-    title: 'Enterprise Resource Planner',
-    subText:
-      'A time-tracking, ticket-based, resource management system. I do not own the code to this project.',
-    imgClass: 'erp-bg',
-    techList: ['DHTMLX', 'JS', 'HTML', 'CSS', 'PHP'],
-  },
-  {
-    title: 'MyMiles',
-    imgClass: 'my-miles-bg',
-    subText:
-      'Record, edit & export vehicle mileage logs in this responsive app.',
-    aLink: 'https://tranquil-sierra-12911.herokuapp.com/',
-    techList: ['API', 'Responsive Design', 'JS', 'HTML', 'CSS'],
-  },
-  {
-    title: 'MacroRecipes',
-    subText:
-      'Find Recipes based on ingredients and gram counts of carbs, calories, fat, and protein.',
-    imgClass: 'macro-recipes-bg',
-    aLink: 'https://imaginelife.github.io/MacroRecipes/',
-    techList: ['API', 'Responsive Design', 'CSS', 'HTML', 'JS'],
-  },
-];
 
 function MyHeader({ text }) {
   return (

@@ -1,8 +1,7 @@
 import { getGlobalData } from '../../utils/global-data';
 import {
-  getNextPostBySlug,
+  getPrevNextPostBySlug,
   getPostBySlug,
-  getPreviousPostBySlug,
   postsMdPaths,
 } from '../../utils/mdx-utils';
 
@@ -101,8 +100,8 @@ export default function PostPage({
 export const getStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
   const { mdxSource, data } = await getPostBySlug(params.slug);
-  const prevPost = getPreviousPostBySlug(params.slug);
-  const nextPost = getNextPostBySlug(params.slug);
+  const prevPost = getPrevNextPostBySlug(params.slug, 'posts', 'prev');
+  const nextPost = getPrevNextPostBySlug(params.slug, 'posts', 'next');
 
   return {
     props: {
