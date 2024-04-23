@@ -58,7 +58,7 @@ export default function GenericPost({
         </main>
         <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
           {prevPost && (
-            <Link href={`/docker/${prevPost.slug}`}>
+            <Link href={`/${prevPost.slug}`}>
               <a className="py-4 px-5 text-center md:text-right first:rounded-t-lg md:first:rounded-tr-none md:first:rounded-l-lg last:rounded-r-lg first last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-t md:border-r-0 md:last:border-r md:last:rounded-r-none flex flex-col">
                 <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
                   Previous
@@ -71,7 +71,7 @@ export default function GenericPost({
             </Link>
           )}
           {nextPost && (
-            <Link href={`/docker/${nextPost.slug}`}>
+            <Link href={`/${nextPost.slug}`}>
               <a className="py-4 px-5 text-center md:text-left md:first:rounded-t-lg last:rounded-b-lg first:rounded-l-lg md:last:rounded-bl-none md:last:rounded-r-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-t-0 first:border-t first:rounded-t-lg md:border-t border-b-0 last:border-b flex flex-col">
                 <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
                   Next
