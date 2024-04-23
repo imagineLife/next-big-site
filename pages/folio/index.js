@@ -574,7 +574,7 @@ export default function Folio() {
         {/* {technologies.map((itm, itmIdex) => (
           <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
         ))} */}
-        <section class="flex flex-wrap">
+        <section className="flex flex-wrap">
           {/* flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */}
           <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">Frontend</h3>
           {techSkills.frontend.map((itm, itmIdex) => (

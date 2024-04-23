@@ -139,8 +139,8 @@ Here, some buttons as an example: borders, "utility classes", "states"
 ```
 
 ```html
-<button class="btn-primary">Submit</button>
-<button class="btn-danger">Cancel</button>
+<button className="btn-primary">Submit</button>
+<button className="btn-danger">Cancel</button>
 ```
 
 #### Official Plugins
@@ -226,10 +226,14 @@ With Tailwind classes:
   </p>
   <div>
     <!-- bg here, not on 2nd button -->
-    <button class="rounded border-2 border-green-600 px-2 py-1 bg-green-400">
+    <button
+      className="rounded border-2 border-green-600 px-2 py-1 bg-green-400"
+    >
       Confirm
     </button>
-    <button class="rounded border-2 border-green-600 px-2 py-1">Cancel</button>
+    <button className="rounded border-2 border-green-600 px-2 py-1">
+      Cancel
+    </button>
   </div>
 </dialog>
 ```
@@ -274,7 +278,7 @@ Here....
           >Buy vegan bacon</span
         >
       </label>
-      <button class="invisible group-hover:visible">❌</button>
+      <button className="invisible group-hover:visible">❌</button>
     </li>
   </ul>
 </main>
@@ -287,8 +291,8 @@ Here, a `*` is present in the `after` of the label text WHEN the peer input is r
 
 ```html
 <div>
-  <input required class="peer border-2 rounded-md border-green p-2" />
-  <label class="text-gray peer-required:after:content-['*']"
+  <input required className="peer border-2 rounded-md border-green p-2" />
+  <label className="text-gray peer-required:after:content-['*']"
     >Required input field here</label
   >
 </div>
@@ -305,7 +309,7 @@ Breakpoints COULD be a place to use "abstractions", utility classes.
 
 ```html
 <div
-  class="container h-36 bg-hotpink-300 sm:bg-black md:bg-darkred-300 lg:bg-darkgreen-300"
+  className="container h-36 bg-hotpink-300 sm:bg-black md:bg-darkred-300 lg:bg-darkgreen-300"
 >
   <h2>Title Here</h2>
 </div>
@@ -317,14 +321,14 @@ Breakpoints COULD be a place to use "abstractions", utility classes.
 
 ```html
 <!-- will display across 2 vertical columns -->
-<div class="columns-2">
+<div className="columns-2">
   <img src="https://picsum.photos/200" />
   <img src="https://picsum.photos/200" />
   <img src="https://picsum.photos/200" />
 </div>
 
 <!-- will set "small" columns widths -->
-<div class="columns-2 columns-xs">
+<div className="columns-2 columns-xs">
   <img src="https://picsum.photos/200" />
   <img src="https://picsum.photos/200" />
   <img src="https://picsum.photos/200" />
