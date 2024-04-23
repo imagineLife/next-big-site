@@ -1,16 +1,27 @@
 ---
-title: "Docker for \"Frontend\" Static Assets"
+title: 'Docker for "Frontend" Static Assets'
 parentDir: docker
-shortSlug: a-frontend
 slug: docker/a-frontend
 author: Jake Laursen
 excerpt: Using Docker To Build and Serve Frontend Assets using Node and Nginx
-tags: ["Docker", "Dockerfile", "NodeJS", "Container", "Image", "Frontend", "React", "Nginx" ]
+tags:
+  [
+    'Docker',
+    'Dockerfile',
+    'NodeJS',
+    'Container',
+    'Image',
+    'Frontend',
+    'React',
+    'Nginx',
+  ]
 order: 10
 ---
 
 # Using Docker To Build A Frontend Setup
+
 Here's a few parts for a "frontend"
+
 - **Nginx**: an nginx server that serves static assets (_html, js, css, etc_)
 - **React**: the single-page-app library (_here, using great old "create-react-app" for ease of implementation_)
 - **Docker**: put it all together
@@ -21,8 +32,11 @@ Here's a few parts for a "frontend"
     - [The Relevant NPM Commands](#the-relevant-npm-commands)
 
 ## Assuming A Fontend Setup
+
 ### The Directory Structure
+
 A directory that holds the "guts" to build a frontend with react might contain files like...
+
 ```bash
 .gitignore
 package.json
@@ -44,10 +58,13 @@ public # or dist... a directory that holds the built contents after something li
 ```
 
 ### The Relevant NPM Commands
+
 In the `package.json` let's assume a command is present:
+
 - `"build": "react-scripts build"` which will create the static assets
 
 ## The Dockerfile
+
 ```dockerfile
 # STAGE: building container
 # prep & do OS work

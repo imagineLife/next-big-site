@@ -1,7 +1,6 @@
 ---
 title: 'Node Server III: With Dependenceis'
 parentDir: docker
-shortSlug: node-server-with-deps
 slug: docker/node-server-with-deps
 author: Jake Laursen
 excerpt: The Impact of Dependencies in A Node Image
@@ -12,7 +11,7 @@ order: 8
 ## Node + Hapi
 
 - [Node + Hapi](#node--hapi)
-  - [An index.js server file](#an-indexjs-server--file)
+  - [An index.js server file](#an-indexjs-server-file)
   - [install dependencies](#install-dependencies)
   - [add a dockerfile](#add-a-dockerfile)
   - [A Trivial Approach](#a-trivial-approach)

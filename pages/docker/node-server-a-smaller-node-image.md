@@ -1,7 +1,6 @@
 ---
 title: 'Node Server IV: A Smaller Image'
 parentDir: docker
-shortSlug: node-server-a-smaller-node-image
 slug: docker/node-server-a-smaller-node-image
 author: Jake Laursen
 excerpt: Considering the Impact that the base image has on the final image

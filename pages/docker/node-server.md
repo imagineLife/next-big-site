@@ -1,7 +1,6 @@
 ---
 title: An intro to Node On Docker
 parentDir: docker
-shortSlug: node-server
 slug: docker/node-server
 author: Jake Laursen
 excerpt: Run NodeJS in a Docker Container From an Image with a tag
@@ -14,7 +13,7 @@ order: 5
 This can be applied to other language tools as well (python, etc).
 
 - [NodeJS on Docker](#nodejs-on-docker)
-  - [start the node container, but open a bash gui](#start-the-node-container-but-open-a-bash-gui)
+    - [start the node container, but open a bash gui](#start-the-node-container-but-open-a-bash-gui)
   - [Why tags matter](#why-tags-matter)
     - [Tag Details](#tag-details)
       - [OS](#os)

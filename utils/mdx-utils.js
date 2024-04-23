@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -17,18 +17,15 @@ export const ml_path = path.join(process.cwd(), 'pages', 'ml');
 const cwd = process.cwd();
 
 // postsFiles is the list of all mdx files inside the posts_path directory
-export const postsMdPaths = fs
-  .readdirSync(posts_path)
+export const postsMdPaths = readdirSync(posts_path)
   // Only include md(x) files
   .filter((path) => /\.mdx?$/.test(path));
 
-export const dockerMdPaths = fs
-  .readdirSync(docker_path)
+export const dockerMdPaths = readdirSync(docker_path)
   // Only include md(x) files
   .filter((path) => /\.mdx?$/.test(path));
 
-export const mlMdPaths = fs
-  .readdirSync(ml_path)
+export const mlMdPaths = readdirSync(ml_path)
   // Only include md(x) files
   .filter((path) => /\.mdx?$/.test(path));
 
@@ -56,21 +53,19 @@ export const sortPostsByDate = (posts) => {
 };
 
 export const getPosts = (pathDir = 'posts') => {
-  console.log('---getPosts by slug: ', pathDir);
-
   const pathFilePaths = filePaths[pathDir];
+  let posts = pathFilePaths
+    .map((filePath) => {
+      const source = readFileSync(path.join(dirPaths[pathDir], filePath));
+      const { content, data: frontmatter } = matter(source);
 
-  // const filePathToUse = optionalDirPath : ?
-  let posts = pathFilePaths.map((filePath) => {
-    const source = fs.readFileSync(path.join(dirPaths[pathDir], filePath));
-    const { content, data: frontmatter } = matter(source);
-
-    return {
-      content,
-      frontmatter,
-      filePath,
-    };
-  });
+      return {
+        content,
+        frontmatter,
+        filePath,
+      };
+    })
+    .sort((a, b) => a.frontmatter.order - b.frontmatter.order);
 
   posts = sortPostsByDate(posts);
 
@@ -83,7 +78,7 @@ function filenameFromSlugAndSection(slug, section) {
 export const getPostBySlug = async (slug, section) => {
   const slugString = filenameFromSlugAndSection(slug, section);
   const postFilePath = path.join(dirPaths[section], slugString);
-  const source = fs.readFileSync(postFilePath);
+  const source = readFileSync(postFilePath);
 
   const { content, data } = matter(source);
 
@@ -101,9 +96,6 @@ export const getPostBySlug = async (slug, section) => {
 
 export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
   const posts = getPosts(section);
-  console.log('getPrevNextPostBySlug posts');
-  console.log(posts);
-
   const currentFileName = filenameFromSlugAndSection(slug, section);
   const currentPost = posts.find((post) => post.filePath === currentFileName);
   const currentPostIndex = posts.indexOf(currentPost);
