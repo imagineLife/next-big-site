@@ -1,21 +1,21 @@
-import React, { Suspense, lazy } from "react"
-import useMapData from '../../../hooks/worldMap/useMapData';
-import useColorData from "../../../hooks/worldMap/useColorData"
-const Map = lazy(() => import("../../../components/worldMap/map"))
+import React, { Suspense, lazy } from 'react';
+import useMapData from './../../../hooks/useMapData';
+import useColorData from './../../../hooks/useColorData';
+const Map = lazy(() => import('./../../../components/map'));
 
 function PageWrapper({ children }) {
   return (
-    <main style={{backgroundColor: 'black', maxWidth: 'unset', margin: 0}}>
+    <main style={{ backgroundColor: 'black', maxWidth: 'unset', margin: 0 }}>
       {!children && <span>loading...</span>}
       {children && children}
     </main>
-  )
+  );
 }
 
 export default function WorldMap() {
   const countryData = useMapData();
-  const colorScale = useColorData(countryData)
-  
+  const colorScale = useColorData(countryData);
+
   return (
     <PageWrapper>
       {countryData && (
@@ -25,5 +25,5 @@ export default function WorldMap() {
         </Suspense>
       )}
     </PageWrapper>
-  )
+  );
 }

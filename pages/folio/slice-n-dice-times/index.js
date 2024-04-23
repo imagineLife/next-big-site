@@ -1,8 +1,8 @@
 import React from 'react';
-import Ui from '../../../components/SliceNDice/ui';
+import Ui from './../../../components/SliceNDiceUi';
 
-import { TextAreaProvider } from "../../../components/SliceNDice/Contexts/TextArea"
-import { CommonWordsProvider } from "../../../components/SliceNDice/Contexts/CommonWords"
+import { TextAreaProvider } from './../../../components/Contexts/TextArea';
+import { CommonWordsProvider } from './../../../components/Contexts/CommonWords';
 
 const Wrapped = () => (
   <TextAreaProvider>

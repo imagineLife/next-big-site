@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './index.scss';
+// import './index.scss';
 
 // Components
 import Header from '../header';
