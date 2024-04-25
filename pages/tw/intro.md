@@ -184,7 +184,7 @@ module.exports = {
   apply the primary dark setting to the background 
   use the font family 
 -->
-<h1 class="bg-primary-dark font-mine">Demo Header</h1>
+<h1 className="bg-primary-dark font-mine">Demo Header</h1>
 ```
 
 ## Styling a Modal
@@ -216,10 +216,10 @@ With Tailwind classes:
 ```html
 <dialog
   open
-  class="w-96 mx-auto bg-white p-4 rounded-md border-2 border-green-500 shadow-md"
+  className="w-96 mx-auto bg-white p-4 rounded-md border-2 border-green-500 shadow-md"
 >
-  <h1 class=" mb-4 font-semibold text-green-600">Do Not Pass Go</h1>
-  <p class="texttext-sm mb-4">
+  <h1 className=" mb-4 font-semibold text-green-600">Do Not Pass Go</h1>
+  <p className="texttext-sm mb-4">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in metus
     ornare, volutpat mauris sit amet, ornare est. Praesent massa nulla, lacinia
     sit amet neque sed, ornare porttitor ante.
@@ -245,12 +245,14 @@ With Tailwind classes:
 Peer is a sibling element "listener".
 
 ```html
-<div class="space-y-1">
+<div className="space-y-1">
   <label for="input">Email Address</label>
   <!-- "peer" class on an element to "watch" -->
-  <input id="input" type="email" class="peer" placeholder="email address" />
+  <input id="input" type="email" className="peer" placeholder="email address" />
   <!-- peer-* prefix, based on the invalid+focus state of the "peer" class element above -->
-  <p class="invisible text-red-600 peer-invalid:visible peer-focus:invisible">
+  <p
+    className="invisible text-red-600 peer-invalid:visible peer-focus:invisible"
+  >
     Valid email required
   </p>
 </div>
@@ -266,15 +268,15 @@ Here....
 - when the `li` is hovered, the child `span` gets adjusted styling
 
 ```html
-<main class="space-y-4">
+<main className="space-y-4">
   <header>
-    <h1 class="text-lg font-bold">Things to Do</h1>
+    <h1 className="text-lg font-bold">Things to Do</h1>
   </header>
-  <ul class="space-y-2">
-    <li class="group">
+  <ul className="space-y-2">
+    <li className="group">
       <label>
-        <input type="checkbox" class="mr-2 accent-cyan-400" />
-        <span class="group-hover:text-cyan-800 group-hover:underline"
+        <input type="checkbox" className="mr-2 accent-cyan-400" />
+        <span className="group-hover:text-cyan-800 group-hover:underline"
           >Buy vegan bacon</span
         >
       </label>

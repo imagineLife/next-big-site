@@ -1,12 +1,12 @@
 import React from 'react';
-import Country from "./country"
+import Country from './country';
 
-export default function CountryPaths({ countries, colorScale, pathGenerator, selectedClassification }) {
-  console.log('selectedClassification')
-  console.log(selectedClassification)
-  console.log('countries[0].properties.economy')
-  console.log(countries[0].properties.economy)
-  
+export default function CountryPaths({
+  countries,
+  colorScale,
+  pathGenerator,
+  selectedClassification,
+}) {
   return (
     <>
       {countries?.map((d, idx) => (
@@ -20,5 +20,5 @@ export default function CountryPaths({ countries, colorScale, pathGenerator, sel
         />
       ))}
     </>
-  )
+  );
 }

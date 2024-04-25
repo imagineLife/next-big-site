@@ -70,7 +70,7 @@ const TextDisplay = () => {
     i >= 0;
     i--
   ) {
-    const openingSentenceTag = `<span class="theme-sentence" style="text-decoration-color: ${curColor}">`;
+    const openingSentenceTag = `<span className="theme-sentence" style="text-decoration-color: ${curColor}">`;
 
     // @ each sentence, do some magic
     const currentSentenceTextWithTheme =
@@ -115,7 +115,7 @@ const TextDisplay = () => {
     .replace(/~xz\s~\|/g, ' ')
 
     // add opening html tag
-    .replace(/~\|/g, '<i class="')
+    .replace(/~\|/g, '<i className="')
 
     // closing-opening, good luck
     .replace(/~xz./g, '"> ')

@@ -67,13 +67,17 @@ export const getPosts = (pathDir) => {
 };
 
 function filenameFromSlugAndSection(slug, section) {
-  return section === 'ml' ? `${slug}.mdx` : `${slug}.md`;
+  const filenameLookup = {
+    ml: (s) => `${s}.mdx`,
+    docker: (s) => `${s}.md`,
+  };
+  return filenameLookup[section](slug);
 }
+
 export const getPostBySlug = async (slug, section) => {
   const slugString = filenameFromSlugAndSection(slug, section);
   const postFilePath = path.join(dirPaths[section], slugString);
-  const source = readFileSync(postFilePath);
-
+  let source = readFileSync(postFilePath);
   const { content, data } = matter(source);
 
   const mdxSource = await serialize(content, {

@@ -8,7 +8,7 @@ const getWordLength = (text, textLength, classToUse) => {
 
   const resText = text
     .replace(removeRegex, '$1')
-    // .replace(newStyleRegex, ` <i class="${classToUse}">$1</i> `); // working for now
+    // .replace(newStyleRegex, ` <i className="${classToUse}">$1</i> `); // working for now
     .replace(newStyleRegex, `~|${classToUse}~xz $1 zx~/${classToUse}|~`);
 
   return resText;
