@@ -77,6 +77,7 @@ function filenameFromSlugAndSection(slug, section) {
 export const getPostBySlug = async (slug, section) => {
   const slugString = filenameFromSlugAndSection(slug, section);
   const postFilePath = path.join(dirPaths[section], slugString);
+
   let source = readFileSync(postFilePath);
   const { content, data } = matter(source);
 
