@@ -31,7 +31,7 @@ function ImageDropzone({ predictFn }) {
   }
   return (
     <div
-      className="w-[400px] relative border-2 border-gray-300 border-dashed rounded-lg p-6"
+      className="relative border-2 border-gray-300 border-dashed rounded-lg p-6"
       id="dropzone"
     >
       <input
@@ -118,7 +118,7 @@ export default function ObjectDetectionPage() {
           </p>
           <section id="input">
             <div id="file-container">
-              {/* file input includes the button and "no file chosen" text! */}
+              {/* "vanilla" file input includes the button and "no file chosen" text! */}
               {/* <input type="file" id="file" name="file" className="cursor-pointer" /> */}
 
               <ImageDropzone predictFn={predictFn} />
