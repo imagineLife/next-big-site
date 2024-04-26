@@ -5,11 +5,14 @@ import Image from 'next/image';
 // components
 import Layout from './../../components/Layout';
 import SEO from './../../components/SEO';
+import TagList from './../../components/TagList';
 
 const IMAGE_SIZE = 224;
 
-function ImageDropzone({ predictFn }) {
+function ImageDropzone({ fileUploadedCallback }) {
   function onFileChange(e) {
+    console.log('onFileChange here!');
+
     const { files } = e.target;
     const uploadedFile = files[0];
     if (!uploadedFile.type.match('image.*')) {
@@ -19,12 +22,16 @@ function ImageDropzone({ predictFn }) {
 
     let reader = new FileReader();
     reader.onload = (e) => {
+      console.log('onLoad here');
+
       let img = document.createElement('img');
       img.src = e.target.result;
-      img.width = IMAGE_SIZE;
-      img.height = IMAGE_SIZE;
+      // img.width = IMAGE_SIZE;
+      // img.height = IMAGE_SIZE;
       img.onload = () => {
-        predictFn(img);
+        console.log('onLoad inner fn...');
+
+        fileUploadedCallback(img);
       };
     };
     reader.readAsDataURL(uploadedFile);
@@ -38,7 +45,10 @@ function ImageDropzone({ predictFn }) {
         type="file"
         id="file"
         className="absolute inset-0 w-full h-full opacity-0 z-50"
-        onChange={onFileChange}
+        onChange={(e) => {
+          onFileChange(e);
+          e.target.value = '';
+        }}
       />
       <div className="text-center">
         <h3 className="mt-2 text-sm font-medium text-gray-900">
@@ -76,7 +86,7 @@ async function loadCoco() {
 export default function ObjectDetectionPage() {
   const [uploadedImg, setUploadedImg] = useState(null);
   const [model, setModel] = useState(null);
-
+  const [predictions, setPredictions] = useState(null);
   useEffect(() => {
     loadCoco().then(setModel);
   }, []);
@@ -84,11 +94,23 @@ export default function ObjectDetectionPage() {
   const predictFn = useCallback(
     async function innerPredict(image) {
       const predictionFromModel = await model.detect(image);
-      console.log('predictionFromModel');
-      console.log(predictionFromModel);
+      setPredictions(predictionFromModel);
     },
     [model]
   );
+
+  const tags = [
+    'javascript',
+    'tensorflowjs',
+    'machine learning',
+    'coco-ssd',
+    'react',
+    'nextjs',
+    'tailwind',
+    'object detection',
+    'FileReader',
+  ];
+
   return (
     <Layout>
       <SEO
@@ -97,21 +119,16 @@ export default function ObjectDetectionPage() {
           'Using Machine Learning with tensorflow js and the coco-ssd model to detect objects in images uploaded to the web'
         }
         slug={`/ml-ui/object-detection-with-uploaded-images`}
-        tags={[
-          'js',
-          'javascript',
-          'tensorflow',
-          'tensorflowjs',
-          'machine learning',
-          'coco-ssd',
-          'react',
-          'nextjs',
-        ]}
+        tags={tags}
       />
       <h1>Object Detection In An Uploaded Image</h1>
-      {!model && <span>Loading machine-learning model...</span>}
+      {!model && (
+        <span>
+          Preparing an object-detection machine-learning setup for you...
+        </span>
+      )}
       {model && (
-        <>
+        <section className="flex flex-col gap-8 align-middle">
           <p>
             Upload an image to see the coco-ssd model detech one of 80
             pre-trained objects in the image!
@@ -121,18 +138,62 @@ export default function ObjectDetectionPage() {
               {/* "vanilla" file input includes the button and "no file chosen" text! */}
               {/* <input type="file" id="file" name="file" className="cursor-pointer" /> */}
 
-              <ImageDropzone predictFn={predictFn} />
+              <ImageDropzone
+                fileUploadedCallback={(img) => {
+                  predictFn(img);
+                  setUploadedImg(img);
+                }}
+              />
             </div>
 
-            <div id="loaded-image"></div>
+            <div id="loaded-image">
+              {uploadedImg && (
+                <Image
+                  src={uploadedImg}
+                  alt="uploaded-image"
+                  width="200"
+                  height="200"
+                />
+              )}
+            </div>
           </section>
 
           <section id="predictions">
-            <div className="output"></div>
-            <div id="predictions"></div>
+            {predictions?.length === 0 && (
+              <p>
+                coco-ssd couldn&apos;t recognize an object in this photo based
+                on its 80 classes.
+              </p>
+            )}
+            {predictions?.length > 0 && (
+              <>
+                <p>
+                  coco-ssd is about{' '}
+                  <span className="text-3xl font-bold">
+                    {Math.round(predictions[0].score * 100)}% confident
+                  </span>{' '}
+                  that the image contains a{' '}
+                  <span className="text-3xl font-bold">
+                    {predictions[0].class}
+                  </span>
+                </p>
+              </>
+            )}
+            {predictions && (
+              <button
+                className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white hover:bg-opacity-90"
+                onClick={() => {
+                  setPredictions(null);
+                  setUploadedImg(null);
+                }}
+              >
+                Reset
+              </button>
+            )}
           </section>
-        </>
+        </section>
       )}
+      <footer>{<TagList tags={tags} hideTitle />}</footer>
     </Layout>
   );
 }

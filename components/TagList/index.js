@@ -2,10 +2,10 @@ import React from 'react';
 // import { Link } from 'gatsby';
 // import './index.scss';
 
-function TagList({ tags }) {
+function TagList({ tags, hideTitle }) {
   return (
     <div role="list" className="flex justify-start">
-      <i>Tags: </i>
+      {!hideTitle && <i>Tags: </i>}
       {tags?.map((t, tidx) => {
         return (
           // <div key={t} className="" role="listitem">
