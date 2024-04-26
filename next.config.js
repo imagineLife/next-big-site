@@ -6,6 +6,7 @@ const textLoader = {
   test: /\.txt/,
   type: 'asset/source',
 };
+
 module.exports = {
   webpack: (
     config,
@@ -14,5 +15,14 @@ module.exports = {
     config.module.rules.push(textLoader);
     // Important: return the modified config
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.svgrepo.com',
+        pathname: '/show/**',
+      },
+    ],
   },
 };
