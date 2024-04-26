@@ -2,9 +2,6 @@ import React, { Fragment } from 'react';
 import { getPosts, getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
-// import PageHead from "./../../components/PageHead"
-import createLinksWithType from '../../utils/createLinksWithType';
-// import './scrum.scss';
 import Link from 'next/link';
 import ArrowIcon from '../../components/ArrowIcon';
 
