@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync } from 'fs';
-import path from 'path';
+import { join } from 'path';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypePrism from '@mapbox/rehype-prism';
@@ -10,11 +10,14 @@ import remarkGfm from 'remark-gfm';
 // BUILD-TIME functionality
 //
 
-// vars with paths to directories containing md[x] files
-export const docker_path = path.join(process.cwd(), 'pages', 'docker');
-export const ml_path = path.join(process.cwd(), 'pages', 'ml');
-const blog_sections_dir = path.join(process.cwd(), 'pages');
+//
+// vars
+//
 const cwd = process.cwd();
+const pages_dir = join(cwd, 'pages');
+export const docker_path = join(pages_dir, 'docker');
+export const ml_path = join(pages_dir, 'ml');
+export const ml_ui_path = join(pages_dir, 'ml-ui');
 
 // postsFiles is the list of all mdx files inside the posts_path directory
 export const dockerMdPaths = readdirSync(docker_path).filter((path) =>
@@ -25,15 +28,13 @@ export const mlMdPaths = readdirSync(ml_path).filter((path) =>
   /\.mdx?$/.test(path)
 );
 
-const skippableBlogSections = {
+const skippableSections = {
   tw: true,
   folio: true,
 };
-let blogSections = readdirSync(blog_sections_dir, { withFileTypes: true });
+let blogSections = readdirSync(pages_dir, { withFileTypes: true });
 blogSections = blogSections
-  .filter(
-    (dirent) => dirent.isDirectory() && !skippableBlogSections[dirent.name]
-  )
+  .filter((dirent) => dirent.isDirectory() && !skippableSections[dirent.name])
   .map((dirent) => dirent.name);
 
 const filePaths = {
@@ -43,6 +44,7 @@ const filePaths = {
 const dirPaths = {
   docker: docker_path,
   ml: ml_path,
+  'ml-ui': ml_ui_path,
 };
 
 //
@@ -62,7 +64,7 @@ export const getPosts = (pathDir) => {
   const pathFilePaths = filePaths[pathDir];
   let posts = pathFilePaths
     .map((filePath) => {
-      const source = readFileSync(path.join(dirPaths[pathDir], filePath));
+      const source = readFileSync(join(dirPaths[pathDir], filePath));
       const { content, data: frontmatter } = matter(source);
 
       return {
@@ -88,7 +90,7 @@ function filenameFromSlugAndSection(slug, section) {
 
 export const getPostBySlug = async (slug, section) => {
   const slugString = filenameFromSlugAndSection(slug, section);
-  const postFilePath = path.join(dirPaths[section], slugString);
+  const postFilePath = join(dirPaths[section], slugString);
 
   let source = readFileSync(postFilePath);
   const { content, data } = matter(source);
@@ -127,4 +129,20 @@ export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
   };
 };
 
-export async function getBlogSections() {}
+export async function getBlogSectionSummaries() {
+  let blogSectionSummaries = [];
+  blogSections.forEach((s) => {
+    try {
+      const sectionSummaryFilePath = join(dirPaths[s], 'summary.txt');
+      let sectionSummaryTest = readFileSync(sectionSummaryFilePath, 'utf-8');
+      blogSectionSummaries.push({
+        section: s,
+        summary: sectionSummaryTest,
+      });
+    } catch (error) {
+      console.error(`Error getting ${s}/summary.txt`);
+      blogSectionSummaries.push({ section: s });
+    }
+  });
+  return blogSectionSummaries;
+}

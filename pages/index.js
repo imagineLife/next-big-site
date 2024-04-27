@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout from '../components/Layout'; //GradientBackground
 import ArrowIcon from '../components/ArrowIcon';
-import { getGlobalData } from '../utils';
+import { getGlobalData, getBlogSectionSummaries } from '../utils';
 import SEO from '../components/SEO';
 
 function PostItem({ post, section }) {
@@ -69,10 +69,13 @@ export default function Index({ dockerPosts, mlPosts, globalData }) {
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
   const dockerPosts = getPosts('docker');
   const mlPosts = getPosts('ml');
   const globalData = getGlobalData();
+  const sectionSummaries = await getBlogSectionSummaries();
+  console.log('sectionSummaries');
+  console.log(sectionSummaries);
 
   return { props: { dockerPosts, mlPosts, globalData } };
 }
