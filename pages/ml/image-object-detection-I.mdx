@@ -12,6 +12,8 @@ order: 1
 - [Goals](#goals)
   - [Tech Involved](#tech-involved)
 - [Building It](#building-it)
+  - [The Layout & Components](#the-layout--components)
+  - [The Functonality](#the-frontend-state)
 
 ## Goals
 As a User, I can upload an image and see a detected image in one-word.   
@@ -33,3 +35,9 @@ The function UI elements...
 - an `<ImageDropzone />` component: the drag-n-drop part where the user can either drag-n-drop an image or upload through the browser's file-browsing gui
 - an `<ImagePreview />` component: after the user uploads the image, the image will display in the preview box
 - a `<Prediction />` component: showing the "guessed" object in the image and the likelyhood that the object is, indeed, what coco-ssd estimated
+
+### The Frontend "State"
+- The "page" component is setup with some state:
+  - `uploadedImage`, storing the uploaded image
+  - `model`, storing the coco-ssd model
+  - `predictions`, storing the predicted objects (_by the model_) found in  the uploaded image
