@@ -13,6 +13,7 @@ import remarkGfm from 'remark-gfm';
 // vars with paths to directories containing md[x] files
 export const docker_path = path.join(process.cwd(), 'pages', 'docker');
 export const ml_path = path.join(process.cwd(), 'pages', 'ml');
+const blog_sections_dir = path.join(process.cwd(), 'pages');
 const cwd = process.cwd();
 
 // postsFiles is the list of all mdx files inside the posts_path directory
@@ -23,6 +24,17 @@ export const dockerMdPaths = readdirSync(docker_path).filter((path) =>
 export const mlMdPaths = readdirSync(ml_path).filter((path) =>
   /\.mdx?$/.test(path)
 );
+
+const skippableBlogSections = {
+  tw: true,
+  folio: true,
+};
+let blogSections = readdirSync(blog_sections_dir, { withFileTypes: true });
+blogSections = blogSections
+  .filter(
+    (dirent) => dirent.isDirectory() && !skippableBlogSections[dirent.name]
+  )
+  .map((dirent) => dirent.name);
 
 const filePaths = {
   docker: dockerMdPaths,
@@ -114,3 +126,5 @@ export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
     slug: post.frontmatter.slug,
   };
 };
+
+export async function getBlogSections() {}
