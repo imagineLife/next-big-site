@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 function TagList({ tags, hideTitle, linkPattern }) {
   return (
-    <div role="list" className="flex justify-start">
+    <div role="list" className="flex flex-wrap justify-start gap-4">
       {!hideTitle && <i>Tags: </i>}
       {tags?.map((t, tidx) => {
         let innerLinkString = linkPattern ? linkPattern(t) : `/tags/${t}`;

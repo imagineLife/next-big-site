@@ -184,7 +184,9 @@ export default function ObjectDetectionPage() {
           </section>
         </section>
       )}
-      <footer>{<TagList tags={tags} hideTitle />}</footer>
+      <footer className="flex flex-wrap w-full">
+        {<TagList tags={tags} hideTitle />}
+      </footer>
     </Layout>
   );
 }
