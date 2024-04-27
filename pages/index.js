@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout from '../components/Layout'; //GradientBackground
 import ArrowIcon from '../components/ArrowIcon';
+import TagList from '../components/TagList';
 import { getGlobalData, getBlogSectionSummaries } from '../utils';
 import SEO from '../components/SEO';
 
@@ -36,33 +37,52 @@ function PostItem({ post, section }) {
     </li>
   );
 }
+function PostSection({ name, section, posts }) {
+  return (
+    <>
+      <h2 id={`post-section-${name}`}>{name}</h2>
+      <ul className="w-full">
+        {posts.map((post) => (
+          <PostItem
+            post={post}
+            section={section}
+            key={`${section}-post-${post.frontmatter.title}`}
+          />
+        ))}
+      </ul>
+    </>
+  );
+}
+
 export default function Index({ dockerPosts, mlPosts, globalData }) {
+  const postSections = [
+    { name: 'Docker', posts: dockerPosts, section: 'docker' },
+    { name: 'Machine Learning', posts: mlPosts, section: 'ml' },
+  ];
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
       {/* <main className="w-full mt-24 md:mt-18"> */}
       <main className="container shadow-lg mx-auto mt-24 md:mt-18">
-        <h2>Machine Learning</h2>
-        <ul className="w-full">
-          {mlPosts.map((post) => (
-            <PostItem
-              post={post}
-              section="ml"
-              key={`ml-post-${post.frontmatter.title}`}
-            />
-          ))}
+        <ul>
+          {/* {postSections.map((ps) => (
+            <Link
+              href={`#post-section-${ps.name}`}
+              key={`#post-section-link-${ps.name}`}
+            >
+              {ps.name}
+            </Link>
+          ))} */}
+          <TagList
+            tags={postSections.map((ps) => ps.name)}
+            hideTitle
+            linkPattern={(s) => `#post-section-${s}`}
+          />
         </ul>
-        <h2>Docker</h2>
-        <ul className="w-full">
-          {dockerPosts.map((post) => (
-            <PostItem
-              post={post}
-              section="docker"
-              key={`docker-post-${post.frontmatter.title}`}
-            />
-          ))}
-        </ul>
+        {postSections.map((ps) => (
+          <PostSection key={`post-section-${ps.name}`} {...ps} />
+        ))}
       </main>
       <Footer copyrightText={globalData.footerText} />
     </Layout>
