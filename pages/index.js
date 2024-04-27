@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Layout from '../components/Layout'; //GradientBackground
 import ArrowIcon from '../components/ArrowIcon';
 import TagList from '../components/TagList';
-import { getGlobalData, getBlogSectionSummaries } from '../utils';
+import { getGlobalData } from '../utils'; //getBlogSectionSummaries
 import SEO from '../components/SEO';
 
 function PostItem({ post, section }) {
@@ -54,26 +54,31 @@ function PostSection({ name, section, posts }) {
   );
 }
 
+const machineLearningProjectPosts = [
+  {
+    frontmatter: {
+      title: 'Object-in-Image Detection',
+      excerpt: 'Using Tensorflow & the pre-trained coco-ssd model',
+    },
+    filePath: 'object-detection-with-uploaded-images',
+  },
+];
 export default function Index({ dockerPosts, mlPosts, globalData }) {
   const postSections = [
     { name: 'Docker', posts: dockerPosts, section: 'docker' },
-    { name: 'Machine Learning', posts: mlPosts, section: 'ml' },
+    { name: 'Machine Learning Blog', posts: mlPosts, section: 'ml' },
+    {
+      name: 'Machine Learning Projects',
+      posts: machineLearningProjectPosts,
+      section: 'ml-ui',
+    },
   ];
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
-      {/* <main className="w-full mt-24 md:mt-18"> */}
       <main className="container shadow-lg mx-auto mt-24 md:mt-18">
         <ul>
-          {/* {postSections.map((ps) => (
-            <Link
-              href={`#post-section-${ps.name}`}
-              key={`#post-section-link-${ps.name}`}
-            >
-              {ps.name}
-            </Link>
-          ))} */}
           <TagList
             tags={postSections.map((ps) => ps.name)}
             hideTitle
@@ -93,9 +98,6 @@ export async function getStaticProps() {
   const dockerPosts = getPosts('docker');
   const mlPosts = getPosts('ml');
   const globalData = getGlobalData();
-  const sectionSummaries = await getBlogSectionSummaries();
-  console.log('sectionSummaries');
-  console.log(sectionSummaries);
 
   return { props: { dockerPosts, mlPosts, globalData } };
 }

@@ -11,8 +11,6 @@ const IMAGE_SIZE = 224;
 
 function ImageDropzone({ fileUploadedCallback }) {
   function onFileChange(e) {
-    console.log('onFileChange here!');
-
     const { files } = e.target;
     const uploadedFile = files[0];
     if (!uploadedFile.type.match('image.*')) {
@@ -22,15 +20,11 @@ function ImageDropzone({ fileUploadedCallback }) {
 
     let reader = new FileReader();
     reader.onload = (e) => {
-      console.log('onLoad here');
-
       let img = document.createElement('img');
       img.src = e.target.result;
       // img.width = IMAGE_SIZE;
       // img.height = IMAGE_SIZE;
       img.onload = () => {
-        console.log('onLoad inner fn...');
-
         fileUploadedCallback(img);
       };
     };
@@ -135,9 +129,6 @@ export default function ObjectDetectionPage() {
           </p>
           <section id="input">
             <div id="file-container">
-              {/* "vanilla" file input includes the button and "no file chosen" text! */}
-              {/* <input type="file" id="file" name="file" className="cursor-pointer" /> */}
-
               <ImageDropzone
                 fileUploadedCallback={(img) => {
                   predictFn(img);

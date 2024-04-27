@@ -7,6 +7,10 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
 //
+// RUN-TIME functionalities
+//
+
+//
 // BUILD-TIME functionality
 //
 
@@ -17,21 +21,23 @@ const cwd = process.cwd();
 const pages_dir = join(cwd, 'pages');
 export const docker_path = join(pages_dir, 'docker');
 export const ml_path = join(pages_dir, 'ml');
-export const ml_ui_path = join(pages_dir, 'ml-ui');
+
+function onlyMdxFile(s) {
+  return /\.mdx?$/.test(s);
+}
 
 // postsFiles is the list of all mdx files inside the posts_path directory
-export const dockerMdPaths = readdirSync(docker_path).filter((path) =>
-  /\.mdx?$/.test(path)
-);
+export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
+export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 
-export const mlMdPaths = readdirSync(ml_path).filter((path) =>
-  /\.mdx?$/.test(path)
-);
-
+// SKIPPING THESE SECTIONS in index.js
+// ml-ui is "hand-written" in the frontend
 const skippableSections = {
   tw: true,
   folio: true,
+  'ml-ui': true,
 };
+
 let blogSections = readdirSync(pages_dir, { withFileTypes: true });
 blogSections = blogSections
   .filter((dirent) => dirent.isDirectory() && !skippableSections[dirent.name])
@@ -44,12 +50,7 @@ const filePaths = {
 const dirPaths = {
   docker: docker_path,
   ml: ml_path,
-  'ml-ui': ml_ui_path,
 };
-
-//
-// RUN-TIME functionalities
-//
 
 export const sortPostsByDate = (posts) => {
   return posts.sort((a, b) => {
@@ -62,6 +63,7 @@ export const sortPostsByDate = (posts) => {
 export const getPosts = (pathDir) => {
   if (!pathDir) throw new Error('getPosts called without a param');
   const pathFilePaths = filePaths[pathDir];
+
   let posts = pathFilePaths
     .map((filePath) => {
       const source = readFileSync(join(dirPaths[pathDir], filePath));
