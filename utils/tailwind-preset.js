@@ -100,6 +100,9 @@ module.exports = {
         };
       },
     },
+    screens: {
+      xs: '300px',
+    },
   },
   variants: {
     extend: {
