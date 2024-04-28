@@ -67,6 +67,8 @@ export default function Index({
   dockerPosts,
   linuxPosts,
   mlPosts,
+  nginxPosts,
+  scrumPosts,
   globalData,
 }) {
   const postSections = [
@@ -78,6 +80,8 @@ export default function Index({
       section: 'ml-ui',
     },
     { name: 'Linux & Bash', posts: linuxPosts, section: 'linux' },
+    { name: 'Nginx', posts: nginxPosts, section: 'nginx' },
+    { name: 'Scrum', posts: scrumPosts, section: 'scrum' },
   ];
   return (
     <Layout>
@@ -104,7 +108,18 @@ export async function getStaticProps() {
   const dockerPosts = getPosts('docker');
   const mlPosts = getPosts('ml');
   const linuxPosts = getPosts('linux');
+  const nginxPosts = getPosts('nginx');
+  const scrumPosts = getPosts('scrum');
   const globalData = getGlobalData();
 
-  return { props: { dockerPosts, mlPosts, linuxPosts, globalData } };
+  return {
+    props: {
+      dockerPosts,
+      mlPosts,
+      linuxPosts,
+      nginxPosts,
+      scrumPosts,
+      globalData,
+    },
+  };
 }

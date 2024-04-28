@@ -23,6 +23,8 @@ const pages_dir = join(cwd, 'pages');
 export const docker_path = join(pages_dir, 'docker');
 export const ml_path = join(pages_dir, 'ml');
 export const linux_path = join(pages_dir, 'linux');
+export const nginx_path = join(pages_dir, 'nginx');
+export const scrum_path = join(pages_dir, 'scrum');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
@@ -32,6 +34,8 @@ function onlyMdxFile(s) {
 export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
 export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
+export const nginxMdPaths = readdirSync(nginx_path).filter(onlyMdxFile);
+export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
 // ml-ui is "hand-written" in the frontend
@@ -50,11 +54,15 @@ const filePaths = {
   docker: dockerMdPaths,
   ml: mlMdPaths,
   linux: linuxMdPaths,
+  nginx: nginxMdPaths,
+  scrum: scrumMdPaths,
 };
 const dirPaths = {
   docker: docker_path,
   ml: ml_path,
   linux: linux_path,
+  nginx: nginx_path,
+  scrum: scrum_path,
 };
 
 export const sortPostsByDate = (posts) => {
@@ -92,6 +100,8 @@ function filenameFromSlugAndSection(slug, section) {
     ml: (s) => `${s}.mdx`,
     docker: (s) => `${s}.md`,
     linux: (s) => `${s}.md`,
+    nginx: (s) => `${s}.md`,
+    scrum: (s) => `${s}.md`,
   };
   return filenameLookup[section](slug);
 }

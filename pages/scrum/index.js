@@ -1,0 +1,109 @@
+import React, { Fragment } from 'react';
+import { getPosts, getGlobalData } from '../../utils';
+import Layout from './../../components/Layout';
+// import Hero from './../../components/hero';
+import Link from 'next/link';
+import ArrowIcon from '../../components/ArrowIcon';
+
+// date,
+const PostLink = ({ slug, title, excerpt }) => (
+  <li
+    key={slug}
+    className="md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-b-0 last:border-b hover:border-b hovered-sibling:border-t-0 list-none"
+  >
+    <Link as={`/${slug}`} href={`/scrum/[slug]`}>
+      <a className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
+        {/* {post?.data?.date && (
+          <p className="uppercase mb-3 font-bold opacity-60">
+            {post?.data?.date}
+          </p>
+        )} */}
+        <h2 className="text-2xl md:text-3xl">{title}</h2>
+        {excerpt && <p className="mt-3 text-lg opacity-60">{excerpt}</p>}
+        <ArrowIcon className="mt-4" />
+      </a>
+    </Link>
+  </li>
+);
+
+/*
+  before filter
+
+  re-introduce in frontmatter when done-zo
+  order: { gt: 0 }
+*/
+const ScrumIndex = ({ posts }) => {
+  return (
+    <Fragment>
+      {/* <Hero /> */}
+      <Layout>
+        <section className="toc-wrapper">
+          <h1>Scrum</h1>
+          <section id="notes">
+            <p>
+              While studying for and becoming a Certified{' '}
+              <Link
+                target="_blank"
+                href="https://www.scrum.org/certificates/519854"
+              >
+                Professional Scrum Master
+              </Link>{' '}
+              through scrum.org, I did a lot of writing - here&apos;s some
+              notes!
+            </p>
+          </section>
+          <br />
+          <p>TLDR</p>
+          <p>Scrum is a &quot;framework&quot; with a few parts</p>
+          <ul>
+            <li>
+              <b>Theories & Values:</b> The &quot;why&quot;
+            </li>
+            <li>
+              <b>A Team Description:</b> 3 Roles
+            </li>
+            <li>
+              <b>Events:</b> Things that happen (<i>a few hours per week</i>)
+            </li>
+            <li>
+              <b>Artifacts:</b> 4 tangible objects
+            </li>
+          </ul>
+          <p>
+            Scrum is intended to help teams and organizations create value
+            incrementally in a complex environment.
+          </p>
+          <br />
+          <p>
+            I personally don&apost feel like I have enough experience with other
+            &quot;frameworks&quot; to really support how the{' '}
+            <a href="https://scrumguides.org/scrum-guide.html">scrum guide</a>{' '}
+            refers to scrum as a &quot;lightweight&quot; framework. I know that
+            there are a few concrete details with lots of room to embody the
+            theories & values underneath the events, artifacts, and team
+            structure. Transparency, Inspection, Adaptation, Respect, Courage,
+            Empiricism, Lean Thinking... these things are so much more than
+            Scrum, but without those things the implementation of Scrum can
+            leave a room feeling deflated, powerless, annoyed, overburdened, and
+            disinterested.
+          </p>
+          {posts.map((itm) => (
+            <PostLink
+              {...itm.frontmatter}
+              key={`docker-node-${itm.frontmatter.title}`}
+            />
+          ))}
+        </section>
+      </Layout>
+    </Fragment>
+  );
+};
+
+export default ScrumIndex;
+
+export function getStaticProps() {
+  const posts = getPosts('scrum');
+  const globalData = getGlobalData();
+  // globalData
+  return { props: { posts, globalData } };
+}
