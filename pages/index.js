@@ -63,7 +63,12 @@ const machineLearningProjectPosts = [
     filePath: 'object-detection-with-uploaded-images',
   },
 ];
-export default function Index({ dockerPosts, mlPosts, globalData }) {
+export default function Index({
+  dockerPosts,
+  linuxPosts,
+  mlPosts,
+  globalData,
+}) {
   const postSections = [
     { name: 'Docker', posts: dockerPosts, section: 'docker' },
     { name: 'Machine Learning Blog', posts: mlPosts, section: 'ml' },
@@ -72,12 +77,13 @@ export default function Index({ dockerPosts, mlPosts, globalData }) {
       posts: machineLearningProjectPosts,
       section: 'ml-ui',
     },
+    { name: 'Linux & Bash', posts: linuxPosts, section: 'linux' },
   ];
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
-      <main className="container shadow-lg mx-auto mt-24 md:mt-18">
+      <main className="shadow-lg mx-auto mt-24 md:mt-18">
         <ul>
           <TagList
             tags={postSections.map((ps) => ps.name)}
@@ -97,7 +103,8 @@ export default function Index({ dockerPosts, mlPosts, globalData }) {
 export async function getStaticProps() {
   const dockerPosts = getPosts('docker');
   const mlPosts = getPosts('ml');
+  const linuxPosts = getPosts('linux');
   const globalData = getGlobalData();
 
-  return { props: { dockerPosts, mlPosts, globalData } };
+  return { props: { dockerPosts, mlPosts, linuxPosts, globalData } };
 }

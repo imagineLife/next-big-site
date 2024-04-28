@@ -19,8 +19,10 @@ import remarkGfm from 'remark-gfm';
 //
 const cwd = process.cwd();
 const pages_dir = join(cwd, 'pages');
+
 export const docker_path = join(pages_dir, 'docker');
 export const ml_path = join(pages_dir, 'ml');
+export const linux_path = join(pages_dir, 'linux');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
@@ -29,6 +31,7 @@ function onlyMdxFile(s) {
 // postsFiles is the list of all mdx files inside the posts_path directory
 export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
 export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
+export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
 // ml-ui is "hand-written" in the frontend
@@ -46,10 +49,12 @@ blogSections = blogSections
 const filePaths = {
   docker: dockerMdPaths,
   ml: mlMdPaths,
+  linux: linuxMdPaths,
 };
 const dirPaths = {
   docker: docker_path,
   ml: ml_path,
+  linux: linux_path,
 };
 
 export const sortPostsByDate = (posts) => {
@@ -86,6 +91,7 @@ function filenameFromSlugAndSection(slug, section) {
   const filenameLookup = {
     ml: (s) => `${s}.mdx`,
     docker: (s) => `${s}.md`,
+    linux: (s) => `${s}.md`,
   };
   return filenameLookup[section](slug);
 }
