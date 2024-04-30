@@ -30,7 +30,7 @@ export default function ObjectDetectionPage() {
       .getUserMedia({
         audio: false,
         video: {
-          width: 500,
+          height: 185,
         },
       })
       .then((stream) => {
@@ -81,22 +81,13 @@ export default function ObjectDetectionPage() {
           <section id="input" className="flex justify-between">
             <button
               className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white hover:bg-opacity-90"
-              id="predict"
-              onClick={(e) => {
-                predict();
-              }}
-            >
-              Predict
-            </button>
-            <button
-              className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white hover:bg-opacity-90"
               id="webcam"
               onClick={(e) => {
                 e.preventDefault();
                 startCamera();
               }}
             >
-              Webcam
+              Enable Webcam
             </button>
             <button
               className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white hover:bg-opacity-90"
@@ -108,7 +99,16 @@ export default function ObjectDetectionPage() {
                 predictionsRef.current.appendChild(canvasRef.current);
               }}
             >
-              Capture
+              Capture Photo
+            </button>
+            <button
+              className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white hover:bg-opacity-90"
+              id="predict"
+              onClick={(e) => {
+                predict();
+              }}
+            >
+              Predict
             </button>
           </section>
 
