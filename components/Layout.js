@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 //   return <div className={classes} />;
 // }
 
-export default function Layout({ children }) {
+export default function Layout({ children, fullHeight }) {
   const setAppTheme = () => {
     const darkMode = localStorage.getItem('theme') === 'dark';
     const lightMode = localStorage.getItem('theme') === 'light';
@@ -48,8 +48,9 @@ export default function Layout({ children }) {
     handleSystemThemeChange();
   }, []);
 
+  let divClass = 'relative pb-24 overflow-hidden';
   return (
-    <div className="relative pb-24 overflow-hidden">
+    <div className={`${divClass}${fullHeight && ' h-auto'}`}>
       <div className="flex flex-col items-center max-w-4xl w-full mx-auto">
         {children}
       </div>

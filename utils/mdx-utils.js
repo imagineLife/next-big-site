@@ -23,6 +23,8 @@ const pages_dir = join(cwd, 'pages');
 export const docker_path = join(pages_dir, 'docker');
 export const ml_path = join(pages_dir, 'ml');
 export const linux_path = join(pages_dir, 'linux');
+export const mongo_path = join(pages_dir, 'mongo');
+export const mongo_agg_path = join(pages_dir, 'mongo', 'aggregations');
 export const nginx_path = join(pages_dir, 'nginx');
 export const scrum_path = join(pages_dir, 'scrum');
 
@@ -34,6 +36,13 @@ function onlyMdxFile(s) {
 export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
 export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
+export const mongoMdPaths = readdirSync(mongo_path).filter(onlyMdxFile);
+export const mongoAggMdPaths = readdirSync(mongo_agg_path).filter(onlyMdxFile);
+export const mongoSections = readdirSync(mongo_path, {
+  withFileTypes: true,
+})
+  .filter((s) => s.isDirectory())
+  .map((d) => d.name);
 export const nginxMdPaths = readdirSync(nginx_path).filter(onlyMdxFile);
 export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
 
@@ -43,6 +52,7 @@ const skippableSections = {
   tw: true,
   folio: true,
   'ml-ui': true,
+  mongo: true,
 };
 
 let blogSections = readdirSync(pages_dir, { withFileTypes: true });
@@ -56,13 +66,20 @@ const filePaths = {
   linux: linuxMdPaths,
   nginx: nginxMdPaths,
   scrum: scrumMdPaths,
+  'mongo-aggregations': mongoAggMdPaths,
 };
 const dirPaths = {
   docker: docker_path,
   ml: ml_path,
   linux: linux_path,
+  mongo: mongo_path,
   nginx: nginx_path,
   scrum: scrum_path,
+  'mongo-aggregations': mongo_agg_path,
+};
+
+const nestedSections = {
+  mongo: mongoSections,
 };
 
 export const sortPostsByDate = (posts) => {
@@ -100,6 +117,7 @@ function filenameFromSlugAndSection(slug, section) {
     ml: (s) => `${s}.mdx`,
     docker: (s) => `${s}.md`,
     linux: (s) => `${s}.md`,
+    'mongo-aggregations': (s) => `${s}.md`,
     nginx: (s) => `${s}.md`,
     scrum: (s) => `${s}.md`,
   };
@@ -147,20 +165,11 @@ export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
   };
 };
 
-export async function getBlogSectionSummaries() {
-  let blogSectionSummaries = [];
-  blogSections.forEach((s) => {
-    try {
-      const sectionSummaryFilePath = join(dirPaths[s], 'summary.txt');
-      let sectionSummaryTest = readFileSync(sectionSummaryFilePath, 'utf-8');
-      blogSectionSummaries.push({
-        section: s,
-        summary: sectionSummaryTest,
-      });
-    } catch (error) {
-      console.error(`Error getting ${s}/summary.txt`);
-      blogSectionSummaries.push({ section: s });
-    }
-  });
-  return blogSectionSummaries;
+export function getNestedSections(section) {
+  try {
+    return nestedSections[section];
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
 }

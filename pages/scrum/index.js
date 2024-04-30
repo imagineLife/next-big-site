@@ -48,7 +48,7 @@ const ScrumIndex = ({ posts }) => {
               >
                 Professional Scrum Master
               </Link>{' '}
-              through scrum.org, I did a lot of writing - here&apos;s some
+              through scrum.org, I did a bit of writing - here&apos;s some
               notes!
             </p>
           </section>

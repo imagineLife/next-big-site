@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Layout from '../components/Layout'; //GradientBackground
 import ArrowIcon from '../components/ArrowIcon';
 import TagList from '../components/TagList';
-import { getGlobalData } from '../utils'; //getBlogSectionSummaries
+import { getGlobalData } from '../utils';
 import SEO from '../components/SEO';
 
 function PostItem({ post, section }) {
