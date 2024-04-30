@@ -1,6 +1,6 @@
 import { getGlobalData } from '../../../utils/global-data';
 import {
-  getPrevNextPostBySlug,
+  // getPrevNextPostBySlug,
   getPostBySlug,
   mongoAggMdPaths,
 } from '../../../utils/mdx-utils';
@@ -31,24 +31,24 @@ export const getStaticProps = async ({ params, ...rest }) => {
     'mongo-aggregations'
   );
 
-  const prevPost = getPrevNextPostBySlug(
-    params.slug,
-    'mongo-aggregations',
-    'prev'
-  );
-  const nextPost = getPrevNextPostBySlug(
-    params.slug,
-    'mongo-aggregations',
-    'next'
-  );
+  // const prevPost = getPrevNextPostBySlug(
+  //   params.slug,
+  //   'mongo-aggregations',
+  //   'prev'
+  // );
+  // const nextPost = getPrevNextPostBySlug(
+  //   params.slug,
+  //   'mongo-aggregations',
+  //   'next'
+  // );
 
   return {
     props: {
       globalData,
       source: mdxSource,
       frontMatter: data,
-      prevPost,
-      nextPost,
+      // prevPost,
+      // nextPost,
     },
   };
 };
