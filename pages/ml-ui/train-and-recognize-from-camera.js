@@ -53,22 +53,19 @@ export default function ObjectDetectionPage() {
   const [leftImages, setLeftImages] = useState(0);
   const [rightImages, setRightImages] = useState(0);
   const [model, setModel] = useState(null);
-  const [detector, setDetector] = useState(null);
-  const [predictions, setPredictions] = useState(null);
-  const [predictionBoxDetails, setPredictionBoxDetails] = useState(null);
-  const videoRef = useRef();
-  const snapshotCanvasRef = useRef();
-  const predictionsRef = useRef();
+  const [tfWebcam, setTfWebcam] = useState(null);
+  const webcamRef = useRef();
 
-  function onCheck() {
+  async function onCheck() {
+    let w = await tfd.webcam(webcamRef.current);
     setEnableChecked(() => !enableChecked);
+    setTfWebcam(w);
   }
   //
   // load the model on start
   //
   useEffect(() => {
     loadModel().then(setModel);
-    console.log('model SET!');
   }, []);
 
   async function startCamera() {
@@ -204,6 +201,16 @@ export default function ObjectDetectionPage() {
           }}
         />
       </section>
+
+      <video
+        autoPlay
+        playsInline
+        muted
+        id="webcam"
+        width="224"
+        height="224"
+        ref={webcamRef}
+      ></video>
       <footer className="flex flex-wrap w-full absolute bottom-0">
         {<TagList tags={tags} hideTitle />}
       </footer>
