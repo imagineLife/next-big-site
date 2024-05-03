@@ -3,7 +3,7 @@ import * as tfd from '@tensorflow/tfjs-data';
 const mobileNetModelUrl =
   'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
 
-import { memo, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 // components
 import Layout from './../../components/Layout';
@@ -29,14 +29,17 @@ async function loadModel() {
   return tf.model({ inputs: mobilenet.inputs, outputs: layer.output });
 }
 
+const delay = () => new Promise((resolve) => setTimeout(resolve, 0));
+
 export default function TrainAndRecognizeFromCameraPage() {
   const [enableChecked, setEnableChecked] = useState(false);
-  const [centerImages, setCenteredImages] = useState(0);
+  const [centerImages, setCenterImages] = useState(0);
   const [leftImages, setLeftImages] = useState(0);
   const [rightImages, setRightImages] = useState(0);
   const [model, setModel] = useState(null);
   const [tfWebcam, setTfWebcam] = useState(null);
   const webcamRef = useRef();
+  const [mousedown, setMousedown] = useState(false);
 
   async function onCheck() {
     let w = await tfd.webcam(webcamRef.current);
@@ -49,6 +52,31 @@ export default function TrainAndRecognizeFromCameraPage() {
   useEffect(() => {
     loadModel().then(setModel);
   }, []);
+
+  const loopAndSet = useCallback(
+    async function loopAndSetFn() {
+      await delay();
+      if (mousedown === 'center') {
+        setCenterImages((v) => v + 1);
+      }
+      if (mousedown === 'left') {
+        setLeftImages((v) => v + 1);
+      }
+      if (mousedown === 'right') {
+        setRightImages((v) => v + 1);
+      }
+    },
+    [mousedown]
+  );
+
+  //
+  // RUN the looping image-capture fn
+  //
+  useEffect(() => {
+    if (mousedown !== false) {
+      loopAndSet();
+    }
+  }, [mousedown, centerImages, leftImages, rightImages, loopAndSet]);
 
   async function startCamera() {
     navigator.mediaDevices
@@ -156,10 +184,11 @@ export default function TrainAndRecognizeFromCameraPage() {
           count={centerImages}
           enabled={Boolean(model).toString()}
           onMouseDown={() => {
-            console.log('mouseDOWN a!');
+            setMousedown('center');
           }}
           onMouseUp={() => {
-            console.log('mouseUP a!');
+            setMousedown(false);
+            console.log(`centerImages: ${centerImages}`);
           }}
         />
         <ButtonBox
@@ -167,10 +196,10 @@ export default function TrainAndRecognizeFromCameraPage() {
           count={leftImages}
           enabled={Boolean(model).toString()}
           onMouseDown={() => {
-            console.log('mouseDOWN b!');
+            setMousedown('left');
           }}
           onMouseUp={() => {
-            console.log('mouseUP b!');
+            setMousedown(false);
           }}
         />
         <ButtonBox
@@ -178,10 +207,10 @@ export default function TrainAndRecognizeFromCameraPage() {
           count={rightImages}
           enabled={Boolean(model).toString()}
           onMouseDown={() => {
-            console.log('mouseDOWN c!');
+            setMousedown('right');
           }}
           onMouseUp={() => {
-            console.log('mouseUP c!');
+            setMousedown(false);
           }}
         />
       </section>
