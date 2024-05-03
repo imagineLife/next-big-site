@@ -10,6 +10,9 @@ import Layout from './../../components/Layout';
 import SEO from './../../components/SEO';
 import TagList from './../../components/TagList';
 
+import { MemoCheckbox } from '../../components/MemoCheckbox';
+import { ButtonBox } from '../../components/MemoMlButtonBox';
+
 const IMAGE_SIZE = 224;
 
 async function loadModel() {
@@ -26,28 +29,7 @@ async function loadModel() {
   return tf.model({ inputs: mobilenet.inputs, outputs: layer.output });
 }
 
-const ButtonBox = memo(function BtnBx({
-  headDirection,
-  count,
-  enabled,
-  onClick,
-}) {
-  return (
-    <section id="centered-wrapper">
-      <button
-        enabled={enabled}
-        className="mx-2 rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white dark:text-black hover:bg-opacity-90 active:bg-amber-200 transition-colors disabled:bg-indigo-800"
-        onClick={onClick}
-      >
-        {enabled === 'false' && 'Loading the starting model...'}
-        {enabled === 'true' && `2. Train ${headDirection} head position`}
-      </button>
-      <p className="mx-2">Trained Image Count: {count}</p>
-    </section>
-  );
-});
-
-export default function ObjectDetectionPage() {
+export default function TrainAndRecognizeFromCameraPage() {
   const [enableChecked, setEnableChecked] = useState(false);
   const [centerImages, setCenteredImages] = useState(0);
   const [leftImages, setLeftImages] = useState(0);
@@ -165,39 +147,41 @@ export default function ObjectDetectionPage() {
         </li>
       </ul>
       <section id="button-box" className="flex flex-wrap">
-        <input
-          id="webcam-box"
-          name="webcam-box"
-          checked={enableChecked}
-          onChange={onCheck}
-          type="checkbox"
-          className="rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white dark:text-black hover:bg-opacity-90"
-        ></input>
-        <label htmlFor="webcam-box">1. Enable Your Webcam</label>
+        <MemoCheckbox onCheck={onCheck} enableChecked={enableChecked} />
+
         <div className="basis-full"></div>
 
         <ButtonBox
           headDirection={'Centered'}
           count={centerImages}
           enabled={Boolean(model).toString()}
-          onClick={() => {
-            console.log('CLICKED centered!');
+          onMouseDown={() => {
+            console.log('mouseDOWN a!');
+          }}
+          onMouseUp={() => {
+            console.log('mouseUP a!');
           }}
         />
         <ButtonBox
           headDirection={'Left'}
           count={leftImages}
           enabled={Boolean(model).toString()}
-          onClick={() => {
-            console.log('CLICKED left!');
+          onMouseDown={() => {
+            console.log('mouseDOWN b!');
+          }}
+          onMouseUp={() => {
+            console.log('mouseUP b!');
           }}
         />
         <ButtonBox
           headDirection={'Right'}
           count={rightImages}
           enabled={Boolean(model).toString()}
-          onClick={() => {
-            console.log('CLICKED right!');
+          onMouseDown={() => {
+            console.log('mouseDOWN c!');
+          }}
+          onMouseUp={() => {
+            console.log('mouseUP c!');
           }}
         />
       </section>
