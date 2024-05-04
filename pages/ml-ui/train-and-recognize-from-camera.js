@@ -120,7 +120,7 @@ export default function TrainAndRecognizeFromCameraPage() {
       );
 
       // predict & more tf work...
-      let example = startingModel.predict(processedImg);
+      let startingModelPrediction = startingModel.predict(processedImg);
       // createATensor with tensor1d
       // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#tensor1d
       const indexVal = imagesByIndex.indexOf(mouseDownVal);
@@ -138,11 +138,11 @@ export default function TrainAndRecognizeFromCameraPage() {
       // learn this...
       //
       if (xs.current == null) {
-        xs.current = tf.keep(example);
+        xs.current = tf.keep(startingModelPrediction);
         xy.current = tf.keep(y);
       } else {
         const previousX = xs.current;
-        xs.current = tf.keep(previousX.concat(example, 0));
+        xs.current = tf.keep(previousX.concat(startingModelPrediction, 0));
 
         const previousY = xy.current;
         xy.current = tf.keep(previousY.concat(y, 0));
@@ -174,16 +174,21 @@ export default function TrainAndRecognizeFromCameraPage() {
         webcamImg.expandDims(0).toFloat().div(127).sub(1)
       );
 
+      /*
+        - the "startingModel.predict" returns an "embedding" layer
+        - the output of that gets passed to the new model to be predicted
+      */
       const initModelPrediction = startingModel.predict(processedImg);
       const newModelPrediction = myTrainedModel.predict(initModelPrediction);
 
       const predictedClass = newModelPrediction.as1D().argMax();
       const classId = (await predictedClass.data())[0];
+      const predictedLabel = imagesByIndex[classId];
 
       webcamImg.dispose();
       processedImg.dispose();
       await tf.nextFrame();
-      setPredictedHeadPosition(imagesByIndex[classId]);
+      setPredictedHeadPosition(predictedLabel);
       setPredictionCount((v) => v + 1);
     },
     [myTrainedModel, startingModel, tfWebcam]
@@ -260,8 +265,6 @@ export default function TrainAndRecognizeFromCameraPage() {
         },
       },
     });
-
-    console.log('setting myTrainedModel');
 
     setMyTrainedModel(newModel);
     setTraining(false);
