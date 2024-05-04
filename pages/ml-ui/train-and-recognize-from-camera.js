@@ -1,7 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
 import * as tfd from '@tensorflow/tfjs-data';
-const mobileNetModelUrl =
-  'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -13,25 +11,11 @@ import TagList from './../../components/TagList';
 import { MemoCheckbox } from '../../components/MemoCheckbox';
 import { ButtonBox } from '../../components/MemoMlButtonBox';
 import { Loader } from '../../components/Loader';
+import { buildModelLayers, loadMobilenetModel } from '../../components/helpers';
 
 const learningRate = 0.0001;
 const batchSizeFraction = 0.4;
 const epochs = 30;
-const denseUnitCount = 100;
-
-async function loadModel() {
-  // load a pre-existing model with loadLayersModel
-  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#loadLayersModel
-  const mobilenet = await tf.loadLayersModel(mobileNetModelUrl);
-
-  // get a single layer from a model with getLayer
-  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#tf.LayersModel.getLayer
-  const layer = mobilenet.getLayer('conv_pw_13_relu');
-
-  // create a "new" model with tf.model
-  //https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#model
-  return tf.model({ inputs: mobilenet.inputs, outputs: layer.output });
-}
 
 // TODO:
 /*
@@ -44,41 +28,15 @@ const delay = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const imagesByIndex = ['center', 'left', 'right'];
 
-function buildModelLayers(inputModel) {
-  // LAYERS
-  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#Layers
-
-  // flatten
-  // flattens each batch in its inputs to 1D (making the output 2D)
-  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#layers.flatten
-  const l1 = tf.layers.flatten({
-    inputShape: inputModel.outputs[0].shape.slice(1),
-  });
-
-  // dense
-  /*
-    This layer implements the operation: output = activation(dot(input, kernel) + bias)
-    - activation is the element-wise activation function passed as the activation argument.
-    - kernel is a weights matrix created by the layer.
-    - bias is a bias vector created by the layer (only applicable if useBias is true).
-  */
-  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#layers.dense
-  const l2 = tf.layers.dense({
-    units: denseUnitCount,
-    activation: 'relu',
-    kernelInitializer: 'varianceScaling',
-    useBias: true,
-  });
-
-  const l3 = tf.layers.dense({
-    units: imagesByIndex.length,
-    kernelInitializer: 'varianceScaling',
-    useBias: true,
-    activation: 'softmax',
-  });
-
-  return [l1, l2, l3];
+async function getImage(tfWebcam) {
+  const webcamImg = await tfWebcam.capture();
+  const processedImg = tf.tidy(() =>
+    webcamImg.expandDims(0).toFloat().div(127).sub(1)
+  );
+  webcamImg.dispose();
+  return processedImg;
 }
+
 export default function TrainAndRecognizeFromCameraPage() {
   const [detectedPosition, setDetectedPosition] = useState(null);
   const [runDetections, setRunDetections] = useState(false);
@@ -91,7 +49,6 @@ export default function TrainAndRecognizeFromCameraPage() {
   const [myTrainedModel, setMyTrainedModel] = useState(null);
   const [tfWebcam, setTfWebcam] = useState(null);
   const webcamRef = useRef();
-  const [predictedHeadPosition, setPredictedHeadPosition] = useState(null);
   const [predictionCount, setPredictionCount] = useState(0);
   const [mousedown, setMousedown] = useState(false);
   const xs = useRef();
@@ -106,7 +63,7 @@ export default function TrainAndRecognizeFromCameraPage() {
   // load the model on start
   //
   useEffect(() => {
-    loadModel().then(setStartingModel);
+    loadMobilenetModel().then(setStartingModel);
   }, []);
 
   const loopAndRecordImages = useCallback(
@@ -114,10 +71,7 @@ export default function TrainAndRecognizeFromCameraPage() {
       await delay();
 
       // getImage
-      const webcamImg = await tfWebcam.capture();
-      const processedImg = tf.tidy(() =>
-        webcamImg.expandDims(0).toFloat().div(127).sub(1)
-      );
+      const processedImg = await getImage(tfWebcam);
 
       // predict & more tf work...
       let startingModelPrediction = startingModel.predict(processedImg);
@@ -150,7 +104,6 @@ export default function TrainAndRecognizeFromCameraPage() {
         previousX.dispose();
         previousY.dispose();
         y.dispose();
-        webcamImg.dispose();
       }
 
       if (mouseDownVal === 'center') {
@@ -169,10 +122,7 @@ export default function TrainAndRecognizeFromCameraPage() {
   const loopAndDetectPosition = useCallback(
     async function runDetection() {
       await delay();
-      const webcamImg = await tfWebcam.capture();
-      const processedImg = tf.tidy(() =>
-        webcamImg.expandDims(0).toFloat().div(127).sub(1)
-      );
+      const processedImg = await getImage(tfWebcam);
 
       /*
         - the "startingModel.predict" returns an "embedding" layer
@@ -185,10 +135,9 @@ export default function TrainAndRecognizeFromCameraPage() {
       const classId = (await predictedClass.data())[0];
       const predictedLabel = imagesByIndex[classId];
 
-      webcamImg.dispose();
       processedImg.dispose();
       await tf.nextFrame();
-      setPredictedHeadPosition(predictedLabel);
+      setDetectedPosition(predictedLabel);
       setPredictionCount((v) => v + 1);
     },
     [myTrainedModel, startingModel, tfWebcam]
@@ -218,33 +167,8 @@ export default function TrainAndRecognizeFromCameraPage() {
     predictionCount,
   ]);
 
-  async function startCamera() {
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: false,
-        video: {
-          height: 240,
-        },
-      })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => videoRef.current.play();
-      });
-  }
-
-  const tags = [
-    'javascript',
-    'tensorflowjs',
-    'machine learning',
-    'react',
-    'nextjs',
-    'tailwind',
-    'object detection',
-    'face detection',
-  ];
-
   async function trainModel() {
-    const layers = buildModelLayers(startingModel);
+    const layers = buildModelLayers(startingModel, imagesByIndex);
 
     // assemble model
     let newModel = tf.sequential({
@@ -278,7 +202,16 @@ export default function TrainAndRecognizeFromCameraPage() {
           'Using Machine Learning with tensorflow js and the coco-ssd model to detect objects in images uploaded to the web'
         }
         slug={`/ml-ui/object-detection-with-uploaded-images`}
-        tags={tags}
+        tags={[
+          'javascript',
+          'tensorflowjs',
+          'machine learning',
+          'react',
+          'nextjs',
+          'tailwind',
+          'object detection',
+          'face detection',
+        ]}
       />
       <h1>Training & Using A Face-Detection Model</h1>
       <p>
@@ -388,7 +321,21 @@ export default function TrainAndRecognizeFromCameraPage() {
         </section>
       </section>
       <footer className="flex flex-wrap w-full absolute bottom-0">
-        {<TagList tags={tags} hideTitle />}
+        {
+          <TagList
+            tags={[
+              'javascript',
+              'tensorflowjs',
+              'machine learning',
+              'react',
+              'nextjs',
+              'tailwind',
+              'object detection',
+              'face detection',
+            ]}
+            hideTitle
+          />
+        }
       </footer>
     </Layout>
   );
