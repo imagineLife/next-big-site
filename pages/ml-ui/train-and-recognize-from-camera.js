@@ -12,8 +12,12 @@ import TagList from './../../components/TagList';
 
 import { MemoCheckbox } from '../../components/MemoCheckbox';
 import { ButtonBox } from '../../components/MemoMlButtonBox';
+import { Loader } from '../../components/Loader';
 
-const IMAGE_SIZE = 224;
+const learningRate = 0.0001;
+const batchSizeFraction = 0.4;
+const epochs = 30;
+const denseUnitCount = 100;
 
 async function loadModel() {
   // load a pre-existing model with loadLayersModel
@@ -29,17 +33,69 @@ async function loadModel() {
   return tf.model({ inputs: mobilenet.inputs, outputs: layer.output });
 }
 
+// TODO:
+/*
+  - ASYNC getImage fn
+  - predict "example" var
+  - creat tensor
+  - oneHotFromLabel
+*/
 const delay = () => new Promise((resolve) => setTimeout(resolve, 0));
 
+const imagesByIndex = ['center', 'left', 'right'];
+
+function buildModelLayers(inputModel) {
+  // LAYERS
+  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#Layers
+
+  // flatten
+  // flattens each batch in its inputs to 1D (making the output 2D)
+  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#layers.flatten
+  const l1 = tf.layers.flatten({
+    inputShape: inputModel.outputs[0].shape.slice(1),
+  });
+
+  // dense
+  /*
+    This layer implements the operation: output = activation(dot(input, kernel) + bias)
+    - activation is the element-wise activation function passed as the activation argument.
+    - kernel is a weights matrix created by the layer.
+    - bias is a bias vector created by the layer (only applicable if useBias is true).
+  */
+  // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#layers.dense
+  const l2 = tf.layers.dense({
+    units: denseUnitCount,
+    activation: 'relu',
+    kernelInitializer: 'varianceScaling',
+    useBias: true,
+  });
+
+  const l3 = tf.layers.dense({
+    units: imagesByIndex.length,
+    kernelInitializer: 'varianceScaling',
+    useBias: true,
+    activation: 'softmax',
+  });
+
+  return [l1, l2, l3];
+}
 export default function TrainAndRecognizeFromCameraPage() {
+  const [detectedPosition, setDetectedPosition] = useState(null);
+  const [runDetections, setRunDetections] = useState(false);
+  const [training, setTraining] = useState(false);
   const [enableChecked, setEnableChecked] = useState(false);
   const [centerImages, setCenterImages] = useState(0);
   const [leftImages, setLeftImages] = useState(0);
   const [rightImages, setRightImages] = useState(0);
-  const [model, setModel] = useState(null);
+  const [startingModel, setStartingModel] = useState(null);
+  const [myTrainedModel, setMyTrainedModel] = useState(null);
   const [tfWebcam, setTfWebcam] = useState(null);
   const webcamRef = useRef();
+  const [predictedHeadPosition, setPredictedHeadPosition] = useState(null);
+  const [predictionCount, setPredictionCount] = useState(0);
   const [mousedown, setMousedown] = useState(false);
+  const xs = useRef();
+  const xy = useRef();
 
   async function onCheck() {
     let w = await tfd.webcam(webcamRef.current);
@@ -50,23 +106,87 @@ export default function TrainAndRecognizeFromCameraPage() {
   // load the model on start
   //
   useEffect(() => {
-    loadModel().then(setModel);
+    loadModel().then(setStartingModel);
   }, []);
 
-  const loopAndSet = useCallback(
-    async function loopAndSetFn() {
+  const loopAndRecordImages = useCallback(
+    async function loopAndSetFn(mouseDownVal) {
       await delay();
-      if (mousedown === 'center') {
+
+      // getImage
+      const webcamImg = await tfWebcam.capture();
+      const processedImg = tf.tidy(() =>
+        webcamImg.expandDims(0).toFloat().div(127).sub(1)
+      );
+
+      // predict & more tf work...
+      let example = startingModel.predict(processedImg);
+      // createATensor with tensor1d
+      // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#tensor1d
+      const indexVal = imagesByIndex.indexOf(mouseDownVal);
+      const tensorInt = tf.tensor1d([indexVal]).toInt();
+
+      // create a one-hot tensor with oneHot
+      // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#oneHot
+      const oneHotFromLabel = tf.oneHot(tensorInt, imagesByIndex.length);
+
+      // run & cleanup with tidy
+      // https://js.tensorflow.org/api/latest/?_gl=1*kmsiq*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxNDczNTA1Ny4zNS4xLjE3MTQ3MzUwNTcuMC4wLjA.#tidy
+      const y = tf.tidy(() => oneHotFromLabel);
+
+      //
+      // learn this...
+      //
+      if (xs.current == null) {
+        xs.current = tf.keep(example);
+        xy.current = tf.keep(y);
+      } else {
+        const previousX = xs.current;
+        xs.current = tf.keep(previousX.concat(example, 0));
+
+        const previousY = xy.current;
+        xy.current = tf.keep(previousY.concat(y, 0));
+
+        previousX.dispose();
+        previousY.dispose();
+        y.dispose();
+        webcamImg.dispose();
+      }
+
+      if (mouseDownVal === 'center') {
         setCenterImages((v) => v + 1);
       }
-      if (mousedown === 'left') {
+      if (mouseDownVal === 'left') {
         setLeftImages((v) => v + 1);
       }
-      if (mousedown === 'right') {
+      if (mouseDownVal === 'right') {
         setRightImages((v) => v + 1);
       }
     },
-    [mousedown]
+    [startingModel, tfWebcam]
+  );
+
+  const loopAndDetectPosition = useCallback(
+    async function runDetection() {
+      await delay();
+      const webcamImg = await tfWebcam.capture();
+      const processedImg = tf.tidy(() =>
+        webcamImg.expandDims(0).toFloat().div(127).sub(1)
+      );
+
+      const initModelPrediction = startingModel.predict(processedImg);
+      const newModelPrediction = myTrainedModel.predict(initModelPrediction);
+
+      const predictedClass = newModelPrediction.as1D().argMax();
+      const classId = (await predictedClass.data())[0];
+
+      webcamImg.dispose();
+      processedImg.dispose();
+      await tf.nextFrame();
+      setPredictedHeadPosition(imagesByIndex[classId]);
+      setPredictionCount((v) => v + 1);
+    },
+    [myTrainedModel, startingModel, tfWebcam]
   );
 
   //
@@ -74,9 +194,24 @@ export default function TrainAndRecognizeFromCameraPage() {
   //
   useEffect(() => {
     if (mousedown !== false) {
-      loopAndSet();
+      loopAndRecordImages(mousedown);
     }
-  }, [mousedown, centerImages, leftImages, rightImages, loopAndSet]);
+  }, [mousedown, centerImages, leftImages, rightImages, loopAndRecordImages]);
+
+  //
+  // detect head position LOOP
+  //
+  useEffect(() => {
+    if (runDetections) {
+      loopAndDetectPosition();
+    }
+  }, [
+    loopAndDetectPosition,
+    myTrainedModel,
+    runDetections,
+    tfWebcam,
+    predictionCount,
+  ]);
 
   async function startCamera() {
     navigator.mediaDevices
@@ -103,45 +238,33 @@ export default function TrainAndRecognizeFromCameraPage() {
     'face detection',
   ];
 
-  function clickEnable(e) {
-    e.preventDefault();
-    startCamera();
-  }
+  async function trainModel() {
+    const layers = buildModelLayers(startingModel);
 
-  function drawFaceOutline(ctx, faceBox) {
-    ctx.beginPath();
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(
-      faceBox.box.xMin,
-      faceBox.box.yMin,
-      faceBox.box.width,
-      faceBox.box.height
-    );
-  }
+    // assemble model
+    let newModel = tf.sequential({
+      layers,
+    });
 
-  async function clickCapture(e) {
-    e.preventDefault();
-    const canvasCtx = snapshotCanvasRef.current.getContext('2d');
-    canvasCtx.drawImage(videoRef.current, 0, 0, 320, 240);
-    predictionsRef.current.appendChild(snapshotCanvasRef.current);
-  }
+    const optimizer = tf.train.adam(learningRate);
+    newModel.compile({ optimizer: optimizer, loss: 'categoricalCrossentropy' });
 
-  async function predictFaces() {
-    // use the captured photo & the estimated faces
-    let estimatedFaces = await detector.estimateFaces(
-      snapshotCanvasRef.current,
-      {
-        flipHorizontal: false,
-      }
-    );
+    const batchSize = Math.floor(xs.current.shape[0] * batchSizeFraction);
 
-    //
-    // drawing red face-box
-    //
-    drawFaceOutline(
-      snapshotCanvasRef.current.getContext('2d'),
-      estimatedFaces[0]
-    );
+    await newModel.fit(xs.current, xy.current, {
+      batchSize,
+      epochs,
+      callbacks: {
+        onBatchEnd: async (batch, logs) => {
+          console.log('batch training loss: ' + logs.loss.toFixed(5));
+        },
+      },
+    });
+
+    console.log('setting myTrainedModel');
+
+    setMyTrainedModel(newModel);
+    setTraining(false);
   }
 
   return (
@@ -182,19 +305,18 @@ export default function TrainAndRecognizeFromCameraPage() {
         <ButtonBox
           headDirection={'Centered'}
           count={centerImages}
-          enabled={Boolean(model).toString()}
+          enabled={Boolean(startingModel).toString()}
           onMouseDown={() => {
             setMousedown('center');
           }}
           onMouseUp={() => {
             setMousedown(false);
-            console.log(`centerImages: ${centerImages}`);
           }}
         />
         <ButtonBox
           headDirection={'Left'}
           count={leftImages}
-          enabled={Boolean(model).toString()}
+          enabled={Boolean(startingModel).toString()}
           onMouseDown={() => {
             setMousedown('left');
           }}
@@ -205,7 +327,7 @@ export default function TrainAndRecognizeFromCameraPage() {
         <ButtonBox
           headDirection={'Right'}
           count={rightImages}
-          enabled={Boolean(model).toString()}
+          enabled={Boolean(startingModel).toString()}
           onMouseDown={() => {
             setMousedown('right');
           }}
@@ -215,15 +337,53 @@ export default function TrainAndRecognizeFromCameraPage() {
         />
       </section>
 
-      <video
-        autoPlay
-        playsInline
-        muted
-        id="webcam"
-        width="224"
-        height="224"
-        ref={webcamRef}
-      ></video>
+      <section id="video-button-layout" className="flex w-full">
+        <video
+          autoPlay
+          className="flex-none"
+          playsInline
+          muted
+          id="webcam"
+          width="224"
+          height="224"
+          ref={webcamRef}
+        ></video>
+        <section
+          id="train-and-detect-layout"
+          className="flex flex-col grow w-full gap-8"
+        >
+          <button
+            className="mx-2 rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white dark:text-black hover:bg-opacity-90 active:bg-amber-200 transition-colors disabled:bg-indigo-800"
+            disabled={Boolean(
+              centerImages < 1 && leftImages < 1 && rightImages < 1
+            )}
+            onClick={() => {
+              trainModel();
+              setTraining(true);
+            }}
+          >
+            Train Model
+          </button>
+          {training && <Loader />}
+          {myTrainedModel && (
+            <>
+              <button
+                className="mx-2 rounded px-5 py-3 min-w-max overflow-hidden shadow relative bg-indigo-500 text-white dark:text-black hover:bg-opacity-90 active:bg-amber-200 transition-colors disabled:bg-indigo-800"
+                onClick={() => {
+                  setRunDetections(true);
+                }}
+              >
+                Start Detecting Head Position LIVE!
+              </button>
+              {detectedPosition && (
+                <p>
+                  Detected Head Position: <b>{detectedPosition}</b>
+                </p>
+              )}
+            </>
+          )}
+        </section>
+      </section>
       <footer className="flex flex-wrap w-full absolute bottom-0">
         {<TagList tags={tags} hideTitle />}
       </footer>

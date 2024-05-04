@@ -16,7 +16,7 @@ const ButtonBox = memo(function BtnBx({
         onMouseUp={onMouseUp}
       >
         {enabled === 'false' && 'Loading the starting model...'}
-        {enabled === 'true' && `2. Train ${headDirection} head position`}
+        {enabled === 'true' && `Collect ${headDirection}-position imgs`}
       </button>
       <p className="mx-2">Trained Image Count: {count}</p>
     </section>
