@@ -27,6 +27,7 @@ export const mongo_path = join(pages_dir, 'mongo');
 export const mongo_agg_path = join(pages_dir, 'mongo', 'aggregations');
 export const nginx_path = join(pages_dir, 'nginx');
 export const scrum_path = join(pages_dir, 'scrum');
+export const tf_path = join(pages_dir, 'tf');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
@@ -45,6 +46,7 @@ export const mongoSections = readdirSync(mongo_path, {
   .map((d) => d.name);
 export const nginxMdPaths = readdirSync(nginx_path).filter(onlyMdxFile);
 export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
+export const tfMdPaths = readdirSync(tf_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
 // ml-ui is "hand-written" in the frontend
@@ -66,6 +68,7 @@ const filePaths = {
   linux: linuxMdPaths,
   nginx: nginxMdPaths,
   scrum: scrumMdPaths,
+  tf: tfMdPaths,
   'mongo-aggregations': mongoAggMdPaths,
 };
 const dirPaths = {
@@ -75,6 +78,7 @@ const dirPaths = {
   mongo: mongo_path,
   nginx: nginx_path,
   scrum: scrum_path,
+  tf: tf_path,
   'mongo-aggregations': mongo_agg_path,
 };
 
@@ -112,7 +116,10 @@ export const getPosts = (pathDir) => {
   return posts;
 };
 
-function filenameFromSlugAndSection(slug, section) {
+function filenameFromSlugAndSection(slug, section, useMDX) {
+  if (useMDX && section === 'tf') {
+    return `${slug}.mdx`;
+  }
   const filenameLookup = {
     ml: (s) => `${s}.mdx`,
     docker: (s) => `${s}.md`,
@@ -120,13 +127,19 @@ function filenameFromSlugAndSection(slug, section) {
     'mongo-aggregations': (s) => `${s}.md`,
     nginx: (s) => `${s}.md`,
     scrum: (s) => `${s}.md`,
+    tf: (s) => `${s}.mdx`,
   };
   return filenameLookup[section](slug);
 }
 
 export const getPostBySlug = async (slug, section) => {
   const slugString = filenameFromSlugAndSection(slug, section);
-  const postFilePath = join(dirPaths[section], slugString);
+  let postFilePath;
+  try {
+    postFilePath = join(dirPaths[section], slugString);
+  } catch (error) {
+    postFilePath = join(dirPaths[section], slugString, true);
+  }
 
   let source = readFileSync(postFilePath);
   const { content, data } = matter(source);
