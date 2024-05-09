@@ -41,6 +41,7 @@
     "prismjs": "^1.25.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-ipynb-renderer": "^2.2.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^3.0.1",
     "sass": "^1.74.1",
