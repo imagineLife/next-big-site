@@ -5,6 +5,7 @@ import ArrowIcon from './ArrowIcon';
 import TagList from './TagList';
 import Layout from './Layout';
 import SEO from './SEO';
+import BreadCrumbs from './Breadcrumbs';
 
 import Head from 'next/head';
 import CustomLink from './CustomLink';
@@ -21,18 +22,23 @@ const components = {
   Head,
 };
 
-export default function GenericPost({
-  title,
-  name,
-  excerpt,
-  slug,
-  tags,
-  description,
-  source,
-  prevPost,
-  nextPost,
-  globalData,
-}) {
+export default function GenericPost(props) {
+  let {
+    title,
+    name,
+    excerpt,
+    slug,
+    tags,
+    description,
+    source,
+    prevPost,
+    nextPost,
+    globalData,
+    slugArr,
+  } = props;
+  console.log('slugArr');
+  console.log(slugArr);
+
   return (
     <Layout>
       <SEO
@@ -43,6 +49,7 @@ export default function GenericPost({
       />
       {/* <Header name={globalData.name} /> */}
       <article className="px-6 md:px-0">
+        {slugArr && <BreadCrumbs slugs={slugArr} />}
         <header>
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">
             {title}
