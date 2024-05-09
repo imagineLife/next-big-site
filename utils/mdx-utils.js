@@ -24,7 +24,6 @@ export const docker_path = join(pages_dir, 'docker');
 export const ml_path = join(pages_dir, 'ml');
 export const linux_path = join(pages_dir, 'linux');
 export const mongo_path = join(pages_dir, 'mongo');
-export const mongo_agg_path = join(pages_dir, 'mongo', 'aggregations');
 export const nginx_path = join(pages_dir, 'nginx');
 export const scrum_path = join(pages_dir, 'scrum');
 export const tf_path = join(pages_dir, 'tf');
@@ -37,8 +36,35 @@ function onlyMdxFile(s) {
 export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
 export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
-export const mongoMdPaths = readdirSync(mongo_path).filter(onlyMdxFile);
-export const mongoAggMdPaths = readdirSync(mongo_agg_path).filter(onlyMdxFile);
+
+let nestedDirs = {
+  mongo: [],
+};
+const mongoRootContents = readdirSync(mongo_path, { withFileTypes: true });
+mongoRootContents.forEach((mongoRootItem) => {
+  // into a directory
+  if (mongoRootItem.isDirectory()) {
+    const dirContents = readdirSync(join(mongo_path, mongoRootItem.name), {
+      withFileTypes: true,
+    });
+    // items in directory
+    dirContents.forEach((nestedItem) => {
+      if (nestedItem.name.includes('.md')) {
+        nestedDirs.mongo.push(
+          join('/', 'mongo', mongoRootItem.name, nestedItem.name)
+        );
+      } else {
+        console.log(
+          'SKIPPING pushing to mongo nested content: ',
+          nestedItem.name
+        );
+      }
+    });
+  }
+});
+
+export { nestedDirs };
+// export const mongoAggMdPaths = readdirSync(mongo_agg_path).filter(onlyMdxFile);
 export const mongoSections = readdirSync(mongo_path, {
   withFileTypes: true,
 })
@@ -69,7 +95,7 @@ const filePaths = {
   nginx: nginxMdPaths,
   scrum: scrumMdPaths,
   tf: tfMdPaths,
-  'mongo-aggregations': mongoAggMdPaths,
+  // 'mongo-aggregations': mongoAggMdPaths,
 };
 const dirPaths = {
   docker: docker_path,
@@ -79,7 +105,7 @@ const dirPaths = {
   nginx: nginx_path,
   scrum: scrum_path,
   tf: tf_path,
-  'mongo-aggregations': mongo_agg_path,
+  // 'mongo-aggregations': mongo_agg_path,
 };
 
 const nestedSections = {
@@ -124,12 +150,28 @@ function filenameFromSlugAndSection(slug, section, useMDX) {
     ml: (s) => `${s}.mdx`,
     docker: (s) => `${s}.md`,
     linux: (s) => `${s}.md`,
-    'mongo-aggregations': (s) => `${s}.md`,
+    // 'mongo-aggregations': (s) => `${s}.md`,
     nginx: (s) => `${s}.md`,
     scrum: (s) => `${s}.md`,
     tf: (s) => `${s}.mdx`,
   };
   return filenameLookup[section](slug);
+}
+
+export async function getNestedPost() {
+  const filePath = `${join(pages_dir, ...arguments[0])}${arguments[1]}`;
+  const nodeSource = readFileSync(filePath);
+  const { content, data } = matter(nodeSource);
+
+  const mdxSource = await serialize(content, {
+    // Optionally pass remark/rehype plugins
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypePrism, rehypeSlug],
+    },
+    scope: data,
+  });
+  return { mdxSource, data };
 }
 
 export const getPostBySlug = async (slug, section) => {
