@@ -15,11 +15,11 @@ export default function DockerBySlug({
   ...rest
 }) {
   let props = {
-    frontMatter,
     globalData,
     prevPost,
     nextPost,
     source,
+    ...frontMatter,
   };
   return <GenericPost {...props} />;
 }
