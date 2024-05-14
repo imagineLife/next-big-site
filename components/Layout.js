@@ -47,10 +47,10 @@ export default function Layout({ children, fullHeight }) {
   useEffect(() => {
     handleSystemThemeChange();
   }, []);
-
-  let divClass = 'relative pb-24 overflow-hidden';
   return (
-    <div className={`${divClass}${fullHeight && ' h-auto'}`}>
+    <div
+      className={`relative pb-24 overflow-hidden${fullHeight ? ' h-auto' : ''}`}
+    >
       <div className="flex flex-col items-center max-w-4xl w-full mx-auto">
         {children}
       </div>

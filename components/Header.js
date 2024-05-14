@@ -2,14 +2,6 @@ import Link from 'next/link';
 
 export default function Header({ name }) {
   return (
-    // <header className="pt-20 pb-12">
-    //   <div className="w-12 h-12 rounded-full block mx-auto mb-4 bg-gradient-conic from-gradient-3 to-gradient-4" />
-    //   <p className="text-2xl dark:text-white text-center">
-    //     <Link href="/">
-    //       <a>{name}</a>
-    //     </Link>
-    //   </p>
-    // </header>
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a
@@ -39,7 +31,8 @@ export default function Header({ name }) {
       </div>
 
       <div
-        className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
+        // lg:block
+        className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden pt-6 lg:pt-0"
         id="nav-content"
       >
         {/* <ul className="list-reset lg:flex justify-end flex-1 items-center">

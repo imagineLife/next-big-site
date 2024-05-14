@@ -145,7 +145,7 @@ main.folio {
   // BRIGHT: #ee7752, #e73c7e, #23a6d5, #23d5ab
   // MID-B: #894430, #9c2955, #135c77, #13765
   // HMM #663223, #6d1c3b, #0d4154, #0c4e3e
-	background: linear-gradient(-45deg, #4f261b, #4f142b, #0a3342, #093a2e);
+	// background-image: linear-gradient(-45deg, #4f261b, #4f142b, #0a3342, #093a2e);
 	background-size: 400% 400%;
 	-webkit-animation: gradient 14s ease infinite;
 	        animation: gradient 14s ease infinite;
@@ -157,7 +157,7 @@ main.folio {
     margin: 0;
     padding: 0.67em 0;
     text-align: center;
-    color: white;
+    // color: white;
     font-weight: lighter;
   }
 
@@ -344,200 +344,6 @@ section.welcome * {
 .tech-li.title::after {
   content: '';
 }
-
-/*
-  Box bg images
-*/
-
-div.cornell-cert-bg {
-  background-image: url('./../../images/imgs/cornell_badge.png');
-  background-size: contain;
-}
-
-div.k8s-cert-bg {
-  background-image: url('./../../images/imgs/k8s_cert_badge.png');
-  background-size: contain;
-}
-
-div.mongo-cert-bg {
-  background-image: url('./../../images/imgs/mongo-cred.png');
-  background-size: contain;
-}
-
-div.node-cert-bg {
-  background-image: url('./../../images/imgs/node-cert.png');
-  background-size: contain;
-}
-
-
-div.psmi-bg {
-  background-image: url('./../../images/imgs/psmiBadge.png');
-  background-size: contain;
-}
-
-.mastering-bg {
-  background: center / auto no-repeat url('./../../images/imgs/d3Course.gif');
-}
-.slice-n-dice-bg {
-  background: center / auto no-repeat url('./../../images/imgs/slice.gif');
-}
-.pizza-bg {
-  background: center / auto no-repeat url('./../../images/imgs/nodeServer.jpg');
-}
-.say-what-bg {
-  background: center / auto no-repeat url('./../../images/imgs/say-what/1.jpg');
-}
-.world-map-bg {
-  background: center / auto no-repeat url('./../../images/imgs/worldmap.gif');
-}
-.rhode-island-bg {
-  background: center / auto no-repeat url('./../../images/imgs/ristats/1.jpg');
-}
-.housing-permits-bg {
-  background: center / auto no-repeat url('./../../images/imgs/cttowns.gif');
-}
-.erp-bg {
-  background: center / auto no-repeat url('./../../images/imgs/erp/1.jpg');
-}
-.macro-recipes-bg {
-  background: center / auto no-repeat url('./../../images/imgs/macro/1.jpg');
-}
-.my-miles-bg {
-  background: center / auto no-repeat url('./../../images/imgs/miles/1.jpg');
-}
-.my-miles-bg {
-  background: center / auto no-repeat url('./../../images/imgs/miles/1.jpg');
-}
-.gitlab-bg {
-  background: center / auto no-repeat url('./../../images/imgs/gitlab.jpg');
-}
-
-/*
-
-  Technologies BGs
-  
-*/
-//  Frontend
-
-.html-bg {
-  background: center / auto no-repeat url('./../../images/imgs/HTML5.png');
-}
-.css-bg {
-  background: center / auto no-repeat url('./../../images/imgs/CSS3.png');
-}
-.scss-bg {
-  background: center / auto no-repeat url('./../../images/imgs/scss.png');
-}
-.js-bg {
-  background: center / auto no-repeat url('./../../images/imgs/JavaScript.png');
-}
-.d3-bg {
-  background: center / auto no-repeat url('./../../images/imgs/D3.png');
-}
-.react-bg {
-  background: center / auto no-repeat url('./../../images/imgs/React.png');
-}
-.storybook-bg {
-  background: center / auto no-repeat url('./../../images/imgs/storybook.png');
-}
-.babel-bg {
-  background: center / auto no-repeat url('./../../images/imgs/babel.png');
-}
-.webpack-bg {
-  background: center / auto no-repeat url('./../../images/imgs/webpack.png');
-}
-.jest-bg {
-  background: center / auto no-repeat url('./../../images/imgs/jest.png');
-}
-.enzyme-bg {
-  background: center / auto no-repeat url('./../../images/imgs/Enzyme.ico');
-}
-.dash-bg {
-  background: center / auto no-repeat url('./../../images/imgs/analytics.png');
-}
-.cypress-bg {
-  background: center / auto no-repeat url('./../../images/imgs/cypress.png');
-}
-.mocha-bg {
-  background: center / auto no-repeat url('./../../images/imgs/mocha.png');
-}
-.chai-bg {
-  background: center / auto no-repeat url('./../../images/imgs/chai.png');
-}
-.webpack-bg {
-  background: center / auto no-repeat url('./../../images/imgs/webpack.png');
-}
-.babel-bg {
-  background: center / auto no-repeat url('./../../images/imgs/babel.png');
-}
-.ts-bg {
-  background: center / auto no-repeat url('./../../images/imgs/ts.png');
-}
-.testing-lib-bg {
-  background: center / auto no-repeat url('./../../images/imgs/testing-lib.png');
-}
-.postman-bg {
-  background: center / auto no-repeat url('./../../images/imgs/postman.png');
-}
-
-
-
-// Systems
-.netlify-bg {
-  background: center / auto no-repeat url('./../../images/imgs/netlify.jpg');
-}
-.heroku-bg {
-  background: center / auto no-repeat url('./../../images/imgs/heroku.ico');
-}
-.gitlab-bg {
-  background: center / auto no-repeat url('./../../images/imgs/gitlab.jpg');
-}
-.github-bg {
-  background: center / auto no-repeat url('./../../images/imgs/github.png');
-}
-.datadog-bg {
-  background: center / auto no-repeat url('./../../images/imgs/datadog.png');
-}
-.keynote-bg {
-  background: center / auto no-repeat url('./../../images/imgs/keynote.png');
-}
-
-
-//  Backend
-.node-bg {
-  background: center / auto no-repeat url('./../../images/imgs/Node.png');
-}
-.express-bg {
-  background: center / auto no-repeat url('./../../images/imgs/ExpressJS.png');
-}
-.mongo-bg {
-  background: center / auto no-repeat url('./../../images/imgs/mongoDB.png');
-}
-.postgres-bg {
-  background: center / auto no-repeat url('./../../images/imgs/postgres.png');
-}
-.nginx-bg {
-  background: center / auto no-repeat url('./../../images/imgs/nginx.png');
-}
-
-
-// systems
-.docker-bg {
-  background: center / auto no-repeat url('./../../images/imgs/docker.png');
-}
-.k8s-bg {
-  background: center / auto no-repeat url('./../../images/imgs/k8s.png');
-}
-.bash-bg {
-  background: center / auto no-repeat url('./../../images/imgs/bash.png');
-}
-
-
-
-
-
-
-
  
 
 .caption {

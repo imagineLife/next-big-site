@@ -36,7 +36,7 @@ export default function GenericPost(props) {
     globalData,
     slugArr,
   } = props;
-  console.log('slugArr');
+  console.log('GenericPost slugArr');
   console.log(slugArr);
 
   return (

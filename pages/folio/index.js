@@ -4,6 +4,7 @@ import FolioItem from './../../components/folioItem';
 import CertItem from './../../components/certItem';
 import TechList from './../../components/techList';
 import Image from 'next/image';
+import FolioCard from '../../components/FolioCard';
 // import { Link } from "gatsby"
 
 const techs = {
@@ -58,25 +59,25 @@ const techSkills = {
   frontend: [
     {
       title: 'HTML',
-      subText: 'Webpage structuring - the core of web content delivery.',
+      description: 'Webpage structuring - the core of web content delivery.',
       imgClass: `html-bg`,
       img: `html`,
     },
     {
       title: 'CSS',
-      subText: 'Styling HTML',
+      description: 'Styling HTML',
       imgClass: `css-bg`,
       img: `css`,
     },
     {
       title: 'JS',
-      subText: 'Interacting with the dom && server logic',
+      description: 'Interacting with the dom && server logic',
       imgClass: `js-bg`,
       img: `js`,
     },
     {
       title: 'TypeScript',
-      subText: 'linting on steroids',
+      description: 'linting on steroids',
       imgClass: `ts-bg`,
       img: `ts`,
     },
@@ -347,7 +348,7 @@ const certs = [
 const folioItems = [
   {
     title: 'Slice-n-Dice Times',
-    subText:
+    description:
       "An interactive newspaper-influenced UI, analyzing textual themes in the former president's Innaugural Address.",
     aLink: 'http://laursen.tech/folio/slice-n-dice-times',
     techList: [
@@ -364,7 +365,7 @@ const folioItems = [
   },
   {
     title: 'WEO Country Categories Mapped',
-    subText:
+    description:
       'Zoom, toggle, & hover in this map of the countries of the world categorically colored by their GNI per capita.',
     img: 'worldmap.gif',
     aLink: '/folio/world-map',
@@ -380,7 +381,7 @@ const folioItems = [
   },
   {
     title: 'Mastering D3v5',
-    subText:
+    description:
       'An online course I created covering D3v5, interactive mapping, linked visualizations, 3rd party api integration & more.',
     aLink:
       'https://www.packtpub.com/product/mastering-d3-js-5-video/9781789951332',
@@ -394,7 +395,7 @@ const folioItems = [
   },
   {
     title: 'Restaurant Node API',
-    subText:
+    description:
       'No NPM - No dependencies - just Node: account & cart management (CRUD), a cli, auth, stripe & mailgun api integration, logging & more.',
     img: 'nodeServer.jpg',
     aLink: 'https://github.com/imagineLife/nodeWork/tree/master/pizzaAPI',
@@ -410,7 +411,7 @@ const folioItems = [
   },
   // {
   //   title: 'SayWhat?!',
-  //   subText:
+  //   description:
   //     'Look at patterns in the text of presidential inaugural addresses in this data-viz focused, full-stack, mobile-first responsive project.',
   //   imgClass: 'say-what-bg',
   //   aLink: 'https://say-what.netlify.com/',
@@ -431,7 +432,7 @@ const folioItems = [
     img: 'ristats/1.jpg',
     title: 'R.I Stats',
     aLink: 'https://imaginelife.github.io/ristats/',
-    subText:
+    description:
       'Review Poverty & Income levels in Rhode Island through simple charts & maps.',
     techList: [
       'D3',
@@ -445,7 +446,7 @@ const folioItems = [
   },
   {
     title: 'CT Housing Permits, Mapped',
-    subText:
+    description:
       'An interactive choropleth mapping project, representing the range of housing permits issued per town in Connecticut in 2018.',
     aLink: 'https://imaginelife.github.io/stateHousingPermits/',
     img: 'cttowns.gif',
@@ -461,59 +462,59 @@ const folioItems = [
   },
   {
     title: 'Enterprise Resource Planner',
-    subText:
+    description:
       'A time-tracking, ticket-based, resource management system. I do not own the code to this project.',
     img: 'erp/1.jpg',
     techList: ['DHTMLX', 'JS', 'HTML', 'CSS', 'PHP'],
   },
-  {
-    title: 'MyMiles',
-    imgClass: 'my-miles-bg',
-    subText:
-      'Record, edit & export vehicle mileage logs in this responsive app.',
-    aLink: 'https://tranquil-sierra-12911.herokuapp.com/',
-    techList: ['API', 'Responsive Design', 'JS', 'HTML', 'CSS'],
-  },
-  {
-    title: 'MacroRecipes',
-    subText:
-      'Find Recipes based on ingredients and gram counts of carbs, calories, fat, and protein.',
-    imgClass: 'macro-recipes-bg',
-    aLink: 'https://imaginelife.github.io/MacroRecipes/',
-    techList: ['API', 'Responsive Design', 'CSS', 'HTML', 'JS'],
-  },
+  // {
+  //   title: 'MyMiles',
+  //   imgClass: 'my-miles-bg',
+  //   description:
+  //     'Record, edit & export vehicle mileage logs in this responsive app.',
+  //   aLink: 'https://tranquil-sierra-12911.herokuapp.com/',
+  //   techList: ['API', 'Responsive Design', 'JS', 'HTML', 'CSS'],
+  // },
+  // {
+  //   title: 'MacroRecipes',
+  //   description:
+  //     'Find Recipes based on ingredients and gram counts of carbs, calories, fat, and protein.',
+  //   imgClass: 'macro-recipes-bg',
+  //   aLink: 'https://imaginelife.github.io/MacroRecipes/',
+  //   techList: ['API', 'Responsive Design', 'CSS', 'HTML', 'JS'],
+  // },
 ];
 
-function FolioBox({ title, aLink, img, subText, techList }) {
-  return (
-    <div className="grid grid-cols-2 px-10">
-      <div>
-        <Image
-          src={`/${img}`}
-          width={400}
-          height={300}
-          alt={title}
-          onClick={() => window.open(aLink, '_blank').focus()}
-          style={{ cursor: 'pointer' }}
-        />
-      </div>
-      <div>
-        <h4>{title}</h4>
-        <p>{subText}</p>
-        <sub>
-          {techList.map((tech, idx) => {
-            return (
-              <>
-                <span key={`${title}-${tech}`}>{tech}</span>
-                {idx !== techList.length - 1 && ' | '}
-              </>
-            );
-          })}
-        </sub>
-      </div>
-    </div>
-  );
-}
+// function FolioBox({ title, aLink, img, subText, techList }) {
+//   return (
+//     <div className="grid grid-cols-2 px-10">
+//       <div>
+//         <Image
+//           src={`/${img}`}
+//           width={400}
+//           height={300}
+//           alt={title}
+//           onClick={() => window.open(aLink, '_blank').focus()}
+//           style={{ cursor: 'pointer' }}
+//         />
+//       </div>
+//       <div>
+//         <h4>{title}</h4>
+//         <p>{subText}</p>
+//         <sub>
+//           {techList.map((tech, idx) => {
+//             return (
+//               <>
+//                 <span key={`${title}-${tech}`}>{tech}</span>
+//                 {idx !== techList.length - 1 && ' | '}
+//               </>
+//             );
+//           })}
+//         </sub>
+//       </div>
+//     </div>
+//   );
+// }
 
 function MyHeader({ text }) {
   return (
@@ -525,7 +526,8 @@ function MyHeader({ text }) {
 
 export default function Folio() {
   return (
-    <main role="main" className={`${sassMods.folio} flex flex-col prose`}>
+    // className={`${sassMods.folio} flex flex-col prose`}
+    <main role="main" className="flex flex-col max-w-[90%] mx-auto">
       <section className="welcome flex flex-col">
         <div className="text-box">
           <h1>Welcome</h1>
@@ -551,21 +553,31 @@ export default function Folio() {
 
       <section
         id="certs-wrapper"
-        className="@container flex flex-wrap gap-2 flex-col"
+        // className="@container flex flex-wrap gap-2 flex-col"
+        // mx-auto
+        className="px-4"
       >
         <MyHeader text="A Brief Portfolio" />
-        <section className="grid grid-cols-1">
+        {/* <section className="grid grid-cols-1"> */}
+        {/* <div class="container mx-auto px-4"> */}
+        <div
+          // className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+          id="folio-items-wrapper"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
+        >
           {folioItems.map((itm) => (
-            <FolioBox key={`folio-item-${itm.title}`} {...itm} />
+            // <FolioBox key={`folio-item-${itm.title}`} {...itm} />
+            <FolioCard key={`folio-item-${itm.title}`} {...itm} />
           ))}
-        </section>
+        </div>
+        {/* </section> */}
 
-        <MyHeader text="Certifications" />
+        {/* <MyHeader text="Certifications" />
         <div className="grid grid-cols-2 gap-8 px-8">
           {certs.map((itm, itmIdex) => (
             <CertItem key={`folio-item-${itmIdex}`} {...itm} />
           ))}
-        </div>
+        </div> */}
       </section>
 
       <section id="technologies-wrapper" className="@container flex flex-col">
