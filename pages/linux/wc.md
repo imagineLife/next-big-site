@@ -1,16 +1,18 @@
 ---
 parentDir: linux
 title: Count Words, Lines, and/or bytes with 2 wc
-slug: linux/wordcount
-shortSlug: wordcount
+slug: linux/wc
+shortSlug: wc
 author: Jake Laursen
 excerpt: Use this 2-character cli to get some simple counts
-tags: ["linux", "bash", "wc", "cli", "commands"]
+tags: ['linux', 'bash', 'wc', 'cli', 'commands']
 order: 27
 ---
 
 # WordCount
+
 per `man wc`,
+
 ```bash
 wc – word, line, character, and byte count
 
@@ -29,9 +31,11 @@ wc – word, line, character, and byte count
 ```
 
 ## In action
+
 Take an example text file, here `testfile.txt`:
+
 ```text
-this is one line.  
+this is one line.
 This is another line.
 This is the third line.
 ```
@@ -45,16 +49,17 @@ wc -w testfile.txt
       13 testfile.txt
 
 # bytes
-wc -m testfile.txt 
+wc -m testfile.txt
       65 testfile.txt
 
 # lines
 # HM?!
-wc -l testfile.txt 
+wc -l testfile.txt
       2 testfile.txt
 ```
 
 ## Piping
+
 ```bash
 # note: npm outdated includes a "header", so the number may be 1 greater than the total number of outdated modules
 npm outdated | wc -l

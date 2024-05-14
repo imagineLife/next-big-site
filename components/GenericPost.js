@@ -47,7 +47,6 @@ export default function GenericPost(props) {
         slug={slug}
         tags={tags}
       />
-      {/* <Header name={globalData.name} /> */}
       <article className="px-6 md:px-0">
         {slugArr && <BreadCrumbs slugs={slugArr} />}
         <header>
@@ -56,8 +55,7 @@ export default function GenericPost(props) {
           </h1>
           {description && <p className="text-xl mb-4">{description}</p>}
         </header>
-        <main className="prose dark:prose-dark">
-          {/* className="prose dark:prose-dark" */}
+        <main className="prose dark:prose-dark mx-auto">
           <article>
             <MDXRemote {...source} components={components} />
           </article>
