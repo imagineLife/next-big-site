@@ -11,6 +11,7 @@ export default function LinuxBySlug({
   globalData,
   prevPost,
   nextPost,
+  slugArr,
   source,
   ...rest
 }) {
@@ -18,6 +19,7 @@ export default function LinuxBySlug({
     globalData,
     prevPost,
     nextPost,
+    slugArr,
     source,
     ...frontMatter,
   };
@@ -38,6 +40,7 @@ export const getStaticProps = async ({ params, ...rest }) => {
       frontMatter: data,
       prevPost,
       nextPost,
+      slugArr: ['linux', params.slug],
     },
   };
 };

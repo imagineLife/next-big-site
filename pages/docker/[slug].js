@@ -6,11 +6,13 @@ import {
 } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
+const DOCKER_VAR = 'docker';
 export default function DockerBySlug({
   frontMatter,
   globalData,
   prevPost,
   nextPost,
+  slugArr,
   source,
   ...rest
 }) {
@@ -18,6 +20,7 @@ export default function DockerBySlug({
     globalData,
     prevPost,
     nextPost,
+    slugArr,
     source,
     ...frontMatter,
   };
@@ -26,18 +29,19 @@ export default function DockerBySlug({
 
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, 'docker');
+  const { mdxSource, data } = await getPostBySlug(params.slug, DOCKER_VAR);
 
-  const prevPost = getPrevNextPostBySlug(params.slug, 'docker', 'prev');
-  const nextPost = getPrevNextPostBySlug(params.slug, 'docker', 'next');
+  const prevPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'prev');
+  const nextPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'next');
 
   return {
     props: {
       globalData,
-      source: mdxSource,
       frontMatter: data,
-      prevPost,
       nextPost,
+      prevPost,
+      slugArr: [DOCKER_VAR, params.slug],
+      source: mdxSource,
     },
   };
 };

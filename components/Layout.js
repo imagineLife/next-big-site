@@ -51,7 +51,7 @@ export default function Layout({ children, fullHeight }) {
     <div
       className={`relative pb-24 overflow-hidden${fullHeight ? ' h-auto' : ''}`}
     >
-      <div className="flex flex-col items-center max-w-4xl w-full mx-auto">
+      <div className="flex flex-col items-center max-w-5xl w-full mx-auto">
         {children}
       </div>
     </div>

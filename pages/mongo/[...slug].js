@@ -24,19 +24,15 @@ import GenericPost from '../../components/GenericPost';
 //   </li>
 // );
 
-/*
-  before filter
-
-  re-introduce in frontmatter when done-zo
-  order: { gt: 0 }
-*/
 const MongoBySlug = ({ frontMatter, globalData, source, ...rest }) => {
   let props = {
-    frontMatter,
     globalData,
     source,
     tags: frontMatter.tags,
+    slugArr,
+    ...frontMatter,
   };
+
   return <GenericPost {...props} />;
 };
 
@@ -53,8 +49,8 @@ export const getStaticPaths = async (props) => {
 };
 
 export async function getStaticProps(props) {
-  // console.log('getStaticProps props');
-  // console.log(props);
+  console.log('getStaticProps props');
+  console.log(props);
 
   const { mdxSource, data } = await getNestedPost(
     ['mongo', ...props.params.slug],
@@ -67,6 +63,7 @@ export async function getStaticProps(props) {
       globalData,
       source: mdxSource,
       frontMatter: data,
+      slugArr: ['mongo', ...props.params.slug],
     },
   };
 }
