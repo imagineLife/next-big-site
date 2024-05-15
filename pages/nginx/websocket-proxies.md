@@ -1,15 +1,26 @@
 ---
-title: NGINX As A Websocket Proxy
+title: A Websocket Proxy
 parentDir: /nginx
 slug: nginx/websocket-proxies
 author: Jake Laursen
 excerpt:
-tags: ["nginx", "reverse proxy", "node", "docker", "containers", "load balancer", "websockets"]
+tags:
+  [
+    'nginx',
+    'reverse proxy',
+    'node',
+    'docker',
+    'containers',
+    'load balancer',
+    'websockets',
+  ]
 order: 6
 ---
 
 # NGINX As A Websocket Proxy
+
 ## Using Layer 4
+
 ```nginx
   stream {
     <!-- 4 instances of a websocket backend -->
@@ -28,19 +39,20 @@ order: 6
 ```
 
 ## Using Layer 7
+
 ```nginx
   stream {
-    
+
     <!-- 4 instances of a websocket backend at two different registered upstream services -->
     upstream wsbackendone {
       server 127.0.0.1:2222;
       server 127.0.0.1:3333;
-    }    
+    }
 
     upstream wsbackendtwo {
       server 127.0.0.1:4444;
       server 127.0.0.1:5555;
-    }    
+    }
   }
 
   server {
@@ -66,19 +78,20 @@ order: 6
 ```
 
 ## Websocket Proxying Alongside Static Contents
+
 ```nginx
   stream {
-    
+
     <!-- 4 instances of a websocket backend at two different registered upstream services -->
     upstream wsbackendone {
       server 127.0.0.1:2222;
       server 127.0.0.1:3333;
-    }    
+    }
 
     upstream wsbackendtwo {
       server 127.0.0.1:4444;
       server 127.0.0.1:5555;
-    }    
+    }
   }
 
   server {

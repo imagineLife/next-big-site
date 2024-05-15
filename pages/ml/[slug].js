@@ -11,6 +11,7 @@ export default function DockerBySlug({
   globalData,
   prevPost,
   nextPost,
+  slugArr,
   source,
   ...rest
 }) {
@@ -19,6 +20,7 @@ export default function DockerBySlug({
     globalData,
     prevPost,
     nextPost,
+    slugArr,
     source,
     tags: frontMatter.tags,
   };
@@ -39,6 +41,7 @@ export const getStaticProps = async ({ params, ...rest }) => {
       frontMatter: data,
       prevPost,
       nextPost,
+      slugArr: ['ml', params.slug],
     },
   };
 };

@@ -7,7 +7,7 @@
   },
   {
     "title": "Docker",
-    "snippet": "Sort-Of Like a virtual machine, something like a \"layer\" between software and hardware",
+    "snippet": "Sort-Of Like a virtual machine, a \"layer\" between software and hardware",
     "to": "/docker",
     "image": "docker.png"
   },
@@ -16,5 +16,11 @@
     "snippet": "The Web server, Proxy, Reverse Proxy, Load Balancer...",
     "to": "/nginx",
     "image": "nginx.png"
+  },
+  {
+    "title": "Machine Learning",
+    "snippet": "Teaching machines to recognize patterns",
+    "to": "/ml",
+    "image": "machine-learning.png"
   }
 ]

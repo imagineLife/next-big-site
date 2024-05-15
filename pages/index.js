@@ -12,7 +12,7 @@ function BlogSectionCard({ title, snippet, to, image }) {
   return (
     <Link href={to}>
       <section className=" transition duration-300 max-w-sm rounded overflow-hidden border hover:dark:bg-slate-800 cursor-pointer">
-        <section className="py-4 px-8">
+        <section className="py-4 px-8 h-full">
           <h4 className="text-xl mb-3 font-semibold">{title}</h4>
           <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
             {snippet}
@@ -24,9 +24,11 @@ function BlogSectionCard({ title, snippet, to, image }) {
             height={50}
             alt={`${title} section image`}
           />
-          <hr className="mt-4" />
-          <span className="text-xs">ARTICLES</span>
-          {/* &nbsp;<span className="text-xs text-gray-500">PROCESS</span> */}
+          <section id="footer">
+            <hr className="mt-4" />
+            <span className="text-xs">ARTICLES</span>
+            {/* &nbsp;<span className="text-xs text-gray-500">PROCESS</span> */}
+          </section>
         </section>
       </section>
     </Link>
@@ -48,6 +50,13 @@ export default function Index({ globalData }) {
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
+      {/* 80px for nav, 20px for extra */}
+      <section id="blog-summary" className="mt-[100px] text-left w-full">
+        <p>
+          Welcome to my blog 👋 Some notes on some of my interests are below,
+          broken down into sections:
+        </p>
+      </section>
       <main className="mx-auto mt-24 md:mt-18 grid grid-cols-4 gap-4">
         {sections.map((s) => (
           <BlogSectionCard {...s} key={`blog-section-${s.title}`} />

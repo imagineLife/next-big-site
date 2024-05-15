@@ -6,11 +6,13 @@ import {
 } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
+const NX_VAR = 'nginx';
 export default function NginxBySlug({
   frontMatter,
   globalData,
   prevPost,
   nextPost,
+  slugArr,
   source,
   ...rest
 }) {
@@ -18,6 +20,7 @@ export default function NginxBySlug({
     globalData,
     prevPost,
     nextPost,
+    slugArr,
     source,
     ...frontMatter,
   };
@@ -26,10 +29,10 @@ export default function NginxBySlug({
 
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, 'nginx');
+  const { mdxSource, data } = await getPostBySlug(params.slug, NX_VAR);
 
-  const prevPost = getPrevNextPostBySlug(params.slug, 'nginx', 'prev');
-  const nextPost = getPrevNextPostBySlug(params.slug, 'nginx', 'next');
+  const prevPost = getPrevNextPostBySlug(params.slug, NX_VAR, 'prev');
+  const nextPost = getPrevNextPostBySlug(params.slug, NX_VAR, 'next');
 
   return {
     props: {
@@ -38,6 +41,7 @@ export const getStaticProps = async ({ params, ...rest }) => {
       frontMatter: data,
       prevPost,
       nextPost,
+      slugArr: [NX_VAR, params.slug],
     },
   };
 };

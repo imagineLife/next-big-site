@@ -13,7 +13,7 @@ const NotebookBySlug = (props) => {
         '%c load notebook...',
         'background-color: pink; color: black;'
       );
-      import(`/notebooks/${props.slug}.json`).then(setLoadedNotebook);
+      import(`/public/notebooks/${props.slug}.json`).then(setLoadedNotebook);
     }
   }, [loadedNotebook, props.slug]);
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { getNestedSections, getGlobalData } from '../../utils';
+import { getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import ArrowIcon from '../../components/ArrowIcon';
 // date,
 const PostLink = ({ slug, title, excerpt }) => (
   <li className="md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-b-0 last:border-b hover:border-b hovered-sibling:border-t-0 list-none">
-    <Link as={`/mongo/${slug}`} href={`/mongo/[slug]`}>
+    <Link as={`${slug}`} href={`[${slug}]`}>
       <a className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
         {/* {post?.data?.date && (
           <p className="uppercase mb-3 font-bold opacity-60">
@@ -29,7 +29,16 @@ const PostLink = ({ slug, title, excerpt }) => (
   re-introduce in frontmatter when done-zo
   order: { gt: 0 }
 */
-const MongoIndex = ({ sections }) => {
+const MongoIndex = (props) => {
+  console.log('mongoIndex props');
+  console.log(props);
+  const sections = [
+    {
+      title: 'Data Modeling',
+      excerpt: 'Leveraging the document model for application performance',
+      slug: '/mongo/data-modeling/intro',
+    },
+  ];
   return (
     <Fragment>
       <Hero />
@@ -46,11 +55,12 @@ const MongoIndex = ({ sections }) => {
             </Link>
             certification, I did a bit of writing...
           </p>
-          {sections?.map((s) => (
+          {sections?.map(({ slug, title, excerpt }) => (
             <PostLink
-              key={`mongo-section-${s}`}
-              slug={s}
-              title={s.charAt(0).toUpperCase() + s.slice(1)}
+              key={`mongo-section-${slug}`}
+              slug={slug}
+              title={title.charAt(0).toUpperCase() + title.slice(1)}
+              excerpt={excerpt}
             />
           ))}
         </section>
@@ -62,8 +72,7 @@ const MongoIndex = ({ sections }) => {
 export default MongoIndex;
 
 export function getStaticProps() {
-  const sections = getNestedSections('mongo');
   const globalData = getGlobalData();
   // globalData
-  return { props: { sections, globalData } };
+  return { props: { globalData } };
 }
