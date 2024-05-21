@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getGlobalData } from '../../../utils'; //nestedDirs, getNestedPost,
 import { IpynbRenderer } from 'react-ipynb-renderer';
+
 import Layout from '../../../components/Layout';
-//
+// import SEO from '../../../components/SEO';
+import Header from '../../../components/Header';
+import BreadCrumbs from '../../../components/Breadcrumbs';
 const NotebookBySlug = (props) => {
   console.log('NotebookBySlug props');
   console.log(props);
@@ -17,20 +20,25 @@ const NotebookBySlug = (props) => {
     }
   }, [loadedNotebook, props.slug]);
 
-  // let props = {
-  //   globalData,
-  //   source,
-  //   tags: frontMatter.tags,
-  //   slugArr: ['mongo', ...rest?.slugArr],
-  //   ...frontMatter,
-  // };
-
   if (!loadedNotebook) {
     return <>loading...</>;
   }
   return (
     <Layout>
-      <IpynbRenderer ipynb={loadedNotebook} />
+      {/* <SEO
+        title={`${title} - ${globalData.name}`}
+        excerpt={excerpt}
+        slug={slug}
+        tags={tags}
+      /> */}
+      <Header name={props.globalData.name} />
+      <article className="px-6 md:px-0 mt-[80px]">
+        <BreadCrumbs slugs={props.slugArr} />
+        {/* <BreadCrumbs slugs={['ml']} /> */}
+        <main className="mx-auto">
+          <IpynbRenderer ipynb={loadedNotebook} />
+        </main>
+      </article>
     </Layout>
   );
 };
@@ -62,7 +70,7 @@ export async function getStaticProps(props) {
       slug: props.params.slug,
       // source: mdxSource,
       // frontMatter: data,
-      // slugArr: props.params.slug,
+      slugArr: ['notebooks', props.params.slug],
     },
   };
 }

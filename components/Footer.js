@@ -83,6 +83,13 @@ export default function Footer({ copyrightText }) {
       <p className="dark:text-white uppercase mb-3 font-bold opacity-60">
         {copyrightText}
       </p>
+      <a
+        href="https://www.flaticon.com/free-icons/scrum"
+        title="scrum icon"
+        className="text-xs"
+      >
+        Scrum icon created by Freepik - Flaticon
+      </a>
       <ThemeSwitcher />
     </footer>
   );

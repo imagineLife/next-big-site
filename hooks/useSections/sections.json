@@ -22,5 +22,11 @@
     "snippet": "Teaching machines to recognize patterns",
     "to": "/ml",
     "image": "machine-learning.png"
+  },
+  {
+    "title": "Scrum",
+    "snippet": "Organizing Complex Problems",
+    "to": "/scrum",
+    "image": "scrum.png"
   }
 ]

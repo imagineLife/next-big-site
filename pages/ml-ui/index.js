@@ -5,9 +5,8 @@ import Layout from './../../components/Layout';
 import ArrowIcon from '../../components/ArrowIcon';
 import SEO from '../../components/SEO';
 import Header from '../../components/Header';
-import BreadCrumbs from '../../components/Breadcrumbs';
 
-import { getPosts, getGlobalData } from '../../utils';
+import { getGlobalData } from '../../utils';
 // date,
 const PostLink = ({ slug, title, excerpt }) => (
   <li
@@ -29,7 +28,7 @@ const PostLink = ({ slug, title, excerpt }) => (
   </li>
 );
 
-const LinuxIndex = (params) => {
+const MlUiIndex = (params) => {
   return (
     <Layout>
       <SEO
@@ -38,24 +37,17 @@ const LinuxIndex = (params) => {
       />
       <Header name={params.globalData.name} />
       <section className="mt-[80px] max-w-[90%]">
-        <BreadCrumbs slugs={['linux']} />
-        <h1>Linux & Bash</h1>
-        {params?.posts?.map((itm) => (
-          <PostLink
-            {...itm.frontmatter}
-            key={`linux-post-${itm.frontmatter.title}`}
-          />
-        ))}
+        <h1>Machine Learning Projects</h1>
+        <p>coming soon...</p>
       </section>
     </Layout>
   );
 };
 
-export default LinuxIndex;
+export default MlUiIndex;
 
 export function getStaticProps(p) {
-  const posts = getPosts('linux');
   const globalData = getGlobalData();
   // globalData
-  return { props: { posts, globalData } };
+  return { props: { globalData } };
 }

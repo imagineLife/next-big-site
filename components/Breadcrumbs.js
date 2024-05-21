@@ -3,10 +3,10 @@ import Link from 'next/link';
 function BreadcrumbLink({ includeSlash, text, link, home }) {
   if (home) {
     return (
-      <li className="inline-flex items-center mt-0 cursor-pointer">
-        <Link href="/" className="text-gray-600 hover:text-blue-500">
+      <li className="inline-flex items-center m-0 cursor-pointer">
+        <Link href="/" className="text-gray-600">
           <svg
-            className="w-5 h-auto fill-current mx-2 text-gray-400"
+            className="w-5 h-auto fill-current text-gray-400 hover:text-blue-500 transition-colors"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="#000000"
@@ -16,13 +16,16 @@ function BreadcrumbLink({ includeSlash, text, link, home }) {
           </svg>
         </Link>
 
-        <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
+        <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
       </li>
     );
   }
   return (
     <li className="inline-flex items-center mt-0">
-      <a href={link} className="text-gray-600 hover:text-blue-500">
+      <a
+        href={link}
+        className="text-gray-600 hover:text-blue-500 transition-colors"
+      >
         {text}
       </a>
 

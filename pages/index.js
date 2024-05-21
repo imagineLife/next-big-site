@@ -17,13 +17,15 @@ function BlogSectionCard({ title, snippet, to, image }) {
           <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
             {snippet}
           </p>
-          <Image
-            src={`/${image}`}
-            className="emx-auto"
-            width={50}
-            height={50}
-            alt={`${title} section image`}
-          />
+          <div className="w-full text-center">
+            <Image
+              src={`/${image}`}
+              className="emx-auto"
+              width={50}
+              height={50}
+              alt={`${title} section image`}
+            />
+          </div>
           <section id="footer">
             <hr className="mt-4" />
             <span className="text-xs">ARTICLES</span>
@@ -47,23 +49,22 @@ const machineLearningProjectPosts = [
 export default function Index({ globalData }) {
   const sections = useSections();
   return (
-    <Layout>
-      <SEO title={globalData.name} description={globalData.blogTitle} />
-      <Header name={globalData.name} />
-      {/* 80px for nav, 20px for extra */}
-      <section id="blog-summary" className="mt-[100px] text-left w-full">
-        <p>
-          Welcome to my blog 👋 Some notes on some of my interests are below,
-          broken down into sections:
-        </p>
-      </section>
-      <main className="mx-auto mt-24 md:mt-18 grid grid-cols-4 gap-4">
-        {sections.map((s) => (
-          <BlogSectionCard {...s} key={`blog-section-${s.title}`} />
-        ))}
-      </main>
+    <>
+      <Layout>
+        <SEO title={globalData.name} description={globalData.blogTitle} />
+        <Header name={globalData.name} />
+        {/* 80px for nav, 20px for extra */}
+        <section id="blog-summary" className="mt-[100px] text-left w-full">
+          <p>Welcome to my blog 👋</p>
+        </section>
+        <main className="mx-auto mt-24 md:mt-18 grid grid-cols-4 gap-4">
+          {sections.map((s) => (
+            <BlogSectionCard {...s} key={`blog-section-${s.title}`} />
+          ))}
+        </main>
+      </Layout>
       <Footer copyrightText={globalData.footerText} />
-    </Layout>
+    </>
   );
 }
 
