@@ -18,15 +18,21 @@
     "image": "nginx.png"
   },
   {
+    "title": "Scrum",
+    "snippet": "Organizing Complex Problems with iterations, agility, and collaboration",
+    "to": "/scrum",
+    "image": "scrum.png"
+  },
+  {
     "title": "Machine Learning",
     "snippet": "Teaching machines to recognize patterns",
     "to": "/ml",
     "image": "machine-learning.png"
   },
   {
-    "title": "Scrum",
-    "snippet": "Organizing Complex Problems",
-    "to": "/scrum",
-    "image": "scrum.png"
+    "title": "ML Projects",
+    "snippet": "Machine Learning in action: face detection, head tilt detection...",
+    "to": "/ml-ui",
+    "image": "machine-learning-project.png"
   }
 ]
