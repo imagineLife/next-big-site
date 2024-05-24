@@ -24,7 +24,7 @@ import GenericPost from '../../components/GenericPost';
 //   </li>
 // );
 
-const MongoBySlug = ({ frontMatter, globalData, source, ...rest }) => {
+const MongoBySlug = ({ frontMatter, globalData, source, slugArr, ...rest }) => {
   let props = {
     globalData,
     source,

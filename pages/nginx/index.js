@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { getPosts, getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
+import PostLink from '../../components/PostLink';
 
 const LinuxIndex = (params) => {
   return (
