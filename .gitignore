@@ -35,3 +35,7 @@ yarn-error.log*
 
 # netlify
 .netlify
+
+# static files
+/public/notebooks/.ipynb_checkpoints/
+*.zip
