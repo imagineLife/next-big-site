@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // components
 import Layout from './../../components/Layout';
-import SEO from './../../components/SEO';
+import Seo from './../../components/Seo';
 import TagList from './../../components/TagList';
 
 const IMAGE_SIZE = 224;

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function SEO({ title, excerpt, tags = [], slug = '' }) {
+export default function Seo({ title, excerpt, tags = [], slug = '' }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
