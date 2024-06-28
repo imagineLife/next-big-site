@@ -3,7 +3,7 @@ import { getGlobalData } from '../../../utils'; //nestedDirs, getNestedPost,
 import { IpynbRenderer } from 'react-ipynb-renderer';
 
 import Layout from '../../../components/Layout';
-// import SEO from '../../../components/SEO';
+// import Seo from '../../../components/Seo';
 import Header from '../../../components/Header';
 import BreadCrumbs from '../../../components/Breadcrumbs';
 const NotebookBySlug = (props) => {
@@ -25,7 +25,7 @@ const NotebookBySlug = (props) => {
   }
   return (
     <Layout>
-      {/* <SEO
+      {/* <Seo
         title={`${title} - ${globalData.name}`}
         excerpt={excerpt}
         slug={slug}

@@ -1,13 +1,13 @@
 import React from 'react';
 import Layout from './../../components/Layout';
-import SEO from '../../components/SEO';
+import Seo from '../../components/Seo';
 import Header from '../../components/Header';
 import { getGlobalData } from '../../utils';
 
 const MlUiIndex = (params) => {
   return (
     <Layout>
-      <SEO
+      <Seo
         title={params.globalData.name}
         description={params.globalData.blogTitle}
       />

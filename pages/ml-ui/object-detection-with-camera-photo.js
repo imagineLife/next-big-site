@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 
 // components
 import Layout from './../../components/Layout';
-import SEO from './../../components/SEO';
+import Seo from './../../components/Seo';
 import TagList from './../../components/TagList';
 
 const IMAGE_SIZE = 224;
@@ -58,7 +58,7 @@ export default function ObjectDetectionPage() {
 
   return (
     <Layout fullHeight>
-      <SEO
+      <Seo
         title={'Detecting Objects in Uploaded Images'}
         excerpt={
           'Using Machine Learning with tensorflow js and the coco-ssd model to detect objects in images uploaded to the web'

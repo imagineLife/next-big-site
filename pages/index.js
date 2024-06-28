@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout from '../components/Layout'; //GradientBackground
 import { getGlobalData } from '../utils';
-import SEO from '../components/SEO';
+import Seo from '../components/Seo';
 import useSections from '../hooks/useSections';
 
 function BlogSectionCard({ title, snippet, to, image }) {
@@ -53,7 +53,7 @@ export default function Index({ globalData }) {
     <section className="px-[10%]">
       <Layout>
         <div></div>
-        <SEO title={globalData.name} description={globalData.blogTitle} />
+        <Seo title={globalData.name} description={globalData.blogTitle} />
         <Header name={globalData.name} />
         {/* 80px for nav, 20px for extra */}
         <section id="blog-summary" className="mt-[100px] text-left w-full">

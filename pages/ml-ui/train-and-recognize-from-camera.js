@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 // components
 import Layout from './../../components/Layout';
-import SEO from './../../components/SEO';
+import Seo from './../../components/Seo';
 import TagList from './../../components/TagList';
 
 import { MemoCheckbox } from '../../components/MemoCheckbox';
@@ -196,7 +196,7 @@ export default function TrainAndRecognizeFromCameraPage() {
 
   return (
     <Layout fullHeight>
-      <SEO
+      <Seo
         title={'Train & Recognize Gestures From Webcam'}
         excerpt={
           'Using Machine Learning with tensorflow js and the coco-ssd model to detect objects in images uploaded to the web'
