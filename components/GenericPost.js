@@ -4,7 +4,7 @@ import Link from 'next/link';
 import ArrowIcon from './ArrowIcon';
 import TagList from './TagList';
 import Layout from './Layout';
-import SEO from './SEO';
+import Seo from './Seo';
 import BreadCrumbs from './Breadcrumbs';
 import Header from './Header';
 
@@ -42,7 +42,7 @@ export default function GenericPost(props) {
 
   return (
     <Layout>
-      <SEO
+      <Seo
         title={`${title} - ${globalData.name}`}
         excerpt={excerpt}
         slug={slug}
