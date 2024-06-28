@@ -1,7 +1,7 @@
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
-// import FaceDetection from '@tensorflow-models/face-detection';
+import * as faceDetection from '@tensorflow-models/face-detection';
 import { useEffect, useRef, useState } from 'react';
 
 // components
