@@ -1,7 +1,7 @@
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
-import faceDetection from '@tensorflow-models/face-detection';
+import FaceDetection from '@tensorflow-models/face-detection';
 import { useEffect, useRef, useState } from 'react';
 
 // components
@@ -12,8 +12,8 @@ import TagList from './../../components/TagList';
 const IMAGE_SIZE = 224;
 
 async function loadModel() {
-  let model = faceDetection.SupportedModels.MediaPipeFaceDetector;
-  let detector = await faceDetection.createDetector(model, { runtime: 'tfjs' });
+  let model = FaceDetection.SupportedModels.MediaPipeFaceDetector;
+  let detector = await FaceDetection.createDetector(model, { runtime: 'tfjs' });
   return { model, detector };
 }
 
