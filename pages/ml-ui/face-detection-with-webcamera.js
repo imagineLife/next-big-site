@@ -1,8 +1,7 @@
-'use client';
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
-import * as faceDetection from '@tensorflow-models/face-detection';
+// import FaceDetection from '@tensorflow-models/face-detection';
 import React, { useEffect, useRef, useState } from 'react';
 
 // components
@@ -11,12 +10,6 @@ import Seo from '../../components/Seo';
 import TagList from './../../components/TagList';
 
 const IMAGE_SIZE = 224;
-
-async function loadModel() {
-  let model = faceDetection.SupportedModels.MediaPipeFaceDetector;
-  let detector = await faceDetection.createDetector(model, { runtime: 'tfjs' });
-  return { model, detector };
-}
 
 export default function ObjectDetectionPage() {
   const [model, setModel] = useState(null);
@@ -28,15 +21,25 @@ export default function ObjectDetectionPage() {
   const snapshotCanvasRef = useRef();
   const predictionsRef = useRef();
 
+  async function loadModel(faceDetection) {
+    let model = faceDetection.SupportedModels.MediaPipeFaceDetector;
+    let detector = await faceDetection.createDetector(model, {
+      runtime: 'tfjs',
+    });
+    return { model, detector };
+  }
+
   //
   // load the model on start
   //
-  // useEffect(() => {
-  //   loadModel().then((obj) => {
-  //     setModel(obj.model);
-  //     setDetector(obj.detector);
-  //   });
-  // }, []);
+  useEffect(() => {
+    import('@tensorflow-models/face-detection').then((faceDetection) => {
+      loadModel(faceDetection).then((obj) => {
+        setModel(obj.model);
+        setDetector(obj.detector);
+      });
+    });
+  }, []);
 
   async function startCamera() {
     navigator.mediaDevices
