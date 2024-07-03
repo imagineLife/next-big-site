@@ -1,8 +1,9 @@
+'use client';
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
-// import FaceDetection from '@tensorflow-models/face-detection';
-import { useEffect, useRef, useState } from 'react';
+import FaceDetection from '@tensorflow-models/face-detection';
+import React, { useEffect, useRef, useState } from 'react';
 
 // components
 import Layout from './../../components/Layout';
@@ -11,11 +12,11 @@ import TagList from './../../components/TagList';
 
 const IMAGE_SIZE = 224;
 
-// async function loadModel() {
-//   let model = FaceDetection.SupportedModels.MediaPipeFaceDetector;
-//   let detector = await FaceDetection.createDetector(model, { runtime: 'tfjs' });
-//   return { model, detector };
-// }
+async function loadModel() {
+  let model = FaceDetection.SupportedModels.MediaPipeFaceDetector;
+  let detector = await FaceDetection.createDetector(model, { runtime: 'tfjs' });
+  return { model, detector };
+}
 
 export default function ObjectDetectionPage() {
   const [model, setModel] = useState(null);
