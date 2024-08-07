@@ -16,7 +16,7 @@ export default function DockerBySlug({
   ...rest
 }) {
   let props = {
-    frontMatter,
+    ...frontMatter,
     globalData,
     prevPost,
     nextPost,
@@ -24,6 +24,7 @@ export default function DockerBySlug({
     source,
     tags: frontMatter.tags,
   };
+
   return <GenericPost {...props} />;
 }
 
