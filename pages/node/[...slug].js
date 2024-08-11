@@ -11,7 +11,8 @@ export default function NodeBySlug(props) {
   console.log('props');
   console.log(props);
 
-  return <GenericPost {...props} />;
+  const componentProps = { ...props, ...props.frontMatter };
+  return <GenericPost {...componentProps} />;
 }
 
 // { params, ...rest }
@@ -30,10 +31,12 @@ export const getStaticProps = async ({ params }) => {
       frontMatter: data,
       // nextPost,
       // prevPost,
-      slugArr: [NODE_VAR, params.slug],
+      slugArr: [NODE_VAR, ...params.slug],
       source: mdxSource,
     },
   };
+
+  // return { props: {} };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
@@ -41,13 +44,7 @@ export const getStaticPaths = async (props) => {
   console.log('getStaticPaths props');
   console.log(props);
   console.log('nodeMdPaths');
-  console.log(nodeMdPaths);
-
-  //   const paths = nodeMdPaths
-  //     // Remove file extensions for page paths
-  //     .map((path) => path.replace(/\.md?$/, ''))
-  //     // Map the path into the static paths object required by Next.js
-  //     .map((slug) => ({ params: { slug } }));
+  console.log(nodeMdPaths.map((d) => d.params.slug));
 
   return {
     paths: nodeMdPaths,
