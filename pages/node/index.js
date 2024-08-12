@@ -1,4 +1,5 @@
 import { getGlobalData, getNodeSections } from '../../utils';
+
 // import {
 //   getPrevNextPostBySlug,
 //   getPostBySlug,
@@ -17,9 +18,7 @@ export default function NodeIndex(props) {
 
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
-  const nodeStuff = await getNodeSections();
-  console.log('nodeStuff');
-  console.log(nodeStuff);
+  const nodeSections = getNodeSections();
 
   // const { mdxSource, data } = await getPostBySlug(params.slug, NODE_VAR);
 
@@ -29,7 +28,7 @@ export const getStaticProps = async ({ params, ...rest }) => {
   return {
     props: {
       globalData,
-      sections: nodeStuff,
+      sections: nodeSections,
       // frontMatter: data,
       // nextPost,
       // prevPost,
