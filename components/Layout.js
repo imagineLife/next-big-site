@@ -1,19 +1,6 @@
-// import classNames from 'classnames';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-// export function GradientBackground({ variant, className }) {
-//   const classes = classNames(
-//     {
-//       [styles.colorBackground]: variant === 'large',
-//       [styles.colorBackgroundBottom]: variant === 'small',
-//     },
-//     className
-//   );
-
-//   return <div className={classes} />;
-// }
-
-export default function Layout({ children, fullHeight }) {
+export default function Layout({ children, fullHeight, leftAlign, prose }) {
   const setAppTheme = () => {
     const darkMode = localStorage.getItem('theme') === 'dark';
     const lightMode = localStorage.getItem('theme') === 'light';
@@ -47,13 +34,17 @@ export default function Layout({ children, fullHeight }) {
   useEffect(() => {
     handleSystemThemeChange();
   }, []);
+  // ${
+  //   !leftAlign ? 'items-center' : 'flex-start'
+  // }
+  const divClass = `flex flex-col max-w-5xl w-full mx-auto`;
   return (
     <main
-      className={`relative pb-24 overflow-hidden${fullHeight ? ' h-auto' : ''}`}
+      className={`relative pb-24 overflow-hidden${
+        fullHeight ? ' h-auto' : ''
+      } ${prose && 'prose dark:prose-dark mx-auto'}`}
     >
-      <div className="flex flex-col items-center max-w-5xl w-full mx-auto">
-        {children}
-      </div>
+      <div className={divClass}>{children}</div>
     </main>
   );
 }

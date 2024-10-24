@@ -1,7 +1,53 @@
+import React from 'react';
+// import Layout from './../../../components/Layout';
+import GenericPost from './../../../components/GenericPost';
+import Link from 'next/link';
 export default function NodeFsRoot() {
   return (
-    <main>
+    // <Layout fullHeight prose>
+    <GenericPost
+      {...{
+        title: 'Node File System',
+        excerpt: 'interacting with a file-system using node',
+        slug: 'fs/node',
+        tags: ['node', 'file system'],
+        globalData: { name: 'Node File System' },
+        slugArr: ['node', 'fs'],
+      }}
+    >
       <h1>File System Interactions</h1>
+      <ul>
+        <li>
+          <Link className="link" href="/node/fs/path/">
+            Learn How To Work With Paths
+          </Link>
+        </li>
+        <li>
+          <Link className="link" href="/node/fs/read/">
+            Learn How To Read Files
+          </Link>
+        </li>
+        <li>
+          <Link className="link" href="/node/fs/write/">
+            Learn How To Write Files
+          </Link>
+        </li>
+        <li>
+          <Link className="link" href="/node/fs/read-dirs/">
+            Learn How To Read Directories
+          </Link>
+        </li>
+        <li>
+          <Link className="link" href="/node/fs/file-metadata/">
+            Learn How To Get File Metadata
+          </Link>
+        </li>
+        <li>
+          <Link className="link" href="/node/fs/watching/">
+            Learn How To Watch The Filesystem
+          </Link>
+        </li>
+      </ul>
       <p>
         Filesystems can be interacted with the `fs` module as well as using the
         `path` module.
@@ -95,6 +141,6 @@ export default function NodeFsRoot() {
           <i>(thanks node docs!)</i>
         </a>
       </p>
-    </main>
+    </GenericPost>
   );
 }

@@ -11,18 +11,35 @@ const NotebookBySlug = (props) => {
   console.log(props);
   let [loadedNotebook, setLoadedNotebook] = useState(null);
   useEffect(() => {
-    if (!loadedNotebook) {
+    async function loadNotebook() {
       console.log(
         '%c load notebook...',
         'background-color: pink; color: black;'
       );
-      import(`/public/notebooks/${props.slug}.json`).then(setLoadedNotebook);
+      console.log('props');
+      console.log(props);
+
+      // /public
+      const nb = await import(
+        `./../../../public/notebooks/${props.slug}.ipynb`
+      );
+      console.log('nb');
+      console.log(nb);
+
+      // setLoadedNotebook(`/notebooks/${props.slug}.ipynb`);
+    }
+
+    if (!loadedNotebook) {
+      loadNotebook();
     }
   }, [loadedNotebook, props.slug]);
 
   if (!loadedNotebook) {
     return <>loading...</>;
   }
+  console.log('loadedNotebook');
+  console.log(loadedNotebook);
+
   return (
     <Layout>
       {/* <Seo

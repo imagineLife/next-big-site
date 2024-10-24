@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Header({ name }) {
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0">
+    <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6 sticky w-full z-10 top-0 left-0">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a
           className="text-white no-underline hover:text-white hover:no-underline"
@@ -15,7 +15,7 @@ export default function Header({ name }) {
       </div>
 
       <div className="block lg:hidden">
-        <button
+        {/* <button
           id="nav-toggle"
           className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white"
         >
@@ -27,7 +27,7 @@ export default function Header({ name }) {
             <title>Menu</title>
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
-        </button>
+        </button> */}
       </div>
 
       <div
