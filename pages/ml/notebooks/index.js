@@ -25,7 +25,7 @@ const MlNotebooksIndex = ({ posts }) => {
               key={`machine-learning-toc-post-${p}`}
               slug={`ml/notebooks/${p}`}
               title={p}
-              excerpt={'mic check'}
+              // excerpt={'mic check'}
             />
           ))}
         </section>
