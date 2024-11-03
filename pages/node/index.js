@@ -8,14 +8,9 @@ import { getGlobalData, getNodeSections } from '../../utils';
 //   getPostBySlug,
 //   nodeMdPaths,
 // } from '../../utils/mdx-utils';
-// import GenericPost from '../../components/GenericPost';
 
 const NODE_VAR = 'node';
 export default function NodeIndex({ globalData, sections }) {
-  console.log('sections');
-  console.log(sections);
-
-  // return <div>node here</div>;
   return (
     <GenericPost
       {...{
