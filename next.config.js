@@ -2,7 +2,7 @@
 // https://nextjs.org/docs/pages/api-reference/next-config-js/webpack
 
 const createMDX = require('@next/mdx');
-
+const remarkPrism = require('remark-prism');
 // txt file
 const textLoader = {
   test: /\.txt/,
@@ -42,7 +42,13 @@ const nextConfig = {
 };
 
 // Add markdown plugins here, as desired
-const withMDX = createMDX({});
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [remarkPrism],
+    // rehypePlugins: [],
+  },
+});
 
 // Merge MDX config with Next.js config
 // @ts-ignore
