@@ -5,6 +5,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import rehypePrism from '@mapbox/rehype-prism';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import remarkPrism from 'remark-prism';
 
 //
 // RUN-TIME functionalities
@@ -237,7 +238,7 @@ export async function getNestedPost() {
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
     mdxOptions: {
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [remarkGfm, remarkPrism],
       rehypePlugins: [rehypePrism, rehypeSlug],
     },
     scope: data,
