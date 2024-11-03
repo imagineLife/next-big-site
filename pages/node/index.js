@@ -9,7 +9,6 @@ import { getGlobalData, getNodeSections } from '../../utils';
 //   nodeMdPaths,
 // } from '../../utils/mdx-utils';
 
-const NODE_VAR = 'node';
 export default function NodeIndex({ globalData, sections }) {
   return (
     <GenericPost
@@ -35,6 +34,7 @@ export default function NodeIndex({ globalData, sections }) {
 }
 
 export const getStaticProps = async ({ params, ...rest }) => {
+  // const NODE_VAR = 'node';
   const globalData = getGlobalData();
   const nodeSections = getNodeSections();
 
