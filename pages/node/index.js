@@ -29,9 +29,11 @@ export default function NodeIndex({ globalData, sections }) {
     >
       <>
         <h1>Node</h1>
-        {sections?.map((s) => (
-          <Card key={s.t} title={s.t} subTitle={s.d} url={s.url} />
-        ))}
+        <section className="flex gap-3 p-5">
+          {sections?.map((s) => (
+            <Card key={s.t} title={s.t} subTitle={s.d} url={s.url} />
+          ))}
+        </section>
       </>
     </GenericPost>
   );
