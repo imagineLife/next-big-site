@@ -1,3 +1,6 @@
+import React from 'react';
+import Card from './../../components/Card';
+import GenericPost from './../../components/GenericPost';
 import { getGlobalData, getNodeSections } from '../../utils';
 
 // import {
@@ -8,12 +11,30 @@ import { getGlobalData, getNodeSections } from '../../utils';
 // import GenericPost from '../../components/GenericPost';
 
 const NODE_VAR = 'node';
-export default function NodeIndex(props) {
-  console.log('props');
-  console.log(props);
+export default function NodeIndex({ globalData, sections }) {
+  console.log('sections');
+  console.log(sections);
 
-  return <div>node here</div>;
-  // return <GenericPost {...props} />;
+  // return <div>node here</div>;
+  return (
+    <GenericPost
+      {...{
+        title: 'Node ',
+        excerpt: 'JavaScript on a server',
+        slug: 'node',
+        tags: ['node'],
+        globalData: { name: 'Node' },
+        slugArr: ['node'],
+      }}
+    >
+      <>
+        <h1>Node</h1>
+        {sections?.map((s) => (
+          <Card key={s.t} title={s.t} subTitle={s.d} url={s.url} />
+        ))}
+      </>
+    </GenericPost>
+  );
 }
 
 export const getStaticProps = async ({ params, ...rest }) => {

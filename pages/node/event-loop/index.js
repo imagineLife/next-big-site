@@ -76,9 +76,15 @@ export default function NodeFsRoot() {
           [There are clear methods to unblocking the event
           loop](#some-tips-learned-along-the-way-to-keep-node-fast)
         </li>
-      </ul>{' '}
-      <h2>T.O.C</h2>- [The Event Loop](#the-event-loop) - [TL;DR](#tldr) -
-      [T.O.C](#toc) - [Node Parses Files (A
+      </ul>
+      <h2>T.O.C</h2>
+      <ul>
+        <li>[The Event Loop](#the-event-loop)</li>
+        <ul>
+          <li>[TL;DR](#tldr)</li>
+        </ul>
+      </ul>
+      - [T.O.C](#toc) - [Node Parses Files (A
       Precursor)](#node-parses-files-a-precursor) - [Everything Runs In The
       Event Loop](#everything-runs-in-the-event-loop) - [It Is a
       Queue](#it-is-a-queue) - [On Blocking The Event
