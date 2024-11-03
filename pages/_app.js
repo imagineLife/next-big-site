@@ -5,8 +5,8 @@ import 'prismjs/themes/prism-solarizedlight.min.css';
 import './../components/myLayout/index.scss';
 
 // import 'react-ipynb-renderer/dist/styles/default.css';
-import 'react-ipynb-renderer/dist/styles/dark.css';
-// require('prismjs/themes/prism-solarizedlight.min.css');
+// import 'react-ipynb-renderer/dist/styles/dark.css';
+require('prismjs/themes/prism-solarizedlight.min.css');
 //import "react-ipynb-renderer/dist/styles/darkbronco.css";
 // import "react-ipynb-renderer/dist/styles/dorkula.css";
 //import "react-ipynb-renderer/dist/styles/chesterish.css";

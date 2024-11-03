@@ -40,7 +40,6 @@ export default MongoBySlug;
 
 // runs server-side
 export const getStaticPaths = async (props) => {
-  // console.log('getStaticPaths props');
   // console.log(props);
   return {
     paths: nestedDirs.mongo.map((s) => s.replace(/\.md?$/, '')),

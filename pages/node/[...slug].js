@@ -1,9 +1,5 @@
 import { getGlobalData } from '../../utils/global-data';
-import {
-  //   getPrevNextPostBySlug,
-  getPostBySlug,
-  nodeMdPaths,
-} from '../../utils/mdx-utils';
+import { getPostBySlug, nodeMdPaths } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
 const NODE_VAR = 'node';
@@ -41,6 +37,8 @@ export const getStaticProps = async ({ params }) => {
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
+  console.log('pages/node/[...slug].js');
+
   console.log('getStaticPaths props');
   console.log(props);
   console.log('nodeMdPaths');

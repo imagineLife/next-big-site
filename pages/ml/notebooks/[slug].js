@@ -1,44 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { getGlobalData } from '../../../utils'; //nestedDirs, getNestedPost,
+import { getPosts, getGlobalData } from '../../../utils';
 import { IpynbRenderer } from 'react-ipynb-renderer';
-
 import Layout from '../../../components/Layout';
-// import Seo from '../../../components/Seo';
 import Header from '../../../components/Header';
 import BreadCrumbs from '../../../components/Breadcrumbs';
 const NotebookBySlug = (props) => {
   console.log('NotebookBySlug props');
   console.log(props);
   let [loadedNotebook, setLoadedNotebook] = useState(null);
+
   useEffect(() => {
-    async function loadNotebook() {
-      console.log(
-        '%c load notebook...',
-        'background-color: pink; color: black;'
-      );
-      console.log('props');
-      console.log(props);
-
-      // /public
-      const nb = await import(
-        `./../../../public/notebooks/${props.slug}.ipynb`
-      );
-      console.log('nb');
-      console.log(nb);
-
-      // setLoadedNotebook(`/notebooks/${props.slug}.ipynb`);
-    }
-
     if (!loadedNotebook) {
-      loadNotebook();
+      const fileToLoad = `/notebooks/${props.slug}.ipynb`;
+
+      fetch(fileToLoad)
+        .then(async (res) => {
+          let jsonRes = await res.json();
+          setLoadedNotebook(jsonRes);
+        })
+        .catch((e) => {
+          console.log('error fetching notebook');
+          console.log(e);
+        });
     }
   }, [loadedNotebook, props.slug]);
 
   if (!loadedNotebook) {
     return <>loading...</>;
   }
-  console.log('loadedNotebook');
-  console.log(loadedNotebook);
 
   return (
     <Layout>
@@ -49,10 +38,9 @@ const NotebookBySlug = (props) => {
         tags={tags}
       /> */}
       <Header name={props.globalData.name} />
-      <article className="px-6 md:px-0 mt-[80px]">
+      <article className="px-6 md:px-0 mt-[40px]">
         <BreadCrumbs slugs={props.slugArr} />
-        {/* <BreadCrumbs slugs={['ml']} /> */}
-        <main className="mx-auto">
+        <main className="mx-auto p-3">
           <IpynbRenderer ipynb={loadedNotebook} />
         </main>
       </article>
@@ -64,30 +52,24 @@ export default NotebookBySlug;
 
 // runs server-side
 export const getStaticPaths = async (props) => {
-  console.log('getStaticPaths props');
-  console.log(props);
+  // const notebookPaths = getNotebookPaths()
+  const posts = getPosts('notebooks');
+  console.log('notebooks [slug] getStaticPaths: posts');
+  console.log(posts);
+
   return {
-    paths: ['/ml/notebooks/TopPages'],
-    fallback: false,
+    paths: posts.map((p) => `/ml/notebooks/${p}`),
+    fallback: 'blocking',
   };
-  // return {
-  //   paths: nestedDirs.mongo.map((s) => s.replace(/\.md?$/, '')),
-  //   fallback: false,
-  // };
 };
 
 export async function getStaticProps(props) {
-  console.log('getStaticProps props');
-  console.log(props);
-
   const globalData = getGlobalData();
   return {
     props: {
       globalData,
       slug: props.params.slug,
-      // source: mdxSource,
-      // frontMatter: data,
-      slugArr: ['notebooks', props.params.slug],
+      slugArr: ['ml', 'notebooks', props.params.slug],
     },
   };
 }
