@@ -32,6 +32,7 @@ export const notebooks_path = join(public_dir, 'notebooks');
 export const scrum_path = join(pages_dir, 'scrum');
 export const tf_path = join(pages_dir, 'tf');
 export const node_path = join(pages_dir, 'node');
+export const node_md_paths = join(cwd, 'markdown', 'node');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
@@ -46,7 +47,7 @@ export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 // export const nodeMdPaths = readdirSync(node_path).filter(onlyMdxFile);
-let nodeDirsToParse = [node_path];
+let nodeDirsToParse = [node_path, node_md_paths];
 let nodeFilesToParse = [];
 let nodeMdPaths = [];
 function withParentDirPath(parentDirPath) {
@@ -322,7 +323,13 @@ export function getNodeSections() {
     d: 'Storing temporary data',
     url: '/node/buffers',
   };
-  const nodeSections = [nodeFs, nodeBuffers];
+
+  const nodeChildProcesses = {
+    t: 'Child Processes',
+    d: 'spawning, etc.',
+    url: '/node/child-processes',
+  };
+  const nodeSections = [nodeFs, nodeBuffers, nodeChildProcesses];
 
   // const mdxSource = await serialize(content, {
   // Optionally pass remark/rehype plugins
