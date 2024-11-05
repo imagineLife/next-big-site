@@ -90,7 +90,6 @@ export default function NodeFsRoot() {
         <code>
           require(&apos;./nested&apos;); <br />
           console.log(&apos;root index file&apos;); <br />
-          // also log __filename && __dirname
         </code>
       </pre>
 
@@ -100,7 +99,6 @@ export default function NodeFsRoot() {
       <pre>
         <code>
           console.log(&apos;nested index file&apos;); <br />
-          // also log __filename && __dirname
         </code>
       </pre>
       <p>

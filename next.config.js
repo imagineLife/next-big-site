@@ -3,12 +3,14 @@
 
 const createMDX = require('@next/mdx');
 const remarkPrism = require('remark-prism');
+
 // txt file
 const textLoader = {
   test: /\.txt/,
   type: 'asset/source',
 };
 
+// md[x] files
 const mdLoader = {
   test: /\.md/,
   use: [
@@ -37,13 +39,11 @@ const nextConfig = {
       },
     ],
   },
-  // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 };
 
 // Add markdown plugins here, as desired
 const withMDX = createMDX({
-  // Add markdown plugins here, as desired
   options: {
     remarkPlugins: [remarkPrism],
     // rehypePlugins: [],
