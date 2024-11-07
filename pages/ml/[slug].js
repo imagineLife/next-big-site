@@ -25,10 +25,14 @@ export default function DockerBySlug({
     tags: frontMatter.tags,
   };
 
+  console.log('ML/[slug] props');
+  console.log(props);
+
   return <GenericPost {...props} />;
 }
 
 export const getStaticProps = async ({ params, ...rest }) => {
+  console.log('pages/ml/[slug] getStaticProps');
   const globalData = getGlobalData();
   const { mdxSource, data } = await getPostBySlug(params.slug, 'ml');
 
@@ -49,11 +53,16 @@ export const getStaticProps = async ({ params, ...rest }) => {
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
+  console.log('pages/ml/[slug] getStaticPaths');
+
   const paths = mlMdPaths
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
     .map((slug) => ({ params: { slug } }));
+
+  console.log('paths');
+  console.log(paths);
 
   return {
     paths,
