@@ -5,8 +5,6 @@ import Layout from '../../../components/Layout';
 import Header from '../../../components/Header';
 import BreadCrumbs from '../../../components/Breadcrumbs';
 const NotebookBySlug = (props) => {
-  console.log('NotebookBySlug props');
-  console.log(props);
   let [loadedNotebook, setLoadedNotebook] = useState(null);
 
   useEffect(() => {

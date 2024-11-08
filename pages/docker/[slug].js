@@ -33,15 +33,10 @@ export const getStaticProps = async ({ params, ...rest }) => {
   const { title, slug, author, excerpt, tags, contentHtml } =
     await getMdBySlugs(`docker/${params.slug}`);
 
-  // const prevPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'prev');
-  // const nextPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'next');
-
   return {
     props: {
       globalData,
       frontMatter: { title, slug, author, excerpt, tags },
-      // nextPost,
-      // prevPost,
       slugArr: ['docker', params.slug],
       source: contentHtml,
     },
@@ -50,6 +45,9 @@ export const getStaticProps = async ({ params, ...rest }) => {
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
+  console.log('dockerMdPaths');
+  console.log(dockerMdPaths);
+
   return {
     paths: dockerMdPaths,
     fallback: false,

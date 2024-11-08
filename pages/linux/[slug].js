@@ -1,8 +1,8 @@
 import { getGlobalData } from '../../utils/global-data';
-import { getMdBySlugs, mlMdPaths } from '../../utils/mdx-utils';
+import { linuxMdPaths, getMdBySlugs } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
-export default function DockerBySlug({
+export default function LinuxBySlug({
   frontMatter,
   globalData,
   prevPost,
@@ -23,33 +23,25 @@ export default function DockerBySlug({
   );
 }
 
-export const getStaticProps = async ({ params, ...rest }) => {
+export const getStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
   const { title, slug, author, excerpt, tags, contentHtml } =
-    await getMdBySlugs(`ml/${params.slug}`);
+    await getMdBySlugs(`linux/${params.slug}`);
 
   return {
     props: {
       globalData,
-      source: contentHtml,
       frontMatter: { title, slug, author, excerpt, tags },
-      slugArr: ['ml', params.slug],
+      slugArr: ['linux', params.slug],
+      source: contentHtml,
     },
   };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  console.log('pages/ml/[slug] getStaticPaths');
-
-  const paths = mlMdPaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
   return {
-    paths,
+    paths: linuxMdPaths,
     fallback: false,
   };
 };

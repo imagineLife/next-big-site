@@ -1,12 +1,21 @@
-<!-- ---
+---
 title: 'Image Object Detection: Part I'
 parentDir: ml
 slug: ml/image-object-detection-I
 author: Jake Laursen
 excerpt: Goals of an Image object-detection app
-tags: ['machine learning', 'models', 'overview', 'ai', 'js', 'javascript', 'tensorflow']
+tags:
+  [
+    'machine learning',
+    'models',
+    'overview',
+    'ai',
+    'js',
+    'javascript',
+    'tensorflow',
+  ]
 order: 1
---- -->
+---
 
 # Building An Object Image Detector
 

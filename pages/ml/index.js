@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPosts, getGlobalData } from '../../utils';
+import { getMdPostSummaries, getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
 import PostLink from '../../components/PostLink';
@@ -11,6 +11,9 @@ import PostLink from '../../components/PostLink';
   order: { gt: 0 }
 */
 const MlIndex = ({ posts }) => {
+  console.log('posts');
+  console.log(posts);
+
   return (
     <>
       <Hero />
@@ -21,10 +24,7 @@ const MlIndex = ({ posts }) => {
         </section>
         <section>
           {posts?.map((p) => (
-            <PostLink
-              key={`machine-learning-toc-post-${p.title}`}
-              {...p.frontmatter}
-            />
+            <PostLink key={`machine-learning-toc-post-${p.title}`} {...p} />
           ))}
         </section>
       </Layout>
@@ -34,8 +34,11 @@ const MlIndex = ({ posts }) => {
 
 export default MlIndex;
 
-export function getStaticProps() {
-  const posts = getPosts('ml');
+export async function getStaticProps() {
+  const posts = await getMdPostSummaries('ml');
+  console.log('posts');
+  console.log(posts);
+
   const globalData = getGlobalData();
   // globalData
   return { props: { posts, globalData } };

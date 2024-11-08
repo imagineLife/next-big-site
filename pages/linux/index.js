@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import BreadCrumbs from '../../components/Breadcrumbs';
 import PostLink from '../../components/PostLink';
 
-import { getPosts, getGlobalData } from '../../utils';
+import { getMdPostSummaries, getGlobalData } from '../../utils';
 
 const LinuxIndex = (params) => {
   return (
@@ -19,10 +19,7 @@ const LinuxIndex = (params) => {
         <BreadCrumbs slugs={['linux']} />
         <h1>Linux & Bash</h1>
         {params?.posts?.map((itm) => (
-          <PostLink
-            {...itm.frontmatter}
-            key={`linux-post-${itm.frontmatter.title}`}
-          />
+          <PostLink {...itm} key={`linux-post-${itm.title}`} />
         ))}
       </section>
     </Layout>
@@ -31,8 +28,8 @@ const LinuxIndex = (params) => {
 
 export default LinuxIndex;
 
-export function getStaticProps(p) {
-  const posts = getPosts('linux');
+export async function getStaticProps(p) {
+  const posts = await getMdPostSummaries('linux');
   const globalData = getGlobalData();
   // globalData
   return { props: { posts, globalData } };

@@ -30,8 +30,6 @@ const PostLink = ({ slug, title, excerpt }) => (
   order: { gt: 0 }
 */
 const MongoIndex = (props) => {
-  console.log('mongoIndex props');
-  console.log(props);
   const sections = [
     {
       title: 'Data Modeling',
