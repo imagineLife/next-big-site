@@ -26,17 +26,17 @@ const public_dir = join(cwd, 'public');
 
 // directories in /public/<dir-here>
 export const docker_path = join(pages_dir, 'docker');
-export const ml_path = join(pages_dir, 'ml');
 export const linux_path = join(pages_dir, 'linux');
 export const mongo_path = join(pages_dir, 'mongo');
 export const nginx_path = join(pages_dir, 'nginx');
 export const notebooks_path = join(public_dir, 'notebooks');
 export const scrum_path = join(pages_dir, 'scrum');
-export const tf_path = join(pages_dir, 'tf');
 export const node_path = join(pages_dir, 'node');
 export const mdDir = join(cwd, 'markdown');
 export const dockerMdPath = join(mdDir, 'docker');
+export const linuxMdPath = join(mdDir, 'linux');
 export const node_md_paths = join(mdDir, 'node');
+export const mlMdPath = join(mdDir, 'ml');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
@@ -73,10 +73,19 @@ function onlyNbFiles(s) {
 }
 // postsFiles is the list of all mdx files inside the posts_path directory
 export const dockerMdPaths = readdirSync(dockerMdPath)
+  .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
   .map((s) => `/docker/${s}`);
-export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
-export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
+export const linuxMdPaths = readdirSync(linuxMdPath)
+  .filter((s) => s.includes('.md'))
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/linux/${s}`);
+
+export const mlMdPaths = readdirSync(mlMdPath)
+  .filter((s) => s.includes('.md'))
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/ml/${s}`);
+
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 // export const nodeMdPaths = readdirSync(node_path).filter(onlyMdxFile);
 let nodeDirsToParse = [node_path, node_md_paths];
@@ -167,7 +176,6 @@ export const mongoSections = readdirSync(mongo_path, {
   .map((d) => d.name);
 export const nginxMdPaths = readdirSync(nginx_path).filter(onlyMdxFile);
 export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
-export const tfMdPaths = readdirSync(tf_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
 // ml-ui is "hand-written" in the frontend
@@ -185,11 +193,9 @@ blogSections = blogSections
 
 const filePaths = {
   docker: dockerMdPaths,
-  ml: mlMdPaths,
   linux: linuxMdPaths,
   nginx: nginxMdPaths,
   scrum: scrumMdPaths,
-  tf: tfMdPaths,
   node: nodeMdPaths,
   notebooks: notebookPaths,
   // 'mongo-aggregations': mongoAggMdPaths,
@@ -197,13 +203,11 @@ const filePaths = {
 const dirPaths = {
   docker: docker_path,
   node: node_path,
-  ml: ml_path,
   linux: linux_path,
   mongo: mongo_path,
   node: node_path,
   nginx: nginx_path,
   scrum: scrum_path,
-  tf: tf_path,
   // 'mongo-aggregations': mongo_agg_path,
 };
 
@@ -243,6 +247,19 @@ export const getPosts = (pathDir) => {
   posts = sortPostsByDate(posts);
 
   return posts;
+};
+
+export const getMdPostSummaries = async (pathDir) => {
+  const mdPaths = readdirSync(join(mdDir, pathDir))
+    .filter((s) => s.includes('.md'))
+    .map((s) => s.replace(/\.md$/, ''))
+    .map((s) => `/${pathDir}/${s}`);
+
+  const nextStep = await Promise.all(
+    mdPaths.map((p) => getMdBySlugs(p.substring(1)))
+  );
+
+  return nextStep.map(({ slug, title, excerpt }) => ({ slug, title, excerpt }));
 };
 
 function filenameFromSlugAndSection(slug, section, useMDX) {
