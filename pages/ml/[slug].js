@@ -39,17 +39,8 @@ export const getStaticProps = async ({ params, ...rest }) => {
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
-export const getStaticPaths = async (props) => {
-  console.log('pages/ml/[slug] getStaticPaths');
-
-  const paths = mlMdPaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
+// props
+export const getStaticPaths = async () => ({
+  paths: mlMdPaths,
+  fallback: false,
+});

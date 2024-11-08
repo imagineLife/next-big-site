@@ -1,22 +1,16 @@
 import React, { Fragment } from 'react';
-import { getPosts, getGlobalData } from '../../utils';
+import { getMdPostSummaries, getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
 import PostLink from '../../components/PostLink';
 
-/*
-  before filter
-
-  re-introduce in frontmatter when done-zo
-  order: { gt: 0 }
-*/
 const DockerIndex = (params) => {
   const myPages = {
     intro: [],
     node: [],
   };
   params.posts.forEach((p) => {
-    if (p.frontmatter.slug.includes('node-')) {
+    if (p.slug.includes('node-')) {
       myPages.node.push(p);
     } else {
       myPages.intro.push(p);
@@ -36,17 +30,11 @@ const DockerIndex = (params) => {
             Getting Started
           </h2>
           {myPages.intro.map((itm) => (
-            <PostLink
-              {...itm.frontmatter}
-              key={`docker-node-${itm.frontmatter.title}`}
-            />
+            <PostLink {...itm} key={`docker-node-${itm.title}`} />
           ))}
           <h2 id="docker-node-intro">Docker With Node: An Intro</h2>
           {myPages.node.map((itm) => (
-            <PostLink
-              {...itm.frontmatter}
-              key={`docker-node-${itm.frontmatter.title}`}
-            />
+            <PostLink {...itm} key={`docker-node-${itm.title}`} />
           ))}
         </section>
       </Layout>
@@ -56,8 +44,8 @@ const DockerIndex = (params) => {
 
 export default DockerIndex;
 
-export function getStaticProps() {
-  const posts = getPosts('docker');
+export async function getStaticProps() {
+  const posts = await getMdPostSummaries('docker');
   const globalData = getGlobalData();
   // globalData
   return { props: { posts, globalData } };

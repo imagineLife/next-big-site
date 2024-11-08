@@ -4,9 +4,7 @@ import ArrowIcon from './../ArrowIcon';
 // date,
 const PostLink = ({ slug, title, excerpt }) => {
   const slugStarter = slug.split('/')[0];
-  // const myHref = `/${slugStarter}/notebooks/[slug]`;
   const myHref = `/${slug}`;
-  console.log({ PostLink: true, slug, title, slugStarter, myHref });
   return (
     <li
       key={slug}
