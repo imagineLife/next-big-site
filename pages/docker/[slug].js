@@ -1,8 +1,8 @@
 import { getGlobalData } from '../../utils/global-data';
 import {
-  getPrevNextPostBySlug,
-  getPostBySlug,
+  // getPrevNextPostBySlug,
   dockerMdPaths,
+  getMdBySlugs,
 } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
@@ -18,44 +18,40 @@ export default function DockerBySlug({
 }) {
   let props = {
     globalData,
-    prevPost,
-    nextPost,
     slugArr,
-    source,
     ...frontMatter,
   };
-  return <GenericPost {...props} />;
+  return (
+    <GenericPost {...props}>
+      <div dangerouslySetInnerHTML={{ __html: source }} />
+    </GenericPost>
+  );
 }
 
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, DOCKER_VAR);
+  const { title, slug, author, excerpt, tags, contentHtml } =
+    await getMdBySlugs(`docker/${params.slug}`);
 
-  const prevPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'prev');
-  const nextPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'next');
+  // const prevPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'prev');
+  // const nextPost = getPrevNextPostBySlug(params.slug, DOCKER_VAR, 'next');
 
   return {
     props: {
       globalData,
-      frontMatter: data,
-      nextPost,
-      prevPost,
-      slugArr: [DOCKER_VAR, params.slug],
-      source: mdxSource,
+      frontMatter: { title, slug, author, excerpt, tags },
+      // nextPost,
+      // prevPost,
+      slugArr: ['docker', params.slug],
+      source: contentHtml,
     },
   };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  const paths = dockerMdPaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.md?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
   return {
-    paths,
+    paths: dockerMdPaths,
     fallback: false,
   };
 };

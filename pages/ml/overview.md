@@ -1,13 +1,3 @@
----
-title: 'Machine Learning: An Overview'
-parentDir: ml
-slug: ml/overview
-author: Jake Laursen
-excerpt: Common Terms & System Workflows
-tags: ['machine learning', 'models', 'overview', 'ai']
-order: 1
----
-
 ## Machine Learning
 
 - [Machine Learning](#machine-learning)
@@ -28,7 +18,7 @@ order: 1
 
 **Labels**: A description, typically one-word, given to each piece of data that is fed to the model. Photos might be labeled "dog", "cat", "Joe", "GarbageTruck", etc.
 
-**Deep Learning**: a "sub-category" of Machine learning, more specifically leveraging neural networks (containing layers etc). Deep learning is used for things like recommendation FileSystemWritableFileStream, sequence-to-sequence (translations, speech recognition), computer vision (detecting objects in images), and classification/regression ( spam-or-not, applying "outlines" to objects in images). 
+**Deep Learning**: a "sub-category" of Machine learning, more specifically leveraging neural networks (containing layers etc). Deep learning is used for things like recommendation FileSystemWritableFileStream, sequence-to-sequence (translations, speech recognition), computer vision (detecting objects in images), and classification/regression ( spam-or-not, applying "outlines" to objects in images).
 
 **Machine Learning Algorithms**: Specific computation types to the machine-learning world: CNN (convolutional neural-networks), Naive Bayse, LSTM (Long Short Term Memory), and more.
 
@@ -82,3 +72,13 @@ Convert the tensor data into a model:
 - [build some layers](https://js.tensorflow.org/api/latest/?_gl=1*3wlan3*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxMzcxMzk4OC4yNC4xLjE3MTM3MTM5ODguMC4wLjA.#Layers) for the model to use
 - use an [optimizer](https://js.tensorflow.org/api/latest/?_gl=1*3wlan3*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxMzcxMzk4OC4yNC4xLjE3MTM3MTM5ODguMC4wLjA.#Training-Optimizers) to update weights & biases throughout the model training
 - [compile](https://js.tensorflow.org/api/latest/?_gl=1*3wlan3*_ga*MjE0MTk0MTMyOC4xNzEwNjE4Njcy*_ga_W0YLR4190T*MTcxMzcxMzk4OC4yNC4xLjE3MTM3MTM5ODguMC4wLjA.#tf.LayersModel.compile) the model with the optimizer, a loss function, and some metrics to be evaluated by the model
+
+<!-- ---
+title: 'Machine Learning: An Overview'
+parentDir: ml
+slug: ml/overview
+author: Jake Laursen
+excerpt: Common Terms & System Workflows
+tags: ['machine learning', 'models', 'overview', 'ai']
+order: 1
+--- -->

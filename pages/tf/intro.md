@@ -1,22 +1,3 @@
----
-title: 'Tensorflow: an intro'
-parentDir: tf
-slug: tf/intro
-author: Jake Laursen
-excerpt: What is it?!
-tags:
-  [
-    'machine learning',
-    'models',
-    'overview',
-    'ai',
-    'js',
-    'javascript',
-    'tensorflow',
-  ]
-order: 1
----
-
 # Tensorflow
 a library. Most commpnly written in python, but also available in several js libraries.  
 - able to run on CPU and/or a GPU
@@ -61,3 +42,23 @@ Tensors have [types](https://www.tensorflow.org/api_docs/python/tf/dtypes) based
 
 ## Sidenote - Colab: A Helpful Tool
 [Colab](colab.research.google.com) is an online platform that runs [jupyter notebooks](https://jupyter.org/): a nice way to tinker with some notebooks!
+
+
+{/* ---
+title: 'Tensorflow: an intro'
+parentDir: tf
+slug: tf/intro
+author: Jake Laursen
+excerpt: What is it?!
+tags:
+  [
+    'machine learning',
+    'models',
+    'overview',
+    'ai',
+    'js',
+    'javascript',
+    'tensorflow',
+  ]
+order: 1
+--- */}
