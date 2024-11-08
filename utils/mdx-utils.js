@@ -6,6 +6,8 @@ import rehypePrism from '@mapbox/rehype-prism';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkPrism from 'remark-prism';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 //
 // RUN-TIME functionalities
@@ -32,17 +34,47 @@ export const notebooks_path = join(public_dir, 'notebooks');
 export const scrum_path = join(pages_dir, 'scrum');
 export const tf_path = join(pages_dir, 'tf');
 export const node_path = join(pages_dir, 'node');
-export const node_md_paths = join(cwd, 'markdown', 'node');
+export const mdDir = join(cwd, 'markdown');
+export const dockerMdPath = join(mdDir, 'docker');
+export const node_md_paths = join(mdDir, 'node');
 
 function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
+}
+
+async function getFileWithNode(slugString) {
+  const [dir, fileName] = slugString.split('/');
+  const fullFilePath = join(mdDir, dir, `${fileName}.md`);
+
+  const fileContents = readFileSync(fullFilePath, 'utf8');
+  return fileContents;
+}
+
+export async function getMdBySlugs(slugString) {
+  const fileContents = await getFileWithNode(slugString);
+  const matterResult = matter(fileContents);
+
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
+
+  const slugBySection = slugString.split('/');
+  // Combine the data with the id and contentHtml
+  return {
+    id: slugBySection[slugBySection.length - 1],
+    contentHtml,
+    ...matterResult.data,
+  };
 }
 
 function onlyNbFiles(s) {
   return /\.ipynb?$/.test(s);
 }
 // postsFiles is the list of all mdx files inside the posts_path directory
-export const dockerMdPaths = readdirSync(docker_path).filter(onlyMdxFile);
+export const dockerMdPaths = readdirSync(dockerMdPath)
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/docker/${s}`);
 export const mlMdPaths = readdirSync(ml_path).filter(onlyMdxFile);
 export const linuxMdPaths = readdirSync(linux_path).filter(onlyMdxFile);
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
@@ -304,15 +336,6 @@ export function getNestedSections(section) {
 
 // async
 export function getNodeSections() {
-  // const nodeSections = readdirSync(node_path, { withFileTypes: true })
-  //   .filter((f) => f.isDirectory())
-  //   .map((s) => {
-  //     const overviewFile = join(node_path, s.name, 'overview.');
-  //     const fileContent = readFileSync(overviewFile);
-  //     const { data } = matter(fileContent);
-  //     return { ...data };
-  //   });
-  // {t: title, d: description}
   const nodeFs = {
     t: 'FileSystem',
     d: "Interact with the machine's files & directories: read, write, update, & delete.",
@@ -330,16 +353,6 @@ export function getNodeSections() {
     url: '/node/child-processes',
   };
   const nodeSections = [nodeFs, nodeBuffers, nodeChildProcesses];
-
-  // const mdxSource = await serialize(content, {
-  // Optionally pass remark/rehype plugins
-  //   mdxOptions: {
-  //     remarkPlugins: [remarkGfm],
-  //     rehypePlugins: [rehypePrism, rehypeSlug],
-  //   },
-  //   scope: data,
-  // });
-  // return { mdxSource, data }
 
   return nodeSections;
 }
