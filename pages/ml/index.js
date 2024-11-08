@@ -4,16 +4,7 @@ import Layout from './../../components/Layout';
 import Hero from './../../components/hero';
 import PostLink from '../../components/PostLink';
 
-/*
-  before filter
-
-  re-introduce in frontmatter when done-zo
-  order: { gt: 0 }
-*/
 const MlIndex = ({ posts }) => {
-  console.log('posts');
-  console.log(posts);
-
   return (
     <>
       <Hero />
@@ -36,10 +27,6 @@ export default MlIndex;
 
 export async function getStaticProps() {
   const posts = await getMdPostSummaries('ml');
-  console.log('posts');
-  console.log(posts);
-
   const globalData = getGlobalData();
-  // globalData
   return { props: { posts, globalData } };
 }
