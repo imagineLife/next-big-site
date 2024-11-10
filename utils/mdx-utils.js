@@ -34,6 +34,7 @@ export const scrum_path = join(pages_dir, 'scrum');
 export const node_path = join(pages_dir, 'node');
 export const mdDir = join(cwd, 'markdown');
 export const dockerMdPath = join(mdDir, 'docker');
+export const k8sMdPath = join(mdDir, 'k8s');
 export const linuxMdPath = join(mdDir, 'linux');
 export const node_md_paths = join(mdDir, 'node');
 export const mlMdPath = join(mdDir, 'ml');
@@ -80,11 +81,21 @@ export const linuxMdPaths = readdirSync(linuxMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
   .map((s) => `/linux/${s}`);
-
 export const mlMdPaths = readdirSync(mlMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
   .map((s) => `/ml/${s}`);
+
+export const k8sMdPaths = readdirSync(k8sMdPath)
+  .filter((s) => s.includes('.md'))
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/k8s/${s}`);
+
+export const mdPathsFromDirRoot = (rootStr) =>
+  readdirSync(join(mdDir, rootStr))
+    .filter((s) => s.includes('.md'))
+    .map((s) => s.replace(/\.md$/, ''))
+    .map((s) => `/${rootStr}/${s}`);
 
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 // export const nodeMdPaths = readdirSync(node_path).filter(onlyMdxFile);
