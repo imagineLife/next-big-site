@@ -40,7 +40,6 @@ export default MongoBySlug;
 
 // runs server-side
 export const getStaticPaths = async (props) => {
-  // console.log(props);
   return {
     paths: nestedDirs.mongo.map((s) => s.replace(/\.md?$/, '')),
     fallback: false,
@@ -48,9 +47,6 @@ export const getStaticPaths = async (props) => {
 };
 
 export async function getStaticProps(props) {
-  console.log('getStaticProps props');
-  console.log(props);
-
   const { mdxSource, data } = await getNestedPost(
     ['mongo', ...props.params.slug],
     '.md'
