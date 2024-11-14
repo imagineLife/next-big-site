@@ -1,5 +1,5 @@
 ---
-title: Layer-4 Proxy Use-Cases
+title: Use-Cases for NGINX as a Layer-4 Proxy
 parentDir: /nginx
 slug: nginx/layer-4-proxy
 author: Jake Laursen
