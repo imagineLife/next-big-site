@@ -1,5 +1,5 @@
 ---
-title: Layer-7 Proxy Use-Cases
+title: Use-Cases for NGINX as a Layer-7 Proxy
 parentDir: /nginx
 slug: nginx/layer-7-proxy
 author: Jake Laursen

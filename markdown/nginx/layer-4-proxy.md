@@ -13,7 +13,8 @@ order: 5
 
 Layer 7 has application awareness - paths, etc.
 Layer 4 only has networking and application port awareness.  
-nginx as a Layer 4 proxy is more like a "sticky session" than layer 7 - this will (_likely_) persist a request from a browser client to the same instance of a backend instance.
+nginx as a Layer 4 proxy is more like a "sticky session" than layer 7 - this will (_likely_) persist a request from a browser client to the same instance of a backend instance.  
+Layer 4 proxies can be used to route traffic on a server from an incoming client (browser) to a backend server based on something like the client's IP address.
 
 ## Setup an Nginx Config File
 

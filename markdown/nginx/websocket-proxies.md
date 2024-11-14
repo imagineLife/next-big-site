@@ -1,5 +1,5 @@
 ---
-title: A Websocket Proxy
+title: Learn how to make a websocket proxy with nginx
 parentDir: /nginx
 slug: nginx/websocket-proxies
 author: Jake Laursen

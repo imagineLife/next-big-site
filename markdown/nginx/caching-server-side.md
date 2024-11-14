@@ -1,5 +1,5 @@
 ---
-title: Caching On The Server-Side
+title: Learn Caching On The Server-Side with Nginx
 parentDir: /nginx
 slug: nginx/caching-server-side
 author: Jake Laursen
