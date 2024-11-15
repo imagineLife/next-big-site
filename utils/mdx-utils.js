@@ -36,6 +36,7 @@ export const mdDir = join(cwd, 'markdown');
 export const dockerMdPath = join(mdDir, 'docker');
 export const k8sMdPath = join(mdDir, 'k8s');
 export const linuxMdPath = join(mdDir, 'linux');
+export const nginxMdPath = join(mdDir, 'nginx');
 export const node_md_paths = join(mdDir, 'node');
 export const mlMdPath = join(mdDir, 'ml');
 
@@ -43,16 +44,18 @@ function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
 }
 
-async function getFileWithNode(slugString) {
-  const [dir, fileName] = slugString.split('/');
+async function getFileWithNode(fileSlugString) {
+  const splitPathArr = fileSlugString.split('/');
+  const fileName = splitPathArr.pop();
+  const dir = splitPathArr.join('/');
   const fullFilePath = join(mdDir, dir, `${fileName}.md`);
 
   const fileContents = readFileSync(fullFilePath, 'utf8');
   return fileContents;
 }
 
-export async function getMdBySlugs(slugString) {
-  const fileContents = await getFileWithNode(slugString);
+export async function getMdBySlugs(mdSlugString) {
+  const fileContents = await getFileWithNode(mdSlugString);
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()
@@ -60,7 +63,7 @@ export async function getMdBySlugs(slugString) {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
-  const slugBySection = slugString.split('/');
+  const slugBySection = mdSlugString.split('/');
   // Combine the data with the id and contentHtml
   return {
     id: slugBySection[slugBySection.length - 1],
@@ -81,6 +84,10 @@ export const linuxMdPaths = readdirSync(linuxMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
   .map((s) => `/linux/${s}`);
+export const nginxMdPaths = readdirSync(nginxMdPath)
+  .filter((s) => s.includes('.md'))
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/nginx/${s}`);
 export const mlMdPaths = readdirSync(mlMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
@@ -185,7 +192,6 @@ export const mongoSections = readdirSync(mongo_path, {
 })
   .filter((s) => s.isDirectory())
   .map((d) => d.name);
-export const nginxMdPaths = readdirSync(nginx_path).filter(onlyMdxFile);
 export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
@@ -260,17 +266,47 @@ export const getPosts = (pathDir) => {
   return posts;
 };
 
-export const getMdPostSummaries = async (pathDir) => {
-  const mdPaths = readdirSync(join(mdDir, pathDir))
-    .filter((s) => s.includes('.md'))
-    .map((s) => s.replace(/\.md$/, ''))
-    .map((s) => `/${pathDir}/${s}`);
+// returns list like ['/k8s/architecture-overview']
+export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
+  let mdPaths = readdirSync(join(mdDir, pathDir), { withFileTypes: true });
+  let nestedDirMdSummaries;
+  if (!includeNestedDirs) {
+    mdPaths = mdPaths
+      .map((d) => d.name)
+      .filter((s) => s.includes('.md'))
+      .map((s) => s.replace(/\.md$/, ''))
+      .map((s) => `/${pathDir}/${s}`);
+  } else {
+    const nestedDirPaths = mdPaths
+      .filter((d) => d.isDirectory())
+      .map((d) => `${pathDir}/${d.name}`);
+
+    [nestedDirMdSummaries] = await Promise.all(
+      nestedDirPaths.map(getMdPostSummaries)
+    );
+    mdPaths = mdPaths
+      .map((d) => d.name)
+      .filter((s) => s.includes('.md'))
+      .map((s) => s.replace(/\.md$/, ''))
+      .map((s) => `/${pathDir}/${s}`);
+  }
 
   const nextStep = await Promise.all(
     mdPaths.map((p) => getMdBySlugs(p.substring(1)))
   );
 
-  return nextStep.map(({ slug, title, excerpt }) => ({ slug, title, excerpt }));
+  let returning = [];
+  if (nestedDirMdSummaries) {
+    returning = returning.concat(nestedDirMdSummaries);
+  }
+
+  return returning.concat(
+    nextStep.map(({ slug, title, excerpt }) => ({
+      slug,
+      title,
+      excerpt,
+    }))
+  );
 };
 
 function filenameFromSlugAndSection(slug, section, useMDX) {

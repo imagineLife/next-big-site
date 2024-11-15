@@ -8,6 +8,9 @@ const KubeIndex = (params) => {
   let rootPages = [];
   let inDepthPages = [];
 
+  console.log('params.posts');
+  console.log(params.posts);
+
   // categorize into "Getting Started" and "In-Depth"
   params.posts.forEach((p, pidx) => {
     if (!p.slug.includes('in-depth')) {
@@ -38,7 +41,7 @@ const KubeIndex = (params) => {
 export default KubeIndex;
 
 export async function getStaticProps() {
-  const posts = await getMdPostSummaries('k8s');
+  const posts = await getMdPostSummaries('k8s', true);
   const globalData = getGlobalData();
   // globalData
   return { props: { posts, globalData } };

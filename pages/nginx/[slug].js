@@ -1,13 +1,8 @@
 import { getGlobalData } from '../../utils/global-data';
-import {
-  getPrevNextPostBySlug,
-  getPostBySlug,
-  nginxMdPaths,
-} from '../../utils/mdx-utils';
+import { nginxMdPaths, getMdBySlugs } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
-const NX_VAR = 'nginx';
-export default function NginxBySlug({
+export default function LinuxBySlug({
   frontMatter,
   globalData,
   prevPost,
@@ -18,44 +13,35 @@ export default function NginxBySlug({
 }) {
   let props = {
     globalData,
-    prevPost,
-    nextPost,
     slugArr,
-    source,
     ...frontMatter,
   };
-  return <GenericPost {...props} />;
+  return (
+    <GenericPost {...props}>
+      <div dangerouslySetInnerHTML={{ __html: source }} />
+    </GenericPost>
+  );
 }
 
-export const getStaticProps = async ({ params, ...rest }) => {
+export const getStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, NX_VAR);
-
-  const prevPost = getPrevNextPostBySlug(params.slug, NX_VAR, 'prev');
-  const nextPost = getPrevNextPostBySlug(params.slug, NX_VAR, 'next');
+  const { title, slug, author, excerpt, tags, contentHtml } =
+    await getMdBySlugs(`nginx/${params.slug}`);
 
   return {
     props: {
       globalData,
-      source: mdxSource,
-      frontMatter: data,
-      prevPost,
-      nextPost,
-      slugArr: [NX_VAR, params.slug],
+      frontMatter: { title, slug, author, excerpt, tags },
+      slugArr: ['nginx', params.slug],
+      source: contentHtml,
     },
   };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  const paths = nginxMdPaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.md?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
   return {
-    paths,
+    paths: nginxMdPaths,
     fallback: false,
   };
 };
