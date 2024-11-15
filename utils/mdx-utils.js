@@ -37,6 +37,7 @@ export const dockerMdPath = join(mdDir, 'docker');
 export const k8sMdPath = join(mdDir, 'k8s');
 export const linuxMdPath = join(mdDir, 'linux');
 export const nginxMdPath = join(mdDir, 'nginx');
+export const scrumMdPath = join(mdDir, 'scrum');
 export const node_md_paths = join(mdDir, 'node');
 export const mlMdPath = join(mdDir, 'ml');
 
@@ -88,6 +89,10 @@ export const nginxMdPaths = readdirSync(nginxMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
   .map((s) => `/nginx/${s}`);
+export const scrumMdPaths = readdirSync(scrumMdPath)
+  .filter((s) => s.includes('.md'))
+  .map((s) => s.replace(/\.md$/, ''))
+  .map((s) => `/scrum/${s}`);
 export const mlMdPaths = readdirSync(mlMdPath)
   .filter((s) => s.includes('.md'))
   .map((s) => s.replace(/\.md$/, ''))
@@ -192,7 +197,6 @@ export const mongoSections = readdirSync(mongo_path, {
 })
   .filter((s) => s.isDirectory())
   .map((d) => d.name);
-export const scrumMdPaths = readdirSync(scrum_path).filter(onlyMdxFile);
 
 // SKIPPING THESE SECTIONS in index.js
 // ml-ui is "hand-written" in the frontend

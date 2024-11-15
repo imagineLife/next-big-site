@@ -1,14 +1,8 @@
 import { getGlobalData } from '../../utils/global-data';
-import {
-  getPrevNextPostBySlug,
-  getPostBySlug,
-  scrumMdPaths,
-} from '../../utils/mdx-utils';
+import { getMdBySlugs, scrumMdPaths } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
-const SCRUM_VAR = 'scrum';
-
-export default function LinuxBySlug({
+export default function ScrumBySlug({
   frontMatter,
   globalData,
   prevPost,
@@ -19,44 +13,35 @@ export default function LinuxBySlug({
 }) {
   let props = {
     globalData,
-    prevPost,
-    nextPost,
     slugArr,
-    source,
     ...frontMatter,
   };
-  return <GenericPost {...props} />;
+  return (
+    <GenericPost {...props}>
+      <div dangerouslySetInnerHTML={{ __html: source }} />
+    </GenericPost>
+  );
 }
 
-export const getStaticProps = async ({ params, ...rest }) => {
+export const getStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, SCRUM_VAR);
-
-  const prevPost = getPrevNextPostBySlug(params.slug, SCRUM_VAR, 'prev');
-  const nextPost = getPrevNextPostBySlug(params.slug, SCRUM_VAR, 'next');
+  const { title, slug, author, excerpt, tags, contentHtml } =
+    await getMdBySlugs(`scrum/${params.slug}`);
 
   return {
     props: {
       globalData,
-      source: mdxSource,
-      frontMatter: data,
-      prevPost,
-      nextPost,
-      slugArr: [SCRUM_VAR, params.slug],
+      frontMatter: { title, slug, author, excerpt, tags },
+      slugArr: ['scrum', params.slug],
+      source: contentHtml,
     },
   };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  const paths = scrumMdPaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.md?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
   return {
-    paths,
+    paths: scrumMdPaths,
     fallback: false,
   };
 };

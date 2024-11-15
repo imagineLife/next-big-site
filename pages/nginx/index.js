@@ -23,7 +23,6 @@ const LinuxIndex = (params) => {
 export default LinuxIndex;
 
 export async function getStaticProps() {
-  // const posts = getPosts('nginx');
   const posts = await getMdPostSummaries('nginx');
   const globalData = getGlobalData();
   // globalData

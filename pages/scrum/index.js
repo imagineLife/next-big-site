@@ -1,16 +1,9 @@
 import React, { Fragment } from 'react';
-import { getPosts, getGlobalData } from '../../utils';
+import { getMdPostSummaries, getGlobalData } from '../../utils';
 import Layout from './../../components/Layout';
-// import Hero from './../../components/hero';
 import Link from 'next/link';
 import PostLink from '../../components/PostLink';
 
-/*
-  before filter
-
-  re-introduce in frontmatter when done-zo
-  order: { gt: 0 }
-*/
 const ScrumIndex = ({ posts }) => {
   return (
     <Fragment>
@@ -67,10 +60,7 @@ const ScrumIndex = ({ posts }) => {
             disinterested.
           </p>
           {posts.map((itm) => (
-            <PostLink
-              {...itm.frontmatter}
-              key={`docker-node-${itm.frontmatter.title}`}
-            />
+            <PostLink {...itm} key={`scrum-${itm.title}`} />
           ))}
         </section>
       </Layout>
@@ -80,8 +70,8 @@ const ScrumIndex = ({ posts }) => {
 
 export default ScrumIndex;
 
-export function getStaticProps() {
-  const posts = getPosts('scrum');
+export async function getStaticProps() {
+  const posts = await getMdPostSummaries('scrum');
   const globalData = getGlobalData();
   // globalData
   return { props: { posts, globalData } };
