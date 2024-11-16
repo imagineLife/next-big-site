@@ -1,49 +1,49 @@
 ---
-title: A Scrum Checklist
+title: A Checklist For Implementing Scrum
 slug: scrum/a-checklist
 shortSlug: a-checklist
 author: Jake Laursen
 excerpt: An overview of the elements that are part of scrum
-tags: ["team", "scrum", "process"]
+tags: ['team', 'scrum', 'process']
 parentDir: scrum
 order: 6
 ---
 
 # A Scrum Checklist
 
-Considering Scrum for your Org? Here are the must-haves for Scrum To Work
+Considering Scrum for your team &/or Org? Here are the must-haves for Scrum To Work:
 
 - [A Scrum Checklist](#a-scrum-checklist)
 - [Theory Agreement](#theory-agreement)
-    - [Empiricism](#empiricism)
-    - [Minimizing Waste](#minimizing-waste)
-    - [Integrate Incremental Releases](#integrate-incremental-releases)
-    - [Transparency](#transparency)
-    - [Inspection](#inspection)
-    - [Adaptation](#adaptation)
+  - [Empiricism](#empiricism)
+  - [Minimizing Waste](#minimizing-waste)
+  - [Integrate Incremental Releases](#integrate-incremental-releases)
+  - [Transparency](#transparency)
+  - [Inspection](#inspection)
+  - [Adaptation](#adaptation)
 - [Value Adoption](#value-adoption)
-    - [Commitment](#commitment)
-    - [Focus](#focus)
-    - [Openness](#openness)
-    - [Respect](#respect)
-    - [Courage](#courage)
+  - [Commitment](#commitment)
+  - [Focus](#focus)
+  - [Openness](#openness)
+  - [Respect](#respect)
+  - [Courage](#courage)
   - [Role Presence](#role-presence)
     - [Product Owner](#product-owner)
     - [Scrum Master](#scrum-master)
     - [Developers](#developers)
 - [Event Hosting](#event-hosting)
-    - [Sprint](#sprint)
-    - [Sprint Planning](#sprint-planning)
-    - [Sprint Review](#sprint-review)
-    - [Sprint Retrospective](#sprint-retrospective)
-    - [Daily Scrum](#daily-scrum)
+  - [Sprint](#sprint)
+  - [Sprint Planning](#sprint-planning)
+  - [Sprint Review](#sprint-review)
+  - [Sprint Retrospective](#sprint-retrospective)
+  - [Daily Scrum](#daily-scrum)
 - [Artifact Presence](#artifact-presence)
-    - [Product Backlog](#product-backlog)
-    - [Product Goal](#product-goal)
-    - [Sprint Backlog](#sprint-backlog)
-    - [Sprint Goal](#sprint-goal)
-    - [The Increment](#the-increment)
-    - [Definition of Done](#definition-of-done)
+  - [Product Backlog](#product-backlog)
+  - [Product Goal](#product-goal)
+  - [Sprint Backlog](#sprint-backlog)
+  - [Sprint Goal](#sprint-goal)
+  - [The Increment](#the-increment)
+  - [Definition of Done](#definition-of-done)
 
 # Theory Agreement
 
@@ -51,25 +51,26 @@ Scrum works when all folks involved are ready to regularly interact with some th
 
 ### Empiricism
 
-We "Know" about our work by what we do and what we experience, rather than intuition or rationalism
+We "Know" about our work by what we do and what we experience, rather than by our intuition or by rationalism.
 
 ### Minimizing Waste
 
-Scrum has events that can help identify waste, and removing this waste keeps the team and work effort lean
+Scrum has events that can help identify waste, and removing this waste keeps the team and the work lean.
 
 ### Integrate Incremental Releases
 
-Small iterations of value take priority over quarterly goals, annual themes, and longer-term guessing
+Small iterations of value take priority over quarterly goals, annual themes, and longer-term guessing.
 
 ### Transparency
 
-gives insigth for important decisions  
-The Product Backlog and the current work being done are visible
+gives insight for important decisions.  
+The "Product Backlog" and the current work being done are visible to all.
 
 ### Inspection
 
-enables regular adaptation and happens on a regular basis  
-Scrum artifacts present the work to be done as well as the current work
+Allow for output, particularly an increment (_see below_), to be looked at by stakeholders outside of the details of the work implementation.  
+Inspection enables regular adaptation when inspection happens on a regular cadence.  
+Scrum artifacts (_see below_) present the work to be done, as well as the current work.
 
 ### Adaptation
 

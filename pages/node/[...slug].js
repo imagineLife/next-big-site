@@ -8,7 +8,6 @@ export default function NodeBySlug(props) {
   return <GenericPost {...componentProps} />;
 }
 
-// { params, ...rest }
 export const getStaticProps = async ({ params }) => {
   const globalData = getGlobalData();
   const { mdxSource, data } = await getPostBySlug(params.slug, NODE_VAR);
@@ -17,19 +16,14 @@ export const getStaticProps = async ({ params }) => {
     props: {
       globalData,
       frontMatter: data,
-      // nextPost,
-      // prevPost,
       slugArr: [NODE_VAR, ...params.slug],
       source: mdxSource,
     },
   };
-
-  // return { props: {} };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  console.log('pages/node/[...slug].js');
   const localPaths = [
     ...nodeMdPaths
       .map((d) => d.params.slug)
@@ -37,14 +31,9 @@ export const getStaticPaths = async (props) => {
         return `/node/${a.join('/')}`;
       }),
   ];
-  console.log('getStaticPaths props');
-  console.log(props);
-  console.log('localPaths');
-  console.log(localPaths);
 
   return {
     paths: localPaths,
-    // paths: nodeMdPaths.map((d) => ({ params: { slug: d.params.slug } })),
     fallback: false,
   };
 };

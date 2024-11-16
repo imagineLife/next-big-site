@@ -3,13 +3,7 @@ import Card from './../../components/Card';
 import GenericPost from './../../components/GenericPost';
 import { getGlobalData, getNodeSections } from '../../utils';
 
-// import {
-//   getPrevNextPostBySlug,
-//   getPostBySlug,
-//   nodeMdPaths,
-// } from '../../utils/mdx-utils';
-
-export default function NodeIndex({ globalData, sections }) {
+export default function NodeIndex({ sections }) {
   return (
     <GenericPost
       {...{
@@ -34,24 +28,13 @@ export default function NodeIndex({ globalData, sections }) {
 }
 
 export const getStaticProps = async ({ params, ...rest }) => {
-  // const NODE_VAR = 'node';
   const globalData = getGlobalData();
   const nodeSections = getNodeSections();
-
-  // const { mdxSource, data } = await getPostBySlug(params.slug, NODE_VAR);
-
-  // const prevPost = getPrevNextPostBySlug(params.slug, NODE_VAR, 'prev');
-  // const nextPost = getPrevNextPostBySlug(params.slug, NODE_VAR, 'next');
 
   return {
     props: {
       globalData,
       sections: nodeSections,
-      // frontMatter: data,
-      // nextPost,
-      // prevPost,
-      // slugArr: [NODE_VAR, params.slug],
-      // source: mdxSource,
     },
   };
 };

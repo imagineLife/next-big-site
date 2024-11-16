@@ -1,9 +1,5 @@
 import { getGlobalData } from '../../utils/global-data';
-import {
-  // getPrevNextPostBySlug,
-  dockerMdPaths,
-  getMdBySlugs,
-} from '../../utils/mdx-utils';
+import { dockerMdPaths, getMdBySlugs } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
 const DOCKER_VAR = 'docker';

@@ -7,16 +7,16 @@ import PostLink from '../../components/PostLink';
 const KubeIndex = (params) => {
   let rootPages = [];
   let inDepthPages = [];
-
-  console.log('params.posts');
-  console.log(params.posts);
+  let networkingPages = [];
 
   // categorize into "Getting Started" and "In-Depth"
-  params.posts.forEach((p, pidx) => {
-    if (!p.slug.includes('in-depth')) {
-      rootPages.push(p);
-    } else {
+  params.posts.forEach((p) => {
+    if (p.slug.includes('networking-intro')) {
+      networkingPages.push(p);
+    } else if (p.slug.includes('in-depth')) {
       inDepthPages.push(p);
+    } else {
+      rootPages.push(p);
     }
   });
 
@@ -24,13 +24,19 @@ const KubeIndex = (params) => {
     <Fragment>
       <Hero />
       <Layout>
-        <section className="toc-wrapper">
+        <section className="toc-wrapper p-[5%]">
           <h1>K8s</h1>
-          <h2 title="Thanks to Brian Holt from Frontend Masters for Sparking some Curiosity here!">
-            Getting Started
-          </h2>
+          <h2 className=" mt-[3rem] mb-[3rem]">Getting Started</h2>
           {rootPages?.map((p) => (
             <PostLink {...p} key={`k8s-summary-ling-${p.title}`} />
+          ))}
+          <h2>Networking Intro</h2>
+          {networkingPages?.map((p) => (
+            <PostLink {...p} key={`k8s-networking-${p.title}`} />
+          ))}
+          <h2 className=" mt-[3rem] mb-[3rem]">In-Depth</h2>
+          {inDepthPages?.map((p) => (
+            <PostLink {...p} key={`k8s-in-depth-${p.title}`} />
           ))}
         </section>
       </Layout>

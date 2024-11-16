@@ -76,38 +76,19 @@ export async function getMdBySlugs(mdSlugString) {
 function onlyNbFiles(s) {
   return /\.ipynb?$/.test(s);
 }
-// postsFiles is the list of all mdx files inside the posts_path directory
-export const dockerMdPaths = readdirSync(dockerMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/docker/${s}`);
-export const linuxMdPaths = readdirSync(linuxMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/linux/${s}`);
-export const nginxMdPaths = readdirSync(nginxMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/nginx/${s}`);
-export const scrumMdPaths = readdirSync(scrumMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/scrum/${s}`);
-export const mlMdPaths = readdirSync(mlMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/ml/${s}`);
-
-export const k8sMdPaths = readdirSync(k8sMdPath)
-  .filter((s) => s.includes('.md'))
-  .map((s) => s.replace(/\.md$/, ''))
-  .map((s) => `/k8s/${s}`);
-
-export const mdPathsFromDirRoot = (rootStr) =>
-  readdirSync(join(mdDir, rootStr))
+export function mdPathsFromDirRoot(rootStr) {
+  return readdirSync(join(mdDir, rootStr))
     .filter((s) => s.includes('.md'))
     .map((s) => s.replace(/\.md$/, ''))
     .map((s) => `/${rootStr}/${s}`);
+}
+
+export const dockerMdPaths = mdPathsFromDirRoot('docker');
+export const linuxMdPaths = mdPathsFromDirRoot('linux');
+export const nginxMdPaths = mdPathsFromDirRoot('nginx');
+export const scrumMdPaths = mdPathsFromDirRoot('scrum');
+export const mlMdPaths = mdPathsFromDirRoot('ml');
+export const k8sMdPaths = mdPathsFromDirRoot('k8s');
 
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 // export const nodeMdPaths = readdirSync(node_path).filter(onlyMdxFile);
@@ -273,6 +254,7 @@ export const getPosts = (pathDir) => {
 // returns list like ['/k8s/architecture-overview']
 export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
   let mdPaths = readdirSync(join(mdDir, pathDir), { withFileTypes: true });
+
   let nestedDirMdSummaries;
   if (!includeNestedDirs) {
     mdPaths = mdPaths
@@ -285,9 +267,10 @@ export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
       .filter((d) => d.isDirectory())
       .map((d) => `${pathDir}/${d.name}`);
 
-    [nestedDirMdSummaries] = await Promise.all(
+    nestedDirMdSummaries = await Promise.all(
       nestedDirPaths.map(getMdPostSummaries)
     );
+
     mdPaths = mdPaths
       .map((d) => d.name)
       .filter((s) => s.includes('.md'))
@@ -295,17 +278,19 @@ export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
       .map((s) => `/${pathDir}/${s}`);
   }
 
-  const nextStep = await Promise.all(
+  const listOfMdContents = await Promise.all(
     mdPaths.map((p) => getMdBySlugs(p.substring(1)))
   );
 
   let returning = [];
   if (nestedDirMdSummaries) {
-    returning = returning.concat(nestedDirMdSummaries);
+    nestedDirMdSummaries.forEach((arr) => {
+      returning = returning.concat(arr);
+    });
   }
 
   return returning.concat(
-    nextStep.map(({ slug, title, excerpt }) => ({
+    listOfMdContents.map(({ slug, title, excerpt }) => ({
       slug,
       title,
       excerpt,
@@ -371,28 +356,6 @@ export const getPostBySlug = async (slug, section) => {
   return { mdxSource, data, postFilePath };
 };
 
-export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
-  const posts = getPosts(section);
-  const currentFileName = filenameFromSlugAndSection(slug, section);
-  const currentPost = posts.find((post) => post.filePath === currentFileName);
-  const currentPostIndex = posts.indexOf(currentPost);
-
-  const post =
-    prevOrNext === 'prev'
-      ? posts[currentPostIndex - 1]
-      : posts[currentPostIndex + 1];
-
-  // no prev post found
-  if (!post) return null;
-
-  // const postSlug = post?.filePath.replace(/\.mdx?$/, '');
-
-  return {
-    title: post.frontmatter.title,
-    slug: post.frontmatter.slug,
-  };
-};
-
 export function getNestedSections(section) {
   try {
     return nestedSections[section];
@@ -426,3 +389,25 @@ export function getNodeSections() {
 }
 
 export { nodeMdPaths };
+
+// export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
+//   const posts = getPosts(section);
+//   const currentFileName = filenameFromSlugAndSection(slug, section);
+//   const currentPost = posts.find((post) => post.filePath === currentFileName);
+//   const currentPostIndex = posts.indexOf(currentPost);
+
+//   const post =
+//     prevOrNext === 'prev'
+//       ? posts[currentPostIndex - 1]
+//       : posts[currentPostIndex + 1];
+
+//   // no prev post found
+//   if (!post) return null;
+
+//   // const postSlug = post?.filePath.replace(/\.mdx?$/, '');
+
+//   return {
+//     title: post.frontmatter.title,
+//     slug: post.frontmatter.slug,
+//   };
+// };
