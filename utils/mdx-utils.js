@@ -45,18 +45,43 @@ function onlyMdxFile(s) {
   return /\.mdx?$/.test(s);
 }
 
+const introFiles = {
+  node: [
+    'child_processes',
+    'crypto',
+    'http-server',
+    'modules',
+    'os',
+    'process',
+    'streams',
+    'testing',
+  ],
+};
 async function getFileWithNode(fileSlugString) {
   const splitPathArr = fileSlugString.split('/');
+  let fullFilePath, fileContents;
+
   const fileName = splitPathArr.pop();
   const dir = splitPathArr.join('/');
-  const fullFilePath = join(mdDir, dir, `${fileName}.md`);
 
-  const fileContents = readFileSync(fullFilePath, 'utf8');
+  fullFilePath = join(mdDir, dir, `${fileName}.md`);
+
+  if (introFiles[dir]?.includes(fileName)) {
+    fullFilePath = join(mdDir, dir, fileName, `intro.md`);
+  }
+
+  fileContents = readFileSync(fullFilePath, 'utf8');
   return fileContents;
 }
 
-export async function getMdBySlugs(mdSlugString) {
-  const fileContents = await getFileWithNode(mdSlugString);
+export async function getMdBySlugs(mdSlugString, nestedDirString) {
+  let fileToFind = nestedDirString
+    ? `${mdSlugString}/${nestedDirString}`
+    : mdSlugString;
+  console.log(`fileToFind: ${fileToFind}`);
+
+  const fileContents = await getFileWithNode(fileToFind);
+
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()
@@ -89,61 +114,8 @@ export const nginxMdPaths = mdPathsFromDirRoot('nginx');
 export const scrumMdPaths = mdPathsFromDirRoot('scrum');
 export const mlMdPaths = mdPathsFromDirRoot('ml');
 export const k8sMdPaths = mdPathsFromDirRoot('k8s');
-
+export const newNodeMdPaths = mdPathsFromDirRoot('node');
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
-// export const nodeMdPaths = readdirSync(node_path).filter(onlyMdxFile);
-let nodeDirsToParse = [node_path, node_md_paths];
-let nodeFilesToParse = [];
-let nodeMdPaths = [];
-function withParentDirPath(parentDirPath) {
-  return function pushDrillOrSkip(item, idx, originalArr) {
-    nodeFilesToParse.push(item);
-
-    if (typeof item === 'string' && item.includes('.md')) {
-      const preSlug = `${parentDirPath.path}/${parentDirPath.name}`.split(
-        'node/'
-      )[1];
-
-      nodeMdPaths.push({ params: { slug: [preSlug, item.split('.')[0]] } });
-      nodeFilesToParse.pop();
-      if (idx === originalArr.length - 1 && nodeDirsToParse.length > 0) {
-        // if (nodeDirsToParse.length == 0 && nodeFilesToParse.length === 0) {
-        //   console.log('DONE A?!');
-        //   console.log(nodeMdPaths);
-        // }
-        nodeDirsToParse.pop();
-      }
-    } else if (Boolean(item?.isDirectory) && item?.isDirectory()) {
-      const newPath = join(arguments[0].path, item?.name);
-      nodeDirsToParse.push(newPath);
-      const poppedDir = nodeFilesToParse.pop();
-      readdirSync(newPath).forEach(withParentDirPath(poppedDir));
-    } else {
-      nodeFilesToParse.pop();
-      if (idx === originalArr.length - 1) {
-        if (nodeDirsToParse.length > 0) {
-          nodeDirsToParse.pop();
-          // if (nodeDirsToParse.length == 0 && nodeFilesToParse.length === 0) {
-          //   console.log('DONE B?!');
-          //   console.log(nodeMdPaths);
-          // }
-          // } else {
-          //   console.log('DONE C?!');
-          //   console.log(nodeMdPaths.map((f) => f.params.slug));
-          // }
-        }
-      }
-    }
-  };
-}
-
-// readdirSync(nodeDirsToParse.pop(), { withFileTypes: true }).forEach(
-//   pushDrillOrSkip
-// );
-const poppedDirToParse = nodeDirsToParse.pop();
-readdirSync(poppedDirToParse, { withFileTypes: true }).forEach(
-  withParentDirPath()
-);
 
 let nestedDirs = {
   mongo: [],
@@ -194,13 +166,7 @@ blogSections = blogSections
   .map((dirent) => dirent.name);
 
 const filePaths = {
-  docker: dockerMdPaths,
-  linux: linuxMdPaths,
-  nginx: nginxMdPaths,
-  scrum: scrumMdPaths,
-  node: nodeMdPaths,
   notebooks: notebookPaths,
-  // 'mongo-aggregations': mongoAggMdPaths,
 };
 const dirPaths = {
   docker: docker_path,
@@ -332,30 +298,6 @@ export async function getNestedPost() {
   return { mdxSource, data };
 }
 
-export const getPostBySlug = async (slug, section) => {
-  const slugString = filenameFromSlugAndSection(slug, section);
-  let postFilePath;
-  try {
-    postFilePath = join(dirPaths[section], slugString);
-  } catch (error) {
-    postFilePath = join(dirPaths[section], slugString, true);
-  }
-
-  let source = readFileSync(postFilePath);
-  const { content, data } = matter(source);
-
-  const mdxSource = await serialize(content, {
-    // Optionally pass remark/rehype plugins
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypePrism, rehypeSlug],
-    },
-    scope: data,
-  });
-
-  return { mdxSource, data, postFilePath };
-};
-
 export function getNestedSections(section) {
   try {
     return nestedSections[section];
@@ -387,8 +329,6 @@ export function getNodeSections() {
 
   return nodeSections;
 }
-
-export { nodeMdPaths };
 
 // export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
 //   const posts = getPosts(section);

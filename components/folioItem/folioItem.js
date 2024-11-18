@@ -9,10 +9,6 @@ export default function FolioItem({
   img,
   size,
 }) {
-  console.log({
-    img,
-  });
-
   return (
     // col-3-4
     // <div className="hover-v2 folio-item">

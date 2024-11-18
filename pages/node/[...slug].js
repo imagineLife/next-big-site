@@ -1,36 +1,50 @@
 import { getGlobalData } from '../../utils/global-data';
-import { getPostBySlug, nodeMdPaths } from '../../utils/mdx-utils';
+import { getMdBySlugs, getMdPostSummaries } from '../../utils/mdx-utils';
 import GenericPost from '../../components/GenericPost';
 
-const NODE_VAR = 'node';
-export default function NodeBySlug(props) {
-  const componentProps = { ...props, ...props.frontMatter };
-  return <GenericPost {...componentProps} />;
+export default function NodeBySlug({
+  frontMatter,
+  globalData,
+  slugArr,
+  source,
+}) {
+  let props = {
+    globalData,
+    slugArr,
+    ...frontMatter,
+  };
+
+  return (
+    <GenericPost {...props}>
+      <div dangerouslySetInnerHTML={{ __html: source }} />
+    </GenericPost>
+  );
 }
 
 export const getStaticProps = async ({ params }) => {
+  console.log('node getStaticProps params');
+  console.log(params);
+
   const globalData = getGlobalData();
-  const { mdxSource, data } = await getPostBySlug(params.slug, NODE_VAR);
+  const { title, slug, author, excerpt, tags, contentHtml } =
+    await getMdBySlugs(`node/${params.slug[0]}`, params?.slug[1]);
 
   return {
     props: {
       globalData,
-      frontMatter: data,
-      slugArr: [NODE_VAR, ...params.slug],
-      source: mdxSource,
+      frontMatter: { title, slug, author, excerpt, tags },
+      slugArr: ['node', ...params.slug],
+      source: contentHtml,
     },
   };
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  const localPaths = [
-    ...nodeMdPaths
-      .map((d) => d.params.slug)
-      .map((a) => {
-        return `/node/${a.join('/')}`;
-      }),
-  ];
+  const newNodePaths = await getMdPostSummaries('node', true);
+  const localPaths = newNodePaths.map((d) => `/${d.slug}`);
+  console.log('localPaths');
+  console.log(localPaths);
 
   return {
     paths: localPaths,

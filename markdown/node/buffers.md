@@ -1,3 +1,13 @@
+---
+title: Learn about using buffers with node
+slug: node/buffers
+author: Jake Laursen
+excerpt: Learn About Buffers in Node
+tags: ['node', 'buffers']
+parentDir: node
+order: 1
+---
+
 # Buffers
 
 [Buffers are included with node](https://nodejs.org/api/buffer.html). Buffers are a spot in memory where data can live.

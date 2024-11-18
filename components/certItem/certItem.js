@@ -8,11 +8,6 @@ export default function CertItem({
   techList,
   img,
 }) {
-  // console.log({
-  //   aLink,
-  //   techList,
-  // });
-
   return (
     <div className="border rounded p-6 w-full text-white border-gray-600 flex justify-between">
       <div className="flex-grow-0 flex-shrink-0 m-0">

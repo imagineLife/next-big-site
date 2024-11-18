@@ -1,7 +1,11 @@
 import React from 'react';
 import Card from './../../components/Card';
 import GenericPost from './../../components/GenericPost';
-import { getGlobalData, getNodeSections } from '../../utils';
+import {
+  getGlobalData,
+  getNodeSections,
+  // getMdPostSummaries,
+} from '../../utils';
 
 export default function NodeIndex({ sections }) {
   return (
@@ -30,6 +34,7 @@ export default function NodeIndex({ sections }) {
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
   const nodeSections = getNodeSections();
+  // const newNodeSummaries = await getMdPostSummaries('node', true);
 
   return {
     props: {
