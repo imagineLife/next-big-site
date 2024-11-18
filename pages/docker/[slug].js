@@ -41,9 +41,6 @@ export const getStaticProps = async ({ params, ...rest }) => {
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
-  console.log('dockerMdPaths');
-  console.log(dockerMdPaths);
-
   return {
     paths: dockerMdPaths,
     fallback: false,

@@ -22,9 +22,6 @@ export default function NodeBySlug({
 }
 
 export const getStaticProps = async ({ params }) => {
-  console.log('node getStaticProps params');
-  console.log(params);
-
   const globalData = getGlobalData();
   const { title, slug, author, excerpt, tags, contentHtml } =
     await getMdBySlugs(`node/${params.slug[0]}`, params?.slug[1]);
@@ -42,12 +39,8 @@ export const getStaticProps = async ({ params }) => {
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 export const getStaticPaths = async (props) => {
   const newNodePaths = await getMdPostSummaries('node', true);
-  const localPaths = newNodePaths.map((d) => `/${d.slug}`);
-  console.log('localPaths');
-  console.log(localPaths);
-
   return {
-    paths: localPaths,
+    paths: newNodePaths.map((d) => `/${d.slug}`),
     fallback: false,
   };
 };

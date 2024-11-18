@@ -25,13 +25,8 @@ const pages_dir = join(cwd, 'pages');
 const public_dir = join(cwd, 'public');
 
 // directories in /public/<dir-here>
-export const docker_path = join(pages_dir, 'docker');
-export const linux_path = join(pages_dir, 'linux');
 export const mongo_path = join(pages_dir, 'mongo');
-export const nginx_path = join(pages_dir, 'nginx');
 export const notebooks_path = join(public_dir, 'notebooks');
-export const scrum_path = join(pages_dir, 'scrum');
-export const node_path = join(pages_dir, 'node');
 export const mdDir = join(cwd, 'markdown');
 export const dockerMdPath = join(mdDir, 'docker');
 export const k8sMdPath = join(mdDir, 'k8s');
@@ -40,10 +35,6 @@ export const nginxMdPath = join(mdDir, 'nginx');
 export const scrumMdPath = join(mdDir, 'scrum');
 export const node_md_paths = join(mdDir, 'node');
 export const mlMdPath = join(mdDir, 'ml');
-
-function onlyMdxFile(s) {
-  return /\.mdx?$/.test(s);
-}
 
 const introFiles = {
   node: [
@@ -57,6 +48,7 @@ const introFiles = {
     'testing',
   ],
 };
+
 async function getFileWithNode(fileSlugString) {
   const splitPathArr = fileSlugString.split('/');
   let fullFilePath, fileContents;
@@ -78,7 +70,6 @@ export async function getMdBySlugs(mdSlugString, nestedDirString) {
   let fileToFind = nestedDirString
     ? `${mdSlugString}/${nestedDirString}`
     : mdSlugString;
-  console.log(`fileToFind: ${fileToFind}`);
 
   const fileContents = await getFileWithNode(fileToFind);
 
@@ -134,17 +125,16 @@ mongoRootContents.forEach((mongoRootItem) => {
           join('/', 'mongo', mongoRootItem.name, nestedItem.name)
         );
       } else {
-        console.log(
-          'SKIPPING pushing to mongo nested content: ',
-          nestedItem.name
-        );
+        // console.log(
+        //   'SKIPPING pushing to mongo nested content: ',
+        //   nestedItem.name
+        // );
       }
     });
   }
 });
 
 export { nestedDirs };
-// export const mongoAggMdPaths = readdirSync(mongo_agg_path).filter(onlyMdxFile);
 export const mongoSections = readdirSync(mongo_path, {
   withFileTypes: true,
 })
@@ -160,61 +150,13 @@ const skippableSections = {
   mongo: true,
 };
 
-let blogSections = readdirSync(pages_dir, { withFileTypes: true });
-blogSections = blogSections
-  .filter((dirent) => dirent.isDirectory() && !skippableSections[dirent.name])
-  .map((dirent) => dirent.name);
-
-const filePaths = {
-  notebooks: notebookPaths,
-};
-const dirPaths = {
-  docker: docker_path,
-  node: node_path,
-  linux: linux_path,
-  mongo: mongo_path,
-  node: node_path,
-  nginx: nginx_path,
-  scrum: scrum_path,
-  // 'mongo-aggregations': mongo_agg_path,
-};
-
 const nestedSections = {
   mongo: mongoSections,
 };
 
-export const sortPostsByDate = (posts) => {
-  return posts.sort((a, b) => {
-    const aDate = new Date(a.frontmatter.date);
-    const bDate = new Date(b.frontmatter.date);
-    return bDate - aDate;
-  });
-};
-
 export const getPosts = (pathDir) => {
   if (!pathDir) throw new Error('getPosts called without a param');
-  const pathFilePaths = filePaths[pathDir];
-
-  if (pathDir === 'notebooks') {
-    return pathFilePaths.map((s) => s.split('.ipynb')[0]);
-  }
-
-  let posts = pathFilePaths
-    .map((filePath) => {
-      const source = readFileSync(join(dirPaths[pathDir], filePath));
-      const { content, data: frontmatter } = matter(source);
-
-      return {
-        content,
-        frontmatter,
-        filePath,
-      };
-    })
-    .sort((a, b) => a.frontmatter.order - b.frontmatter.order);
-
-  posts = sortPostsByDate(posts);
-
-  return posts;
+  return notebookPaths.map((s) => s.split('.ipynb')[0]);
 };
 
 // returns list like ['/k8s/architecture-overview']
@@ -264,24 +206,6 @@ export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
   );
 };
 
-function filenameFromSlugAndSection(slug, section, useMDX) {
-  if (useMDX && section === 'tf') {
-    return `${slug}.mdx`;
-  }
-  const filenameLookup = {
-    ml: (s) => `${s}.mdx`,
-    docker: (s) => `${s}.md`,
-    linux: (s) => `${s}.md`,
-    // 'mongo-aggregations': (s) => `${s}.md`,
-    node: (s) => `${s}.md`,
-    nginx: (s) => `${s}.md`,
-    scrum: (s) => `${s}.md`,
-    tf: (s) => `${s}.mdx`,
-  };
-  if (typeof slug === 'object') slug = slug.join('/');
-  return filenameLookup[section](slug);
-}
-
 export async function getNestedPost() {
   const filePath = `${join(pages_dir, ...arguments[0])}${arguments[1]}`;
   const nodeSource = readFileSync(filePath);
@@ -296,15 +220,6 @@ export async function getNestedPost() {
     scope: data,
   });
   return { mdxSource, data };
-}
-
-export function getNestedSections(section) {
-  try {
-    return nestedSections[section];
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
 }
 
 // async
@@ -329,25 +244,3 @@ export function getNodeSections() {
 
   return nodeSections;
 }
-
-// export const getPrevNextPostBySlug = (slug, section, prevOrNext) => {
-//   const posts = getPosts(section);
-//   const currentFileName = filenameFromSlugAndSection(slug, section);
-//   const currentPost = posts.find((post) => post.filePath === currentFileName);
-//   const currentPostIndex = posts.indexOf(currentPost);
-
-//   const post =
-//     prevOrNext === 'prev'
-//       ? posts[currentPostIndex - 1]
-//       : posts[currentPostIndex + 1];
-
-//   // no prev post found
-//   if (!post) return null;
-
-//   // const postSlug = post?.filePath.replace(/\.mdx?$/, '');
-
-//   return {
-//     title: post.frontmatter.title,
-//     slug: post.frontmatter.slug,
-//   };
-// };

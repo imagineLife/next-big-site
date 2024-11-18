@@ -88,8 +88,6 @@ export default function ObjectDetectionPage() {
     const canvasCtx = snapshotCanvasRef.current.getContext('2d');
     // canvasCtx.drawImage(videoRef.current, 0, 0, 320, 240);
     // drawImage(videoRef.current, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-    console.log('videoRef.current');
-    console.log(videoRef.current);
 
     // canvasCtx.drawImage(videoRef.current, 0, 0, 320, 240, 0, 0, 320, 240);
     canvasCtx.drawImage(videoRef.current, 0, 0, 320, 240, 0, 0, 304, 150); //288
