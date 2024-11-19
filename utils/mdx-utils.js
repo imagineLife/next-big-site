@@ -47,6 +47,19 @@ const introFiles = {
     'streams',
     'testing',
   ],
+  mongo: [
+    'aggregations',
+    'comparing-to-sql',
+    'crud',
+    'data-modeling',
+    'performance',
+    'replication',
+    'roles',
+    'schema-patterns',
+    'sharding',
+    'storage-engines',
+    'with-docker',
+  ],
 };
 
 async function getFileWithNode(fileSlugString) {
@@ -105,54 +118,7 @@ export const nginxMdPaths = mdPathsFromDirRoot('nginx');
 export const scrumMdPaths = mdPathsFromDirRoot('scrum');
 export const mlMdPaths = mdPathsFromDirRoot('ml');
 export const k8sMdPaths = mdPathsFromDirRoot('k8s');
-export const newNodeMdPaths = mdPathsFromDirRoot('node');
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
-
-let nestedDirs = {
-  mongo: [],
-};
-const mongoRootContents = readdirSync(mongo_path, { withFileTypes: true });
-mongoRootContents.forEach((mongoRootItem) => {
-  // into a directory
-  if (mongoRootItem.isDirectory()) {
-    const dirContents = readdirSync(join(mongo_path, mongoRootItem.name), {
-      withFileTypes: true,
-    });
-    // items in directory
-    dirContents.forEach((nestedItem) => {
-      if (nestedItem.name.includes('.md')) {
-        nestedDirs.mongo.push(
-          join('/', 'mongo', mongoRootItem.name, nestedItem.name)
-        );
-      } else {
-        // console.log(
-        //   'SKIPPING pushing to mongo nested content: ',
-        //   nestedItem.name
-        // );
-      }
-    });
-  }
-});
-
-export { nestedDirs };
-export const mongoSections = readdirSync(mongo_path, {
-  withFileTypes: true,
-})
-  .filter((s) => s.isDirectory())
-  .map((d) => d.name);
-
-// SKIPPING THESE SECTIONS in index.js
-// ml-ui is "hand-written" in the frontend
-const skippableSections = {
-  tw: true,
-  folio: true,
-  'ml-ui': true,
-  mongo: true,
-};
-
-const nestedSections = {
-  mongo: mongoSections,
-};
 
 export const getPosts = (pathDir) => {
   if (!pathDir) throw new Error('getPosts called without a param');
@@ -162,7 +128,6 @@ export const getPosts = (pathDir) => {
 // returns list like ['/k8s/architecture-overview']
 export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
   let mdPaths = readdirSync(join(mdDir, pathDir), { withFileTypes: true });
-
   let nestedDirMdSummaries;
   if (!includeNestedDirs) {
     mdPaths = mdPaths
@@ -222,7 +187,66 @@ export async function getNestedPost() {
   return { mdxSource, data };
 }
 
-// async
+export function getMongoSections() {
+  const agg = {
+    t: 'Aggregations',
+    d: "Perform 'logic' on documents & return computed results",
+    url: '/mongo/aggregations',
+  };
+  const crud = {
+    t: 'CRUD',
+    d: 'Basic create/read/update/delete documents',
+    url: '/mongo/crud',
+  };
+  const dataModeling = {
+    t: 'Data Modeling',
+    d: 'Deciding what the data storage shape (schema) could look like',
+    url: '/mongo/data-modeling',
+  };
+  const performance = {
+    t: 'Performance',
+    d: 'Optimizing how mongo runs',
+    url: '/mongo/performance',
+  };
+  const replication = {
+    t: 'Replication',
+    d: 'Building a reliable data system with data replication',
+    url: '/mongo/replication',
+  };
+  const roles = {
+    t: 'Roles',
+    d: 'specifiying permissions for users on db objects',
+    url: '/mongo/roles',
+  };
+  const schemaPatterns = {
+    t: 'Schema Patterns',
+    d: 'some common approaches to designing data structures',
+    url: '/mongo/schema-patterns',
+  };
+  const sharding = {
+    t: 'Sharding',
+    d: 'Building a performant data system with sharded data',
+    url: '/mongo/sharding',
+  };
+  const withDocker = {
+    t: 'With Docker',
+    d: 'Using Docker and MongoDB together',
+    url: '/mongo/with-docker',
+  };
+
+  return [
+    agg,
+    crud,
+    dataModeling,
+    performance,
+    replication,
+    roles,
+    schemaPatterns,
+    sharding,
+    withDocker,
+  ];
+}
+
 export function getNodeSections() {
   const nodeFs = {
     t: 'FileSystem',
