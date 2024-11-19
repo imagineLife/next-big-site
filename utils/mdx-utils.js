@@ -229,18 +229,45 @@ export function getNodeSections() {
     d: "Interact with the machine's files & directories: read, write, update, & delete.",
     url: '/node/fs',
   };
+
   const nodeBuffers = {
     t: 'Buffers',
     d: 'Storing temporary data',
     url: '/node/buffers',
   };
 
-  const nodeChildProcesses = {
-    t: 'Child Processes',
-    d: 'spawning, etc.',
-    url: '/node/child-processes',
+  const nodeCrypto = {
+    t: 'Crypto',
+    d: 'Encryption & Decryption',
+    url: '/node/crypto',
   };
-  const nodeSections = [nodeFs, nodeBuffers, nodeChildProcesses];
+
+  const nodeChildProc = {
+    t: 'Child Processes',
+    d: 'Creating & Managing multiple processes',
+    url: '/node/child_processes',
+  };
+
+  const nodeOs = {
+    t: 'OS',
+    d: 'Interact with the operating system',
+    url: '/node/os',
+  };
+
+  const nodeProcess = {
+    t: 'Process',
+    d: 'Info about the currently-running process',
+    url: '/node/process',
+  };
+
+  const nodeSections = [
+    nodeFs,
+    nodeBuffers,
+    nodeCrypto,
+    nodeChildProc,
+    nodeOs,
+    nodeProcess,
+  ];
 
   return nodeSections;
 }
