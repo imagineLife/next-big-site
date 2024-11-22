@@ -1,11 +1,7 @@
 import React from 'react';
 import Card from './../../components/Card';
 import GenericPost from './../../components/GenericPost';
-import {
-  getGlobalData,
-  getNodeSections,
-  // getMdPostSummaries,
-} from '../../utils';
+import { getGlobalData, getNodeSections } from '../../utils';
 
 export default function NodeIndex({ sections }) {
   return (

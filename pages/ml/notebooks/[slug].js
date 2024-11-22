@@ -57,7 +57,7 @@ export const getStaticPaths = async (props) => {
 
   return {
     paths: posts.map((p) => `/ml/notebooks/${p}`),
-    fallback: 'blocking',
+    fallback: false,
   };
 };
 

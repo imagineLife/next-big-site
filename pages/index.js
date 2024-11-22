@@ -52,12 +52,12 @@ export default function Index({ globalData }) {
   return (
     <section className="px-[10%]">
       <Layout>
-        <div></div>
         <Seo title={globalData.name} description={globalData.blogTitle} />
         <Header name={globalData.name} />
         {/* 80px for nav, 20px for extra */}
         <section id="blog-summary" className="mt-[100px] text-left w-full">
-          <p>Welcome to my blog 👋</p>
+          <h2>Blog</h2>
+          <p>👋 Some writings on some topics</p>
         </section>
         <main className="mx-auto mt-24 md:mt-18 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
           {sections.map((s) => (

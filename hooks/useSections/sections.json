@@ -1,5 +1,17 @@
 [
   {
+    "title": "Node",
+    "snippet": "JavaScript, server-side",
+    "to": "/node",
+    "image": "Node.png"
+  },
+  {
+    "title": "MongoDB",
+    "snippet": "Storing data using documents with javascript",
+    "to": "/mongo",
+    "image": "mongo-cred.png"
+  },
+  {
     "title": "Linux & Bash",
     "snippet": "A focus on bash and an intro to linux",
     "to": "/linux",
