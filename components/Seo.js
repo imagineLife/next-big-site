@@ -19,7 +19,7 @@ export default function Seo({ title, excerpt, tags = [], slug = '' }) {
 
   return (
     <Head>
-      <title>{title || 'Jake Laursen Blog'}</title>
+      <title>{(title && `${title}`) || 'Jake Laursen Blog'}</title>
       <meta name="description" content={excerpt} />
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={'Jake Laursen Blog'} />

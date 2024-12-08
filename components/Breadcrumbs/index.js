@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import SiblingButton from './Sibling';
 
 function BreadcrumbLink({ includeSlash, text, link, home }) {
   if (home) {
@@ -35,29 +36,38 @@ function BreadcrumbLink({ includeSlash, text, link, home }) {
     </li>
   );
 }
-const BreadCrumbs = ({ slugs }) => {
+
+function setProps(idx, slugsArr, curSlugString) {
+  let props = {
+    text: curSlugString,
+  };
+  if (idx === 0) {
+    props.link = '/';
+    props.home = true;
+  } else {
+    props.link = '/' + slugsArr.slice(0, idx).join('/');
+  }
+
+  if (idx !== slugsArr.length) {
+    props.includeSlash = true;
+  }
+  return props;
+}
+
+const BreadCrumbs = ({ slugs, siblings }) => {
+  const innerslugsArr = ['/', ...slugs];
+  const lastItem = innerslugsArr.pop();
   return (
+    // sticky top-0
     <div className="p-3 flex items-center flex-wrap">
       <ul className="flex items-center">
-        {['/', ...slugs].map((s, idx) => {
-          let props = {
-            text: s,
-          };
-          if (idx === 0) {
-            props.link = '/';
-            props.home = true;
-          } else {
-            props.link = '/' + slugs.slice(0, idx).join('/');
-          }
-
-          if (idx !== slugs.length) {
-            props.includeSlash = true;
-          }
+        {innerslugsArr.map((s, idx) => {
+          const props = setProps(idx, slugs, s);
           return <BreadcrumbLink key={`slug-${s}`} {...props} />;
         })}
       </ul>
+      {siblings && <SiblingButton siblings={siblings} curSlug={lastItem} />}
     </div>
   );
 };
-
 export default BreadCrumbs;

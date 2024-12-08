@@ -7,11 +7,10 @@ export default function NodeIndex({ sections }) {
   return (
     <GenericPost
       {...{
-        title: 'Node ',
+        title: 'Node',
         excerpt: 'JavaScript on a server',
         slug: 'node',
         tags: ['node'],
-        globalData: { name: 'Node' },
         slugArr: ['node'],
       }}
     >
@@ -30,7 +29,6 @@ export default function NodeIndex({ sections }) {
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
   const nodeSections = getNodeSections();
-  // const newNodeSummaries = await getMdPostSummaries('node', true);
 
   return {
     props: {

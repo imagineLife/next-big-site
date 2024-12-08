@@ -11,7 +11,7 @@ order: 4
 # Customize child_processes
 
 This is meant as a follow-up to the [exec](/node/child_processes/exec) post and the [spawn](/node/child_processes/spawn) post.  
-child_processes can be given a config object to customize some
+child_processes can be given a config object to customize/specifiy some details of the child process.
 
 - [Customize child_processes](#customize-child_processes)
   - [Pass Environment Variables](#pass-environment-variables)

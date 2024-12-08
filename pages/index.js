@@ -20,6 +20,7 @@ function BlogSectionCard({ title, snippet, to, image }) {
               className="emx-auto"
               width={50}
               height={50}
+              style={{ margin: '0 auto 0 auto' }}
               alt={`${title} section image`}
             />
           </div>
@@ -30,7 +31,6 @@ function BlogSectionCard({ title, snippet, to, image }) {
           <section id="footer">
             <hr className="mt-4" />
             <span className="text-xs">ARTICLES</span>
-            {/* &nbsp;<span className="text-xs text-gray-500">PROCESS</span> */}
           </section>
         </section>
       </section>

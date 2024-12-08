@@ -37,27 +37,28 @@ export default function GenericPost(props) {
     globalData,
     slugArr,
     children,
+    siblings,
   } = props;
 
   return (
     <Layout>
       <Seo
-        title={`${title} - ${globalData.name}`}
+        title={`${title}${globalData?.name ? ` -  ${globalData.name}` : ''}`}
         excerpt={excerpt}
         slug={slug}
         tags={tags}
       />
-      <Header name={globalData.name} />
+      <Header name={globalData?.name || title} />
       {/* mt-[80px] */}
       <article className="px-6 md:px-0 ">
-        {slugArr && <BreadCrumbs slugs={slugArr} />}
+        {slugArr && <BreadCrumbs slugs={slugArr} siblings={siblings} />}
         <header>
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">
             {title}
           </h1>
           {description && <p className="text-xl mb-4">{description}</p>}
         </header>
-        <main className="prose dark:prose-dark mx-auto">
+        <main className="prose dark:prose-dark mx-auto lg:prose-lg lg:max-w-none">
           <article>
             {source && <MDXRemote {...source} components={components} />}
             {children && children}

@@ -7,12 +7,19 @@ const textLoader = {
   type: 'asset/source',
 };
 
+const svgLoader = {
+  test: /\.svg$/,
+  use: ['@svgr/webpack'],
+};
+
 const nextConfig = {
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
   ) => {
     config.module.rules.push(textLoader);
+    config.module.rules.push(svgLoader);
+
     // Important: return the modified config
     return config;
   },
@@ -24,6 +31,9 @@ const nextConfig = {
         pathname: '/show/**',
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 };

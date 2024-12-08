@@ -5,6 +5,7 @@ import CertItem from './../../components/certItem';
 import TechList from './../../components/techList';
 import Image from 'next/image';
 import FolioCard from '../../components/FolioCard';
+import GenericPost from '../../components/GenericPost';
 // import { Link } from "gatsby"
 
 const techs = {
@@ -250,15 +251,6 @@ const techSkills = {
   ],
 };
 
-// const technologies = [
-//   {
-//     title: 'Analytics',
-//     subText: 'Visualization & Analysis Data',
-//     imgClass: `dash-bg`,
-//     img: `analytics`,
-//   },
-// ];
-
 const certs = [
   {
     title: 'Engineering Leadership',
@@ -409,25 +401,6 @@ const folioItems = [
       'logging',
     ],
   },
-  // {
-  //   title: 'SayWhat?!',
-  //   description:
-  //     'Look at patterns in the text of presidential inaugural addresses in this data-viz focused, full-stack, mobile-first responsive project.',
-  //   imgClass: 'say-what-bg',
-  //   aLink: 'https://say-what.netlify.com/',
-  //   techList: [
-  //     'D3',
-  //     'React',
-  //     'MongoDB',
-  //     'Express (Node)',
-  //     'Data Visualization',
-  //     'Responsive Design',
-  //     'Text Analysis',
-  //     'HTML',
-  //     'JS',
-  //     'CSS',
-  //   ],
-  // },
   {
     img: 'ristats/1.jpg',
     title: 'R.I Stats',
@@ -467,54 +440,7 @@ const folioItems = [
     img: 'erp/1.jpg',
     techList: ['DHTMLX', 'JS', 'HTML', 'CSS', 'PHP'],
   },
-  // {
-  //   title: 'MyMiles',
-  //   imgClass: 'my-miles-bg',
-  //   description:
-  //     'Record, edit & export vehicle mileage logs in this responsive app.',
-  //   aLink: 'https://tranquil-sierra-12911.herokuapp.com/',
-  //   techList: ['API', 'Responsive Design', 'JS', 'HTML', 'CSS'],
-  // },
-  // {
-  //   title: 'MacroRecipes',
-  //   description:
-  //     'Find Recipes based on ingredients and gram counts of carbs, calories, fat, and protein.',
-  //   imgClass: 'macro-recipes-bg',
-  //   aLink: 'https://imaginelife.github.io/MacroRecipes/',
-  //   techList: ['API', 'Responsive Design', 'CSS', 'HTML', 'JS'],
-  // },
 ];
-
-// function FolioBox({ title, aLink, img, subText, techList }) {
-//   return (
-//     <div className="grid grid-cols-2 px-10">
-//       <div>
-//         <Image
-//           src={`/${img}`}
-//           width={400}
-//           height={300}
-//           alt={title}
-//           onClick={() => window.open(aLink, '_blank').focus()}
-//           style={{ cursor: 'pointer' }}
-//         />
-//       </div>
-//       <div>
-//         <h4>{title}</h4>
-//         <p>{subText}</p>
-//         <sub>
-//           {techList.map((tech, idx) => {
-//             return (
-//               <>
-//                 <span key={`${title}-${tech}`}>{tech}</span>
-//                 {idx !== techList.length - 1 && ' | '}
-//               </>
-//             );
-//           })}
-//         </sub>
-//       </div>
-//     </div>
-//   );
-// }
 
 function MyHeader({ text }) {
   return (
@@ -527,7 +453,35 @@ function MyHeader({ text }) {
 export default function Folio() {
   return (
     // className={`${sassMods.folio} flex flex-col prose`}
-    <main role="main" className="flex flex-col max-w-[90%] mx-auto">
+
+    /*
+let {
+    title,
+    name,
+    excerpt,
+    slug,
+    tags,
+    description,
+    source,
+    prevPost,
+    nextPost,
+    globalData,
+    slugArr,
+    children,
+  } = props;
+   */
+    <GenericPost
+      {...{
+        title: 'Developer portfolio',
+        name: 'folio',
+        globalData: { name: 'folio' },
+        excerpt: 'a handful of side-projects',
+        slug: '/folio',
+        tags: ['projects', 'portfolio'],
+        slugArr: ['folio'],
+      }}
+    >
+      {/* <main role="main" className="flex flex-col max-w-[90%] mx-auto"> */}
       <section className="welcome flex flex-col">
         <div className="text-box">
           <h1>Welcome</h1>
@@ -543,11 +497,11 @@ export default function Folio() {
           {/* sassMods['tech-list-box'] */}
           {/* REMOVE?@ */}
           {/* <div className="flex">
-            <TechList listName="Frontend" itms={techs.frontend} />
-            <TechList listName="Server" itms={techs.backend} />
-            <TechList listName="DataBase" itms={techs.db} />
-            <TechList listName="Teams & People" itms={techs.people} />
-          </div> */}
+              <TechList listName="Frontend" itms={techs.frontend} />
+              <TechList listName="Server" itms={techs.backend} />
+              <TechList listName="DataBase" itms={techs.db} />
+              <TechList listName="Teams & People" itms={techs.people} />
+            </div> */}
         </div>
       </section>
 
@@ -563,7 +517,7 @@ export default function Folio() {
         <div
           // className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
           id="folio-items-wrapper"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5"
         >
           {folioItems.map((itm) => (
             // <FolioBox key={`folio-item-${itm.title}`} {...itm} />
@@ -573,18 +527,18 @@ export default function Folio() {
         {/* </section> */}
 
         {/* <MyHeader text="Certifications" />
-        <div className="grid grid-cols-2 gap-8 px-8">
-          {certs.map((itm, itmIdex) => (
-            <CertItem key={`folio-item-${itmIdex}`} {...itm} />
-          ))}
-        </div> */}
+          <div className="grid grid-cols-2 gap-8 px-8">
+            {certs.map((itm, itmIdex) => (
+              <CertItem key={`folio-item-${itmIdex}`} {...itm} />
+            ))}
+          </div> */}
       </section>
 
       <section id="technologies-wrapper" className="@container flex flex-col">
         <MyHeader text="Tech" />
         {/* {technologies.map((itm, itmIdex) => (
-          <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
-        ))} */}
+            <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
+          ))} */}
         <section className="flex flex-wrap">
           {/* flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */}
           <h3 className="flex-grow-0 flex-shrink-0 basis-full m-0">Frontend</h3>
@@ -617,13 +571,14 @@ export default function Folio() {
       </section>
 
       {/* <section id="projects-wrapper">
-        <div className="frosted-bg">
-          <h2>Projects</h2>
-        </div>
-        {folioItems.map((itm, itmIdex) => (
-          <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
-        ))}
-      </section> */}
-    </main>
+          <div className="frosted-bg">
+            <h2>Projects</h2>
+          </div>
+          {folioItems.map((itm, itmIdex) => (
+            <FolioItem key={`folio-item-${itmIdex}`} {...itm} />
+          ))}
+        </section> */}
+      {/* </main> */}
+    </GenericPost>
   );
 }
