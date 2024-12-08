@@ -56,6 +56,8 @@ export default function Index({ globalData }) {
         <Header name={globalData.name} />
         {/* 80px for nav, 20px for extra */}
         <section id="blog-summary" className="mt-[100px] text-left w-full">
+          <h2>Work</h2>
+          <Link href="/work">A summary of some of my work experiences</Link>
           <h2>Blog</h2>
           <p>👋 Some writings on some topics</p>
         </section>

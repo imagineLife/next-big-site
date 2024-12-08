@@ -52,8 +52,8 @@ export default NotebookBySlug;
 export const getStaticPaths = async (props) => {
   // const notebookPaths = getNotebookPaths()
   const posts = getPosts('notebooks');
-  console.log('notebooks [slug] getStaticPaths: posts');
-  console.log(posts);
+  // console.log('notebooks [slug] getStaticPaths: posts');
+  // console.log(posts);
 
   return {
     paths: posts.map((p) => `/ml/notebooks/${p}`),

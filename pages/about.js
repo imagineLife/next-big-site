@@ -113,13 +113,13 @@ function About() {
           <div className="text">
             <h2>TL;DR</h2>
             <p>
-              I'm a <a href="#a-doer">do-er</a>. I'm a{' '}
-              <a href="#a-learner">learner</a>. I'm a{' '}
+              I&apos;m a <a href="#a-doer">do-er</a>. I&apos;m a{' '}
+              <a href="#a-learner">learner</a>. I&apos;m a{' '}
               <a href="#sf">CliftonStrengths Advocate</a>. Meyers Briggs says I
-              prefer to be an <a href="#mb">INJT</a>. I'm also a bit of a{' '}
+              prefer to be an <a href="#mb">INJT</a>. I&apos;m also a bit of a{' '}
               <a href="#coffee">coffee fanatic</a>.
               <br />
-              I'm also on{' '}
+              I&apos;m also on{' '}
               <a
                 href="https://www.linkedin.com/in/eric-laursen-6a1b20b8/"
                 target="_blank"
@@ -143,9 +143,9 @@ function About() {
           <div className="text">
             <h2 id="a-doer">A Do-er</h2>
             <p>
-              I am usually a little restless if I'm not getting something done:
-              roasting coffee, learning something new, trying a new recipe...
-              meditating, reading...
+              I am usually a little restless if I&apos;m not getting something
+              done: roasting coffee, learning something new, trying a new
+              recipe... meditating, reading...
             </p>
           </div>
           <div className="figure">
@@ -166,7 +166,7 @@ function About() {
             </p>
             <p>
               My <Link href="/">blog</Link> has links to some writings on topics
-              I've found interesting: <Link href="/node">node</Link>,{' '}
+              I&apos;ve found interesting: <Link href="/node">node</Link>,{' '}
               <Link href="/mongo">mongodb</Link>,{' '}
               <Link href="/scrum">scrum</Link>,{' '}
               <Link href="/k8s">kubernetes</Link>...
@@ -184,9 +184,9 @@ function About() {
           <div className="text">
             <h2 id="sf">A CliftonStrengths Advocate</h2>
             <p>
-              I've been enjoying the principles of a strengths-first way of
+              I&apos;ve been enjoying the principles of a strengths-first way of
               being, both in my own life and when working with others. When
-              conflict arises, we can learn to leverage one anothers'
+              conflict arises, we can learn to leverage one anothers&apos;
               personality tendencies for the best, and take steps toward
               conflict resolution by pulling out the best in one another. (
               <i>quotes below from gallups site</i>)
@@ -275,7 +275,7 @@ function About() {
               >
                 The MeyersBriggs
               </a>{' '}
-              personality assessment, I'm an INTJ.
+              personality assessment, I&apos;m an INTJ.
             </p>
             <p>
               Check out the{' '}
@@ -320,15 +320,16 @@ function About() {
             </p>
             <h3>Raw Beans</h3>
             <p>
-              I'm on an anaerobic, long fermentation, & co-fermented kick, on
-              the lookout for beans by growers & farms that I know the names of:
-              the arcila family, wilton benitez, edwin norena, the lassos, julio
-              madrid, elkin guzman, and a few other recommendations.{' '}
+              I&apos;m on an anaerobic, long fermentation, & co-fermented kick,
+              on the lookout for beans by growers & farms that I know the names
+              of: the arcila family, wilton benitez, edwin norena, the lassos,
+              julio madrid, elkin guzman, and a few other recommendations.{' '}
             </p>
             <h3>Roasting</h3>
             <p>
-              I roast on a FreshRoast SR700 & an extended chamber. I've recently
-              been "resting" the coffee for 10-15 days before drinking.{' '}
+              I roast on a FreshRoast SR700 & an extended chamber. I&apos;ve
+              recently been &quot;resting&quot; the coffee for 10-15 days before
+              drinking.{' '}
             </p>
             <h3>Grinding & Brewing</h3>
             <p>
@@ -389,7 +390,7 @@ export default About;
 //       <title>About Me</title>
 //       <meta
 //         name="description"
-//         content="I'm a do-er, a learner, and I enjoy working with people, data, and tech!"
+//         content="I&apos;m a do-er, a learner, and I enjoy working with people, data, and tech!"
 //       />
 //       <meta property="og:title" content="Eric Laursen" />
 //       <meta property="og:url" content="http://laursen.tech" />
@@ -407,7 +408,7 @@ export default About;
 //             url: 'http://laursen.tech/about/',
 //           },
 //           description:
-//             "I'm a, a learner, a do-er, and I enjoy working with people, data, and tech",
+//             "I&apos;m a, a learner, a do-er, and I enjoy working with people, data, and tech",
 //           headline: 'About Eric (Jake) Laursen',
 //           keywords: [
 //             'blog',
