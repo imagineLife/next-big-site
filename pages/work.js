@@ -28,7 +28,7 @@ function Alteryx() {
         password uis, & register.
       </p>
       <sub className="italic">
-        Work Culture: remote, highly collaborative across domains & time-zones,
+        Work Style: remote, highly collaborative across domains & time-zones,
         on-call rotations, regularly interacting with a dozen-ish folks of a
         "large" org.
       </sub>
@@ -62,6 +62,8 @@ function Alteryx() {
           'IDP-Broker research',
           'JWT',
           'jira',
+          'slack',
+          'teams',
         ]}
       />
     </>
@@ -83,7 +85,7 @@ function Medacist() {
         data-visualizations.
       </p>
       <sub className="italic">
-        Work Culture: in-person & hybrid, highly collaborative across domains &
+        Work Style: in-person & hybrid, highly collaborative across domains &
         time-zones, regularly interacting with less-than-10 folks of a small
         org.
       </sub>
@@ -110,6 +112,7 @@ function Medacist() {
           'mocha',
           'chai',
           'JWT',
+          'mattermost',
         ]}
       />
     </>
@@ -134,12 +137,38 @@ function CompuWeigh() {
         processing facility.
       </p>
       <sub className="italic">
-        Work Culture: in-person, independent, regularly interacting with
+        Work Style: in-person, independent, regularly interacting with
         less-than-10 folks of a small org.
       </sub>
       <TagList
         hideTitle
         tags={['angularjs', 'tortoise SVM', 'webpack', 'D3']}
+      />
+    </>
+  );
+}
+
+function Infinigence() {
+  return (
+    <>
+      <WorkTitle
+        title="Infinigence: internal Ticket-Based Management system"
+        date="2016"
+      />
+      {/* TODO: hmmm*/}
+      <p>
+        A from the &quot;Ground-up&quot; ticket-based management system for
+        internal team members of a small locally-serving IT-support company:
+        CRUD tickets, assign & manage ticket owners, prioritize, time-tracking,
+        & an analytics dashboard.
+      </p>
+      <sub className="italic">
+        Work Style: in-person, highly-collaborative, regularly interacting with
+        less-than-10 folks of a small org.
+      </sub>
+      <TagList
+        hideTitle
+        tags={['javascript', 'html', 'sql', 'php', 'dhtmlx']}
       />
     </>
   );
@@ -193,6 +222,7 @@ export default function WorkPage() {
       <Alteryx />
       <Medacist />
       <CompuWeigh />
+      <Infinigence />
     </GenericPost>
   );
 }
