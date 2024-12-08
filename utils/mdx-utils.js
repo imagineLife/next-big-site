@@ -38,6 +38,7 @@ export const mlMdPath = join(mdDir, 'ml');
 
 const introFiles = {
   node: [
+    'fs',
     'child_processes',
     'crypto',
     'http-server',
@@ -90,6 +91,7 @@ export async function getMdBySlugs(mdSlugString, nestedDirString) {
 
   const processedContent = await remark()
     .use(html)
+    .use(remarkPrism)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
@@ -124,6 +126,28 @@ export const getPosts = (pathDir) => {
   if (!pathDir) throw new Error('getPosts called without a param');
   return notebookPaths.map((s) => s.split('.ipynb')[0]);
 };
+
+export async function getSiblingTitleSlugs(pathParam) {
+  // console.log('pathParam');
+  // console.log(pathParam);
+
+  let dirToParse = join(mdDir, ...pathParam);
+  if (pathParam.length > 2) {
+    let lastPath = pathParam.pop();
+    dirToParse = join(mdDir, ...pathParam);
+  }
+  let res = readdirSync(dirToParse, { withFileTypes: true });
+  res = res
+    .filter((dirEnt) => !dirEnt.isDirectory())
+    .filter((dirEnt) => dirEnt.name !== 'intro.md');
+
+  const resMds = await Promise.all(
+    res.map((dirEnt) =>
+      getMdBySlugs(`/${pathParam.join('/')}/${dirEnt.name.split('.')[0]}`)
+    )
+  );
+  return resMds.map((md) => ({ title: md.title, slug: md.slug }));
+}
 
 // returns list like ['/k8s/architecture-overview']
 export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
@@ -286,7 +310,7 @@ export function getNodeSections() {
 
   const nodeSections = [
     nodeFs,
-    nodeBuffers,
+    // nodeBuffers,
     nodeCrypto,
     nodeChildProc,
     nodeOs,
