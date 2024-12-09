@@ -17,15 +17,54 @@ function Alteryx() {
     <>
       <WorkTitle title="Alteryx: Analytics Cloud" date="2020-present" logo />
       <p>
-        Leading the development of an enterprise-ready self-service workspace
-        configuration feature-set via UI & API: workspace management,
-        workspace-admin management, & workspace-user management.
+        Leading the development of an enterprise-ready self-service RBAC{' '}
+        <Link
+          target="_blank"
+          href="https://help.alteryx.com/aac/en/platform/admin/admin-reference/account-management/workspace-management.html#workspace-management"
+        >
+          workspace configuration feature-set
+        </Link>{' '}
+        via UI & API: workspace management, workspace-admin management, &
+        workspace-user management.
       </p>
+      <details className="mt-[20px]">
+        <summary className="text-[24px]">
+          <b>Live Workspace-Management documentation</b>
+        </summary>
+        <iframe
+          width="500"
+          height="800"
+          src="https://help.alteryx.com/aac/en/platform/admin/admin-reference/account-management/workspace-management.html#workspace-management"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      </details>
       <p>
         Spearheded a monolith-to-microservice transition of of several
-        authentication-based UIs & APIs: sign-in, reset-password,
-        workspace-picker, OTP confirmation, password entry & &quot;forgot&quot;
-        password uis, & register.
+        authentication-based UIs & APIs:{' '}
+        <Link
+          target="_blank"
+          href="https://us1.alteryxcloud.com/auth-portal/sign-in?"
+        >
+          sign-in
+        </Link>
+        ,{' '}
+        <Link
+          target="_blank"
+          href="https://us1.alteryxcloud.com/auth-portal/forgot"
+        >
+          forgot (&reset) password
+        </Link>
+        ,{' '}
+        <Link
+          target="_blank"
+          href="https://us1.alteryxcloud.com/auth-portal/register"
+        >
+          register
+        </Link>
+        , (<i>auth protected</i>) workspace-picker, & OTP confirmation.
       </p>
       <sub className="italic">
         Work Style: remote, highly collaborative across domains & time-zones,
@@ -75,14 +114,23 @@ function Medacist() {
     <>
       <WorkTitle
         logo
-        title="Medacist Solutions Group: RxAuditor Investigate"
+        title="Medacist Solutions Group (Bluesight): RxAuditor Investigate"
         date="2020"
       />
+      <iframe
+        width="720"
+        height="309"
+        src="https://www.youtube.com/embed/6yvndHINfsI"
+        title="what&#39;s new with medacist? | RxAuditor Investigate"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      ></iframe>
       <p>
         From the &quot;Ground-up&quot; flagship product development for
-        drug-diversion analytics: designing & building
-        &quot;dashboard&quot;-style UIs with custom designed
-        data-visualizations.
+        drug-diversion analytics: designing & building several interactive
+        data-driven UIs (dashboards, chat, & forms).
       </p>
       <sub className="italic">
         Work Style: in-person & hybrid, highly collaborative across domains &
@@ -123,6 +171,10 @@ function CompuWeigh() {
   return (
     <>
       <WorkTitle title="CompuWeigh: SmartTruck Lite" date="2016" logo />
+      <img
+        src="https://s3-us-west-2.amazonaws.com/grainnet-com/uploads/Company-Profiles/SmartTruck-Lite-Printer_Updated-Screen_Guard_CW.jpg"
+        width="200"
+      />
       <p>
         {/* TODO: 
         - modal?? what word!? 
@@ -130,7 +182,11 @@ function CompuWeigh() {
         - link urls
         */}
         UI of a modal{' '}
-        <Link href="/" className="underline">
+        <Link
+          href="https://www.grainfeedequipment.com/profiles/compuweigh"
+          target="_blank"
+          className="underline"
+        >
           farming truck-automation device
         </Link>{' '}
         for truck-drivers to interact with while they drop-off farmed goods at a

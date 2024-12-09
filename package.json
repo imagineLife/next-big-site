@@ -16,7 +16,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "export": "next build && next export",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lf": "next lint --fix"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.9.0",
