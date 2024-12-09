@@ -249,7 +249,7 @@ export function getMongoSections() {
   };
   const sharding = {
     t: 'Sharding',
-    d: 'Building a performant data system with sharded data',
+    d: 'Building a performant database by separating data into chunks (shards)',
     url: '/mongo/sharding',
   };
   const withDocker = {
