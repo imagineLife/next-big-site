@@ -2,12 +2,24 @@ import React from 'react';
 import GenericPost from './../components/GenericPost';
 import TagList from './../components/TagList';
 import Link from 'next/link';
-function WorkTitle({ title, date, logo }) {
+import Image from 'next/image';
+function WorkTitle({ title, date, logo, width }) {
   return (
-    <div className="flex flex-row gap-5">
-      {logo && <span className="mr-[5px] self-center !mt-[20px]">LOGO!!</span>}
-      <h2 className="w-fit">{title}</h2>
-      <sub className="italic self-center !mt-[20px]">{date}</sub>
+    <div className="flex flex-row gap-5 align-middle">
+      {logo && typeof logo !== 'string' && (
+        <span className="mr-[5px] self-center !mt-[20px]">LOGO!!</span>
+      )}
+      {logo && typeof logo == 'string' && (
+        <Image
+          src={logo}
+          width={width || 30}
+          height={30}
+          objectFit="contain"
+          className="max-h-[30px]"
+        />
+      )}
+      <h2 className="w-fit !mt-[25px]">{title}</h2>
+      <p className="italic self-center right-0 !mb-0 ml-auto">{date}</p>
     </div>
   );
 }
@@ -15,7 +27,11 @@ function WorkTitle({ title, date, logo }) {
 function Alteryx() {
   return (
     <>
-      <WorkTitle title="Alteryx: Analytics Cloud" date="2020-present" logo />
+      <WorkTitle
+        title="Alteryx: Analytics Cloud"
+        date="Mar 2022 - now"
+        logo="/about/alteryx.png"
+      />
       <p>
         Leading the development of an enterprise-ready self-service RBAC{' '}
         <Link
@@ -113,9 +129,9 @@ function Medacist() {
   return (
     <>
       <WorkTitle
-        logo
+        logo="/about/medacist.jpeg"
         title="Medacist Solutions Group (Bluesight): RxAuditor Investigate"
-        date="2020"
+        date="Jun 2019 - Mar 2022"
       />
       <iframe
         width="720"
@@ -170,7 +186,12 @@ function Medacist() {
 function CompuWeigh() {
   return (
     <>
-      <WorkTitle title="CompuWeigh: SmartTruck Lite" date="2016" logo />
+      <WorkTitle
+        title="CompuWeigh: SmartTruck Lite"
+        date="May 2018 - May 2019"
+        logo="/about/compuweigh.jpg"
+        width="150"
+      />
       <img
         src="https://s3-us-west-2.amazonaws.com/grainnet-com/uploads/Company-Profiles/SmartTruck-Lite-Printer_Updated-Screen_Guard_CW.jpg"
         width="200"
@@ -187,10 +208,9 @@ function CompuWeigh() {
           target="_blank"
           className="underline"
         >
-          farming truck-automation device
+          RFID Truck Processing Terminal
         </Link>{' '}
-        for truck-drivers to interact with while they drop-off farmed goods at a
-        processing facility.
+        for truck-drivers to interact throughout processing facilities.
       </p>
       <sub className="italic">
         Work Style: in-person, independent, regularly interacting with
@@ -209,7 +229,7 @@ function Infinigence() {
     <>
       <WorkTitle
         title="Infinigence: internal Ticket-Based Management system"
-        date="2016"
+        date="Jan 2015 - Dec 2016"
       />
       {/* TODO: hmmm*/}
       <p>
