@@ -33,19 +33,18 @@ function Alteryx() {
         logo="/about/alteryx.png"
       />
       <p>
-        Leading the development of an enterprise-ready self-service RBAC{' '}
-        <Link
+        - Leading the enablement of an enterprise-ready self-service RBAC{' '}
+        {/* <Link
           target="_blank"
           href="https://help.alteryx.com/aac/en/platform/admin/admin-reference/account-management/workspace-management.html#workspace-management"
-        >
-          workspace configuration feature-set
-        </Link>{' '}
-        via UI & API: workspace management, workspace-admin management, &
-        workspace-user management.
+        > */}
+        workspace configuration feature-set
+        {/* </Link>{' '} */} via UI & API: workspace management, workspace-admin
+        management, & workspace-user management.
       </p>
       <details className="mt-[20px]">
         <summary className="text-[24px]">
-          <b>Live Workspace-Management documentation</b>
+          <b>Workspace-Management Documentation</b>
         </summary>
         <iframe
           width="500"
@@ -58,7 +57,7 @@ function Alteryx() {
         ></iframe>
       </details>
       <p>
-        Spearheded a monolith-to-microservice transition of of several
+        - Spearheded a monolith-to-microfrontend transition of of several
         authentication-based UIs & APIs:{' '}
         <Link
           target="_blank"
@@ -71,7 +70,7 @@ function Alteryx() {
           target="_blank"
           href="https://us1.alteryxcloud.com/auth-portal/forgot"
         >
-          forgot (&reset) password
+          forgot&reset password
         </Link>
         ,{' '}
         <Link
@@ -80,7 +79,7 @@ function Alteryx() {
         >
           register
         </Link>
-        , (<i>auth protected</i>) workspace-picker, & OTP confirmation.
+        , and <i>auth protected</i> workspace-picker, & OTP confirmation.
       </p>
       <sub className="italic">
         Work Style: remote, highly collaborative across domains & time-zones,
@@ -90,14 +89,15 @@ function Alteryx() {
       <TagList
         hideTitle
         tags={[
-          'CRUD APIs',
+          'typescript',
           'react',
           'node',
           'express',
           'sequelize',
+          'mysql',
+          'CRUD APIs',
           // todo: is this the right name?
-          'zigzum',
-          'typescript',
+          'umzug (migrations)',
           'Figma',
           'cross-functional collaboration',
           'docker',
@@ -296,8 +296,11 @@ export default function WorkPage() {
       }}
     >
       <Alteryx />
+      <div className="m-32" />
       <Medacist />
+      <div className="m-32" />
       <CompuWeigh />
+      <div className="m-32" />
       <Infinigence />
     </GenericPost>
   );

@@ -3,7 +3,7 @@ import Link from 'next/link';
 function TagList({ tags, hideTitle, linkPattern }) {
   return (
     <div role="list" className="flex flex-wrap justify-start gap-4 pt-[15px]">
-      {!hideTitle && <i>Tags: </i>}
+      {!hideTitle && <i>Page Tags: </i>}
       {tags?.map((t, tidx) => {
         let innerLinkString = linkPattern ? linkPattern(t) : `/tags/${t}`;
         return (

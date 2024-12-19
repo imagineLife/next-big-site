@@ -63,6 +63,7 @@ export default function GenericPost(props) {
             {source && <MDXRemote {...source} components={components} />}
             {children && children}
           </article>
+          <div className="m-32" />
           {tags && <TagList tags={tags} />}
         </main>
         <div className="grid md:grid-cols-2 lg:mx-24 mt-12">
