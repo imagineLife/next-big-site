@@ -19,7 +19,7 @@
   },
   {
     "title": "Docker",
-    "snippet": "Sort-Of Like a virtual machine, a \"layer\" between software and hardware",
+    "snippet": "Sort-Of Like a virtual machine, a \"layer\" between app logic & operating system",
     "to": "/docker",
     "image": "docker.png"
   },
@@ -36,15 +36,9 @@
     "image": "scrum.png"
   },
   {
-    "title": "Machine Learning",
-    "snippet": "Teaching machines to recognize patterns",
-    "to": "/ml",
-    "image": "machine-learning.png"
-  },
-  {
-    "title": "ML Projects",
-    "snippet": "Machine Learning in action: face detection, head tilt detection...",
-    "to": "/ml-ui",
-    "image": "machine-learning-project.png"
+    "title": "Kubernetes",
+    "snippet": "Orchestrating containers acrosss hosts: networking, deployments, pods, ingress...",
+    "to": "/k8s",
+    "image": "k8s.png"
   }
 ]

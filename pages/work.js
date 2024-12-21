@@ -97,7 +97,7 @@ function Alteryx() {
           'mysql',
           'CRUD APIs',
           // todo: is this the right name?
-          'umzug (migrations)',
+          'umzug (db migrations)',
           'Figma',
           'cross-functional collaboration',
           'docker',
@@ -254,8 +254,8 @@ export default function WorkPage() {
   return (
     <GenericPost
       {...{
-        title: 'Eric Laursen Work Experience',
-        name: 'Work Experience',
+        title: 'Work Experience',
+        name: 'Eric Laursen Work Experience',
         slug: '/work',
         tags: [
           'bio',
@@ -271,7 +271,7 @@ export default function WorkPage() {
           'express',
           'sequelize',
           // todo: is this the right name?
-          'zigzum',
+          'umzug',
           'typescript',
           'Figma',
           'cross-functional collaboration',

@@ -3,16 +3,21 @@ import Link from 'next/link';
 export default function Header({ name }) {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6 sticky w-full z-10 top-0 left-0">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
+      <div className="flex items-center text-white mr-6">
         <a
           className="text-white no-underline hover:text-white hover:no-underline"
-          href="#"
+          href="/"
         >
           <span className="text-2xl pl-2">
             <i className="em em-grinning"></i> Eric (Jake) Laursen
           </span>
         </a>
       </div>
+      <ul>
+        <li>
+          <a href="/work">CV</a>
+        </li>
+      </ul>
 
       <div className="block lg:hidden">
         {/* <button
