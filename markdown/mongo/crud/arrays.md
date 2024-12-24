@@ -1,10 +1,10 @@
 ---
-title: CRUD
+title: Learn MongoDB Crud with Arrays
 slug: mongo/crud/arrays
 parentDir: mongo/crud
 author: Jake Laursen
-excerpt: Creating, Reading, Updating and Deleting on Arrays
-tags: ["database", "mongodb", "crud", "arrays"]
+excerpt: Lists of data
+tags: ['database', 'mongodb', 'crud', 'arrays']
 ---
 
 # CRUD and Arrays
@@ -28,18 +28,18 @@ track the array throughoug the following examples.
 
 ```js
 // CREATE an array at key "arrKey"
-db.test.insertOne({ _id: 2, arrKey: [123, 234, 345, 456] })
+db.test.insertOne({ _id: 2, arrKey: [123, 234, 345, 456] });
 
 // DELETE a key from that array
-db.test.updateOne({ _id: 2 }, { $pull: { arrKey: { $eq: 234 } } })
+db.test.updateOne({ _id: 2 }, { $pull: { arrKey: { $eq: 234 } } });
 ```
 
 ## Add a value if not already present with $addToSet
 
 ```js
 // ADD a val to the arr if not already present with $addToSet
-db.test.updateOne({ _id: 2 }, { $addToSet: { arrKey: "just-added" } })
-db.test.findOne({ _id: 2 })
+db.test.updateOne({ _id: 2 }, { $addToSet: { arrKey: 'just-added' } });
+db.test.findOne({ _id: 2 });
 // { _id: 2, arrKey: [ 123, 345, 456, 'just-added' ] }
 ```
 
@@ -59,8 +59,8 @@ db.test.findOne({_id:2})
 
 ```js
 // change 345 to 999
-db.test.updateOne({ _id: 2, arrKey: 345 }, { $set: { "arrKey.$": 999 } })
-db.test.findOne({ _id: 2 })
+db.test.updateOne({ _id: 2, arrKey: 345 }, { $set: { 'arrKey.$': 999 } });
+db.test.findOne({ _id: 2 });
 ```
 
 ## Getting Nested
@@ -71,29 +71,29 @@ The [$](https://www.mongodb.com/docs/manual/reference/operator/update/positional
 
 ```js
 // starting object in the "test" collection
-;[
+[
   {
-    _id: "joe",
+    _id: 'joe',
     wordArr: [
       {
-        item: "A",
-        words: ["quick", "brown", "fox", "trot"],
+        item: 'A',
+        words: ['quick', 'brown', 'fox', 'trot'],
       },
-      { item: "B", words: ["slow", "orange", "goat"] },
+      { item: 'B', words: ['slow', 'orange', 'goat'] },
     ],
   },
-]
+];
 
 //
-joeItemA = { _id: "joe", "wordArr.item": "A" }
-addPrince = { $push: { "wordArr.$.words": "prince" } }
-Nlp > db.Themes.updateOne(joeItemA, addPrince)
+joeItemA = { _id: 'joe', 'wordArr.item': 'A' };
+addPrince = { $push: { 'wordArr.$.words': 'prince' } };
+Nlp > db.Themes.updateOne(joeItemA, addPrince);
 ```
 
 ### Edit an Element in an array with $
 
 ```js
-findWater = { _id: "sally", "arrKey._id": "water" }
+findWater = { _id: 'sally', 'arrKey._id': 'water' };
 ```
 
 ### Delete A Douubly-nested Element with $[]
@@ -105,28 +105,28 @@ In this example, the `$[]` is used in combination with `$pull` and `$eq` to remo
 ```js
 // obj.arrKey[arrOfObjects]
 insertObj = {
-  _id: "sally",
+  _id: 'sally',
   arrKey: [
     {
-      _id: "water",
+      _id: 'water',
       arr: [1, 2, 3],
     },
     {
-      _id: "melon",
+      _id: 'melon',
       arr: [4, 5, 6],
     },
   ],
-}
-db.test.insertOne(insertObj)
+};
+db.test.insertOne(insertObj);
 
 // remove the element "2" from the "water" object arr
-findObj = { _id: "sally", "arrKey._id": "water" }
-updateObj = { $pull: { "arrKey.$[].arr": { $eq: 2 } } }
-db.test.updateOne(findObj, updateObj)
+findObj = { _id: 'sally', 'arrKey._id': 'water' };
+updateObj = { $pull: { 'arrKey.$[].arr': { $eq: 2 } } };
+db.test.updateOne(findObj, updateObj);
 ```
 
 ### Delete an element from an array with $pull
 
 ```js
-db.Users.update({ _id: "sally" }, { $pull: { arrKey: { _id: "melon" } } })
+db.Users.update({ _id: 'sally' }, { $pull: { arrKey: { _id: 'melon' } } });
 ```

@@ -84,7 +84,7 @@ function Alteryx() {
       <sub className="italic">
         Work Style: remote, highly collaborative across domains & time-zones,
         on-call rotations, regularly interacting with a dozen-ish folks of a
-        "large" org.
+        &quot;large&quot; org.
       </sub>
       <TagList
         hideTitle

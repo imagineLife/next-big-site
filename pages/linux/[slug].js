@@ -39,7 +39,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
-export const getStaticPaths = async (props) => {
+export const getStaticPaths = (props) => {
   return {
     paths: linuxMdPaths,
     fallback: false,

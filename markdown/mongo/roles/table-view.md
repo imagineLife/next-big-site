@@ -4,7 +4,7 @@ parentDir: /mongo/roles
 slug: mongo/roles/table-view
 author: Jake Laursen
 excerpt: DB, permissions, roles
-tags: ["database", "javascript", "overview", "tech", "users", "roles"]
+tags: ['database', 'javascript', 'overview', 'tech', 'users', 'roles']
 order: 1
 ---
 
@@ -16,6 +16,7 @@ There are many actions in a mongodb.
 
 ## A tabular view
 
+```
 | Action                       | Action Description                                                                                                                                                           | On Resources           |                                                                                                                                    Docs Link |
 | :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | -------------------------------------------------------------------------------------------------------------------------------------------: |
 | **Query & Write**            |                                                                                                                                                                              |                        |                                                                                                                                              |
@@ -71,3 +72,4 @@ There are many actions in a mongodb.
 | **Free Monitoring Actions**  |                                                                                                                                                                              |                        |
 | **Diagnostic Actions**       |                                                                                                                                                                              |                        |
 | **Internal Actions**         |                                                                                                                                                                              |                        |
+```

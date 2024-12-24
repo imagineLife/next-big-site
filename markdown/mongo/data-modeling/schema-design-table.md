@@ -4,7 +4,7 @@ slug: mongo/data-modeling/schema-design-table
 parentDir: mongo/data-modeling
 author: Jake Laursen
 excerpt: An overview of how schema design patterns apply to several application types
-tags: ["database", "mongodb", "data modeling"]
+tags: ['database', 'mongodb', 'data modeling']
 ---
 
 # Schema Design
@@ -12,6 +12,7 @@ tags: ["database", "mongodb", "data modeling"]
 A reference to schema design patterns an real-world use cases.
 _Which patterns should I consider when building apps?_
 
+```
 |                     | Cataloging | Content Management | IoT | Mobile | Personalization | Real-Time Analytics | Single View |
 | :------------------ | :--------- | :----------------- | :-- | :----- | :-------------- | :------------------ | :---------- |
 | Approximation       | X          |                    | X   | X      |                 | X                   |             |
@@ -26,3 +27,4 @@ _Which patterns should I consider when building apps?_
 | Schema Versioning   | X          | X                  | X   | X      | X               | X                   | X           |
 | Subset              | X          | X                  |     | X      | X               |                     |             |
 | Tree and Graph      | X          | X                  |     |        |                 |                     |             |
+```

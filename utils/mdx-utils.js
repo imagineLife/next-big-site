@@ -1,10 +1,6 @@
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import rehypePrism from '@mapbox/rehype-prism';
-import rehypeSlug from 'rehype-slug';
-import remarkGfm from 'remark-gfm';
 import remarkPrism from 'remark-prism';
 import { remark } from 'remark';
 import html from 'remark-html';
@@ -33,7 +29,7 @@ export const k8sMdPath = join(mdDir, 'k8s');
 export const linuxMdPath = join(mdDir, 'linux');
 export const nginxMdPath = join(mdDir, 'nginx');
 export const scrumMdPath = join(mdDir, 'scrum');
-export const node_md_paths = join(mdDir, 'node');
+export const social_world_md_paths = join(mdDir, 'node');
 export const mlMdPath = join(mdDir, 'ml');
 
 const introFiles = {
@@ -120,6 +116,7 @@ export const nginxMdPaths = mdPathsFromDirRoot('nginx');
 export const scrumMdPaths = mdPathsFromDirRoot('scrum');
 export const mlMdPaths = mdPathsFromDirRoot('ml');
 export const k8sMdPaths = mdPathsFromDirRoot('k8s');
+export const theSocialWorldMdPaths = mdPathsFromDirRoot('the-social-world');
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 
 export const getPosts = (pathDir) => {
@@ -128,9 +125,6 @@ export const getPosts = (pathDir) => {
 };
 
 export async function getSiblingTitleSlugs(pathParam) {
-  // console.log('pathParam');
-  // console.log(pathParam);
-
   let dirToParse = join(mdDir, ...pathParam);
   if (pathParam.length > 2) {
     let lastPath = pathParam.pop();
@@ -194,22 +188,6 @@ export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
     }))
   );
 };
-
-export async function getNestedPost() {
-  const filePath = `${join(pages_dir, ...arguments[0])}${arguments[1]}`;
-  const nodeSource = readFileSync(filePath);
-  const { content, data } = matter(nodeSource);
-
-  const mdxSource = await serialize(content, {
-    // Optionally pass remark/rehype plugins
-    mdxOptions: {
-      remarkPlugins: [remarkGfm, remarkPrism],
-      rehypePlugins: [rehypePrism, rehypeSlug],
-    },
-    scope: data,
-  });
-  return { mdxSource, data };
-}
 
 export function getMongoSections() {
   const agg = {

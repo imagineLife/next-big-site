@@ -1,3 +1,12 @@
+---
+title: Learn an intro to Schema Design Patterns with MongoDB
+slug: mongo/schema-patterns
+parentDir: mongo/roles
+author: Jake Laursen
+excerpt: DB User, DB Admin, Cluster Admin, etc
+tags: ['database', 'schema design', 'patterns']
+---
+
 # Patterns
 
 There are several "patterns" for storing related data.

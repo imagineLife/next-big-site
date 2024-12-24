@@ -1,3 +1,12 @@
+---
+title: Learn about the Attribute Schema Design Pattern with MongoDB
+slug: mongo/schema-patterns/attribute-pattern
+parentDir: mongo/schema-patterns
+author: Jake Laursen
+excerpt: Nesting conditional fields into arrays
+tags: ['database', 'schema design', 'patterns']
+---
+
 # Attribute Patterns
 
 Some attributes & characteristics will be present across docs, common schema details.

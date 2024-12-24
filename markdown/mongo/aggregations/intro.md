@@ -1,5 +1,5 @@
 ---
-title: Accumulators
+title: Aggregations
 slug: mongo/aggregations
 parentDir: mongo
 author: Jake Laursen

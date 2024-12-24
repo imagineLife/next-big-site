@@ -1,3 +1,12 @@
+---
+title: Learn about the Duplication, Staleness, and Integrity with MongoDB
+slug: mongo/schema-patterns/dupes-staleness-integrity
+parentDir: mongo/schema-patterns
+author: Jake Laursen
+excerpt: Storing duplicate data could be useful
+tags: ['database', 'schema design', 'duplication', 'integrity']
+---
+
 # Duplication Staleness and Integrity
 
 ## Duplication

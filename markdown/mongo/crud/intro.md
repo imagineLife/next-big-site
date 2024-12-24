@@ -1,10 +1,10 @@
 ---
-title: CRUD
+title: learn db CRUD actions with MongoDB
 slug: mongo/crud
 parentDir: mongo
 author: Jake Laursen
 excerpt: Creating, Reading, Updating and Deleting Data
-tags: ["database", "mongodb", "crud"]
+tags: ['database', 'mongodb', 'crud']
 ---
 
 # CRUD
@@ -115,13 +115,13 @@ This can be done through atlas
   using the `insert` command
 */
 // on success
-WriteResult({ nInserted: 1 })
+WriteResult({ nInserted: 1 });
 
 /*
   Inserting Many
 */
 
-db.coll.insert([{ docOne: "val" }, { docTwo: "val" }, { docThree: "val" }])
+db.coll.insert([{ docOne: 'val' }, { docTwo: 'val' }, { docThree: 'val' }]);
 // returns something like...
 BulkWriteResult({
   writeErrors: [],
@@ -132,7 +132,7 @@ BulkWriteResult({
   nModified: 0,
   nRemoved: 0,
   upserted: [],
-})
+});
 
 /*
   Forcing a duplicate key err on inserting many
@@ -140,13 +140,13 @@ BulkWriteResult({
 db.coll.insert([
   {
     _id: 123,
-    water: "melonOne",
+    water: 'melonOne',
   },
   {
     _id: 123,
-    water: "melonTwo",
+    water: 'melonTwo',
   },
-])
+]);
 
 // returns...
 BulkWriteResult({
@@ -154,7 +154,7 @@ BulkWriteResult({
     {
       index: 1,
       code: 11000,
-      errmsg: "E11000 duplicate key error collection: ...etc",
+      errmsg: 'E11000 duplicate key error collection: ...etc',
       op: {
         _id: 123,
         water: melonTwo,
@@ -168,7 +168,7 @@ BulkWriteResult({
   nModified: 0,
   nRemoved: 0,
   upserted: [],
-})
+});
 
 /*
   NOTICE 
@@ -182,12 +182,12 @@ BulkWriteResult({
 // the insert CONTINUES after a failed doc
 db.asd.insert(
   [
-    { _id: 1, test: "oneTwo" },
-    { _id: 1, test: "twoThree" },
-    { _id: 5, test: "worksWell" },
+    { _id: 1, test: 'oneTwo' },
+    { _id: 1, test: 'twoThree' },
+    { _id: 5, test: 'worksWell' },
   ],
   { ordered: false }
-)
+);
 ```
 
 ## On Updating
@@ -205,15 +205,15 @@ db.asd.insert(
 db.sdf.updateMany(
   {
     water: {
-      $regex: "^m",
+      $regex: '^m',
     },
   },
   {
     $set: {
-      sink: "kitchen",
+      sink: 'kitchen',
     },
   }
-)
+);
 ```
 
 ## On Deleting

@@ -1,3 +1,12 @@
+---
+title: Learn About Aggregation Performance in MongoDb
+slug: mongo/performance/agg
+parentDir: mongo/performance
+author: Jake Laursen
+excerpt: realtime & batch aggregation queries
+tags: ['database', 'mongodb', 'aggregation', 'performance', 'indexing']
+---
+
 # Aggregation performance
 
 2 Categories of agg queries
