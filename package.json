@@ -24,6 +24,7 @@
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@mediapipe/face_detection": "^0.4.1646425229",
+    "@netlify/plugin-nextjs": "^5.9.2",
     "@next/mdx": "^15.0.2",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.0",
