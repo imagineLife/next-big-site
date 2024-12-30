@@ -26,73 +26,6 @@ const aboutContactLinks = [
   },
 ];
 
-const ContactForm = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const myForm = event.target;
-    const formData = new FormData(myForm);
-
-    fetch('/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
-        setShowForm(false);
-        setSubmitted(true);
-      })
-      .catch(() => {
-        setShowForm(false);
-        setSubmitted(true);
-      });
-  };
-
-  return (
-    <form name="contact" data-netlify="true" onSubmit={handleSubmit}>
-      {showForm === true && (
-        <>
-          <p>
-            <label>
-              Name <input type="text" name="name" />
-            </label>
-          </p>
-          <p>
-            <label>
-              Email <input type="email" name="email" />
-            </label>
-          </p>
-
-          <p>
-            <label>
-              Message <textarea name="message" />
-            </label>
-          </p>
-        </>
-      )}
-      <p>
-        {showForm && <button type="submit">Send</button>}
-        {!showForm && (
-          <button
-            type="button"
-            onClick={() => {
-              if (!submitted) {
-                setShowForm(true);
-              }
-            }}
-          >
-            {!submitted && 'Contact Me'}
-            {submitted && 'Thanks!'}
-          </button>
-        )}
-      </p>
-      <input type="hidden" name="form-name" value="contact" />
-    </form>
-  );
-};
 function About() {
   const router = useRouter();
   return (
@@ -132,7 +65,6 @@ function About() {
               </a>
               .
             </p>
-            <ContactForm />
           </div>
         </section>
 
