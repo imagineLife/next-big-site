@@ -11,6 +11,7 @@ function WorkTitle({ title, date, logo, width }) {
       )}
       {logo && typeof logo == 'string' && (
         <Image
+          alt={`${title}-image`}
           src={logo}
           width={width || 30}
           height={30}
@@ -192,7 +193,8 @@ function CompuWeigh() {
         logo="/about/compuweigh.jpg"
         width="150"
       />
-      <img
+      <Image
+        alt="compuweigh"
         src="https://s3-us-west-2.amazonaws.com/grainnet-com/uploads/Company-Profiles/SmartTruck-Lite-Printer_Updated-Screen_Guard_CW.jpg"
         width="200"
       />

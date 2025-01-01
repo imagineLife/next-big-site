@@ -103,20 +103,38 @@ export async function getMdBySlugs(mdSlugString, nestedDirString) {
 function onlyNbFiles(s) {
   return /\.ipynb?$/.test(s);
 }
-export function mdPathsFromDirRoot(rootStr) {
-  return readdirSync(join(mdDir, rootStr))
+export async function mdPathsFromDirRoot(rootStr, includeNestedContent) {
+  let rootContents = readdirSync(join(mdDir, rootStr))
     .filter((s) => s.includes('.md'))
     .map((s) => s.replace(/\.md$/, ''))
     .map((s) => `/${rootStr}/${s}`);
+
+  if (!includeNestedContent) return rootContents;
+
+  let mdPaths = readdirSync(join(mdDir, rootStr), { withFileTypes: true });
+  const nestedDirPaths = mdPaths
+    .filter((d) => d.isDirectory())
+    .map((d) => `${rootStr}/${d.name}`);
+
+  let nestedContents = await Promise.all(
+    nestedDirPaths.map((dirPath) => getMdPostSummaries(dirPath))
+  );
+  let flattened = nestedContents.flat(Infinity);
+  let flat = flattened.map((o) => `/${o.slug}`);
+
+  let resArr = flat.concat(rootContents);
+  return resArr;
 }
 
-export const dockerMdPaths = mdPathsFromDirRoot('docker');
-export const linuxMdPaths = mdPathsFromDirRoot('linux');
-export const nginxMdPaths = mdPathsFromDirRoot('nginx');
-export const scrumMdPaths = mdPathsFromDirRoot('scrum');
-export const mlMdPaths = mdPathsFromDirRoot('ml');
-export const k8sMdPaths = mdPathsFromDirRoot('k8s');
-export const theSocialWorldMdPaths = mdPathsFromDirRoot('the-social-world');
+export const dockerMdPaths = await mdPathsFromDirRoot('docker');
+export const linuxMdPaths = await mdPathsFromDirRoot('linux');
+export const nginxMdPaths = await mdPathsFromDirRoot('nginx');
+export const scrumMdPaths = await mdPathsFromDirRoot('scrum');
+export const mlMdPaths = await mdPathsFromDirRoot('ml');
+export const k8sMdPaths = await mdPathsFromDirRoot('k8s', true);
+export const theSocialWorldMdPaths = await mdPathsFromDirRoot(
+  'the-social-world'
+);
 export const notebookPaths = readdirSync(notebooks_path).filter(onlyNbFiles);
 
 export const getPosts = (pathDir) => {
@@ -144,7 +162,7 @@ export async function getSiblingTitleSlugs(pathParam) {
 }
 
 // returns list like ['/k8s/architecture-overview']
-export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
+export async function getMdPostSummaries(pathDir, includeNestedDirs) {
   let mdPaths = readdirSync(join(mdDir, pathDir), { withFileTypes: true });
   let nestedDirMdSummaries;
   if (!includeNestedDirs) {
@@ -187,7 +205,7 @@ export const getMdPostSummaries = async (pathDir, includeNestedDirs) => {
       excerpt,
     }))
   );
-};
+}
 
 export function getMongoSections() {
   const agg = {

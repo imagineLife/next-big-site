@@ -27,7 +27,7 @@ export default function k8sBySlug({
 export const getStaticProps = async ({ params, ...rest }) => {
   const globalData = getGlobalData();
   const { title, slug, author, excerpt, tags, contentHtml } =
-    await getMdBySlugs(`k8s/${params.slug}`);
+    await getMdBySlugs(`k8s/${params.slug[0]}`, params?.slug[1]);
 
   return {
     props: {
