@@ -43,6 +43,7 @@ const introFiles = {
     'process',
     'streams',
     'testing',
+    'using-the-cli',
   ],
   mongo: [
     'aggregations',
@@ -304,6 +305,12 @@ export function getNodeSections() {
     url: '/node/process',
   };
 
+  const nodeStreams = {
+    t: 'Streams',
+    d: 'Processing data in chunks',
+    url: '/node/streams',
+  };
+
   const nodeSections = [
     nodeFs,
     // nodeBuffers,
@@ -311,6 +318,7 @@ export function getNodeSections() {
     nodeChildProc,
     nodeOs,
     nodeProcess,
+    nodeStreams,
   ];
 
   return nodeSections;
