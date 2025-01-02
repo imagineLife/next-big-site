@@ -1,7 +1,7 @@
 ---
 title: Terminal Input
-slug: node/using-the-cli/overview
-parentDir: node/using-the-cli
+slug: node/using-the-cli
+parentDir: node
 author: Jake Laursen
 excerpt: Parsing Command-Line input & flags
 tags: ['NodeJS', 'Terminal', 'cmd']
