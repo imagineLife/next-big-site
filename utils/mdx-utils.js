@@ -275,10 +275,10 @@ export function getNodeSections() {
     url: '/node/fs',
   };
 
-  const nodeBuffers = {
-    t: 'Buffers',
-    d: 'Storing temporary data',
-    url: '/node/buffers',
+  const nodeCli = {
+    t: 'CLI',
+    d: 'Using the command-line-interface',
+    url: '/node/using-the-cli',
   };
 
   const nodeCrypto = {
@@ -314,6 +314,7 @@ export function getNodeSections() {
   const nodeSections = [
     nodeFs,
     // nodeBuffers,
+    nodeCli,
     nodeCrypto,
     nodeChildProc,
     nodeOs,
