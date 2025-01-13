@@ -16,13 +16,8 @@ export default function MongoBySlug({
     slugArr,
     ...frontMatter,
   };
-
-  if (conditionalChildren?.length) {
-    // console.log('conditionalChildren');
-    // console.log(conditionalChildren);
-    // console.log('frontMatter');
-    // console.log(frontMatter);
-  }
+  console.log('slugArr');
+  console.log(slugArr);
 
   if (!conditionalChildren.length) {
     return (
@@ -31,8 +26,6 @@ export default function MongoBySlug({
       </GenericPost>
     );
   }
-
-  console.log('rendering normal page...');
 
   return (
     <GenericPost {...props}>
@@ -51,7 +44,6 @@ export const getStaticProps = async ({ params }) => {
 
   const { title, slug, author, excerpt, tags, contentHtml } =
     await getMdBySlugs(`mongo/${params.slug[0]}`, params?.slug[1]);
-  // console.log('%c getStaticProps', 'background-color: yellow; color: black;');
   let conditionalChildren = [];
   if (params?.slug?.length === 1) {
     // console.log('LOOK UP CHILDREN');

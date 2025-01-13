@@ -33,8 +33,9 @@ function Alteryx() {
         date="Mar 2022 - now"
         logo="/about/alteryx.png"
       />
+      <h3>Workspace Management</h3>
       <p>
-        - Leading the enablement of an enterprise-ready self-service RBAC{' '}
+        Leading the enablement of an enterprise-ready self-service RBAC{' '}
         {/* <Link
           target="_blank"
           href="https://help.alteryx.com/aac/en/platform/admin/admin-reference/account-management/workspace-management.html#workspace-management"
@@ -44,8 +45,8 @@ function Alteryx() {
         management, & workspace-user management.
       </p>
       <details className="mt-[20px]">
-        <summary className="text-[24px]">
-          <b>Workspace-Management Documentation</b>
+        <summary className="text-[18px]">
+          <b>Live Workspace Management Docs</b>
         </summary>
         <iframe
           width="500"
@@ -57,8 +58,9 @@ function Alteryx() {
           allowFullScreen
         ></iframe>
       </details>
+      <h3>Authentication Micro-Frontend</h3>
       <p>
-        - Spearheded a monolith-to-microfrontend transition of of several
+        Spearheded a monolith-to-microfrontend transition of of several
         authentication-based UIs & APIs:{' '}
         <Link
           target="_blank"
@@ -131,9 +133,10 @@ function Medacist() {
     <>
       <WorkTitle
         logo="/about/medacist.jpeg"
-        title="Medacist Solutions Group (Bluesight): RxAuditor Investigate"
+        title="Medacist Solutions Group (Bluesight)"
         date="Jun 2019 - Mar 2022"
       />
+      <h3>RxAuditor Investigate</h3>
       <iframe
         width="720"
         height="309"
@@ -188,15 +191,17 @@ function CompuWeigh() {
   return (
     <>
       <WorkTitle
-        title="CompuWeigh: SmartTruck Lite"
+        title="CompuWeigh"
         date="May 2018 - May 2019"
         logo="/about/compuweigh.jpg"
         width="150"
       />
+      <h3>SmartTruck Lite</h3>
       <Image
         alt="compuweigh"
         src="https://s3-us-west-2.amazonaws.com/grainnet-com/uploads/Company-Profiles/SmartTruck-Lite-Printer_Updated-Screen_Guard_CW.jpg"
         width="200"
+        height="30"
       />
       <p>
         {/* TODO: 
@@ -229,11 +234,8 @@ function CompuWeigh() {
 function Infinigence() {
   return (
     <>
-      <WorkTitle
-        title="Infinigence: internal Ticket-Based Management system"
-        date="Jan 2015 - Dec 2016"
-      />
-      {/* TODO: hmmm*/}
+      <WorkTitle title="Infinigence" date="Jan 2015 - Dec 2016" />
+      <h3>Ticket-Based Management (internal tooling)</h3>
       <p>
         A from the &quot;Ground-up&quot; ticket-based management system for
         internal team members of a small locally-serving IT-support company:
@@ -247,6 +249,33 @@ function Infinigence() {
       <TagList
         hideTitle
         tags={['javascript', 'html', 'sql', 'php', 'dhtmlx']}
+      />
+    </>
+  );
+}
+
+function ThisSite() {
+  return (
+    <>
+      <WorkTitle title="This Blog" />
+      <TagList
+        hideTitle
+        tags={[
+          'javascript',
+          'html',
+          'react',
+          'nextjs',
+          'gatsbyjs',
+          'graphql',
+          'node',
+          'markdown',
+          'python',
+          'mongoDB',
+          'github',
+          'render (apis)',
+          'netlify',
+          'google analytics',
+        ]}
       />
     </>
   );
@@ -304,6 +333,8 @@ export default function WorkPage() {
       <CompuWeigh />
       <div className="m-32" />
       <Infinigence />
+      <div className="m-32" />
+      <ThisSite />
     </GenericPost>
   );
 }
