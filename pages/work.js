@@ -90,6 +90,7 @@ function Alteryx() {
         &quot;large&quot; org.
       </sub>
       <TagList
+        inline
         hideTitle
         tags={[
           'typescript',
@@ -150,7 +151,9 @@ function Medacist() {
       <p>
         From the &quot;Ground-up&quot; flagship product development for
         drug-diversion analytics: designing & building several interactive
-        data-driven UIs (dashboards, chat, & forms).
+        data-driven UIs (dashboards, chat, & forms). Custom domain-specific
+        visualizations, hierarchical role-based access control, auth, and
+        application access-management tooling.
       </p>
       <sub className="italic">
         Work Style: in-person & hybrid, highly collaborative across domains &
@@ -158,6 +161,7 @@ function Medacist() {
         org.
       </sub>
       <TagList
+        inline
         hideTitle
         tags={[
           'CRUD APIs',
@@ -166,7 +170,7 @@ function Medacist() {
           'express',
           'sql',
           'flyway',
-          'flow (typescript alternate of the time)',
+          'flow (ts alternate of the time)',
           'Figma',
           'cross-functional collaboration',
           'docker',
@@ -224,6 +228,7 @@ function CompuWeigh() {
         less-than-10 folks of a small org.
       </sub>
       <TagList
+        inline
         hideTitle
         tags={['angularjs', 'tortoise SVM', 'webpack', 'D3']}
       />
@@ -247,6 +252,7 @@ function Infinigence() {
         less-than-10 folks of a small org.
       </sub>
       <TagList
+        inline
         hideTitle
         tags={['javascript', 'html', 'sql', 'php', 'dhtmlx']}
       />
@@ -258,6 +264,7 @@ function ThisSite() {
   return (
     <>
       <WorkTitle title="This Blog" />
+      <p>Notes & thoughts along the way of my learning.</p>
       <TagList
         hideTitle
         tags={[
@@ -281,12 +288,152 @@ function ThisSite() {
   );
 }
 
+const certs = [
+  {
+    title: 'Engineering Leadership',
+    subText:
+      'Strengths-Based and Values-Based Approaches, Decision-Making Modes, Collaborative & Courageous Communication, Influence & Motivation, via eCornell',
+    aLink:
+      'https://ecornell.cornell.edu/certificates/leadership-and-strategic-management/engineering-leadership/',
+    techList: [
+      'Values',
+      'Decision-Making',
+      'Communication',
+      'Influence Leading',
+    ],
+    img: `cornell_badge.png`,
+  },
+  {
+    title: 'Kubernetes Application Developer',
+    subText: 'Through Linux Foundation',
+    textContext: 'cert no. LF-2jtyhllngl',
+    // aLink: 'https://university.mongodb.com/certification/certificate/330208369',
+    aLink: 'https://training.linuxfoundation.org/certification/verify/',
+    techList: [
+      'Kubernetes',
+      'Orchestration',
+      'Containers',
+      'Networking',
+      'Debugging',
+    ],
+    img: `k8s_cert_badge.png`,
+  },
+  {
+    title: 'MongoDB Certified Developer Associate',
+    subText: 'Through mongodb university',
+    textContext: 'cert no. 330208369',
+    aLink:
+      'https://university.mongodb.com/certified_professional_finder/certified_professionals/793573?name=laursen',
+    techList: [
+      'Aggregation',
+      'CRUD',
+      'Data Modeling',
+      'Indexes and Performance',
+      'Replication',
+      'Sharding',
+    ],
+    img: `mongo-cred.png`,
+  },
+  {
+    title: 'OpenJS Certified Node Application Developer',
+    subText:
+      'Through the linux foundation, leveraging core node apis for interacting with data streams, os modules, fs handling, process flow, async...',
+    textContext: 'cert no. LF-0te91c2whv',
+    aLink: 'https://training.linuxfoundation.org/certification/verify/',
+    techList: [
+      'Node Core API',
+      'Buffers & Streams',
+      'Control Flow',
+      'Error Handling',
+      'Unit Testing',
+    ],
+    img: `node-cert.png`,
+  },
+  {
+    title: 'Certified Professional Scrum Master',
+    subText:
+      'Scrum is a framework that teams can use to enable team-wide transparency, inspection & adaptation while developing & delivering complex products.',
+    aLink: 'https://www.scrum.org/certificates/519854',
+    techList: [
+      'Team Process Framework',
+      'Servant Leadership',
+      'Iteration',
+      'Inspection',
+      'Transparency',
+    ],
+    img: `psmi.png`,
+  },
+  {
+    title: 'How to Manage a Remote Team',
+    subText:
+      'Best Practices, Managing Remote Team Members, Distributed Team Cultures & Values - all through a partnership between Gitlab and Coursera',
+    // textContext: '(Certificate)',
+    aLink: 'https://www.coursera.org/learn/remote-team-management',
+    techList: ['Team Process', 'Remote', 'Management'],
+    img: `gitlab.jpg`,
+  },
+];
+
+function CertItem({
+  aLink,
+  subText,
+  title,
+  textContext,
+  img,
+  width,
+  techList,
+}) {
+  return (
+    <section className="certs-wrapper">
+      <h3>{title}</h3>
+      <section className="flex gap-5">
+        <Image
+          alt={`${title}-image`}
+          src={`/certs/${img}`}
+          width={width || 60}
+          height={60}
+          objectFit="contain"
+          className="max-h-[60px]"
+        />
+        <section className="cert-description">
+          <p className="!p-0 !m-0">{subText}</p>
+          {textContext && (
+            <sup>
+              <i>{textContext}</i>
+            </sup>
+          )}
+
+          {techList && (
+            <>
+              <br />
+              {techList.map((t, tidx) => {
+                const text = tidx !== techList.length - 1 ? `${t} | ` : t;
+                return (
+                  <span
+                    key={`tech-list-${title}-${t}`}
+                    className="text-gray-700 dark:text-white dark:opacity-60 text-md"
+                  >
+                    {text}
+                  </span>
+                );
+              })}
+            </>
+          )}
+        </section>
+      </section>
+      {aLink && <Link href={aLink} target="_blank" rel="noreferrer" />}
+    </section>
+  );
+}
+
 export default function WorkPage() {
   return (
     <GenericPost
       {...{
         title: 'Work Experience',
-        name: 'Eric Laursen Work Experience',
+        globalData: {
+          name: 'Eric Laursen CV, Experience, and Certifications',
+        },
         slug: '/work',
         tags: [
           'bio',
@@ -335,6 +482,13 @@ export default function WorkPage() {
       <Infinigence />
       <div className="m-32" />
       <ThisSite />
+      <div className="m-32" />
+      <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12 font-normal">
+        Certifications
+      </h1>
+      {certs.map((itm, itmIdex) => (
+        <CertItem key={`folio-item-${itmIdex}`} {...itm} />
+      ))}
     </GenericPost>
   );
 }

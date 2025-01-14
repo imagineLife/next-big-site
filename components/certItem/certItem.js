@@ -4,7 +4,7 @@ export default function CertItem({
   title,
   subText,
   textContext,
-  aLink,
+  // aLink,
   techList,
   img,
 }) {

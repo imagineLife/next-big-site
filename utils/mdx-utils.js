@@ -6,14 +6,6 @@ import { remark } from 'remark';
 import html from 'remark-html';
 
 //
-// RUN-TIME functionalities
-//
-
-//
-// BUILD-TIME functionality
-//
-
-//
 // vars
 //
 const cwd = process.cwd();
@@ -144,15 +136,22 @@ export const getPosts = (pathDir) => {
 };
 
 export async function getSiblingTitleSlugs(pathParam) {
+  // console.log('...getSiblingTitleSlugs...');
+
   let dirToParse = join(mdDir, ...pathParam);
   if (pathParam.length > 2) {
     let lastPath = pathParam.pop();
     dirToParse = join(mdDir, ...pathParam);
   }
+  // console.log('dirToParse');
+  // console.log(dirToParse);
+
   let res = readdirSync(dirToParse, { withFileTypes: true });
   res = res
     .filter((dirEnt) => !dirEnt.isDirectory())
     .filter((dirEnt) => dirEnt.name !== 'intro.md');
+  // console.log('res');
+  // console.log(res);
 
   const resMds = await Promise.all(
     res.map((dirEnt) =>
@@ -313,7 +312,6 @@ export function getNodeSections() {
 
   const nodeSections = [
     nodeFs,
-    // nodeBuffers,
     nodeCli,
     nodeCrypto,
     nodeChildProc,

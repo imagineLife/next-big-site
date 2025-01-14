@@ -525,13 +525,6 @@ let {
           ))}
         </div>
         {/* </section> */}
-
-        {/* <MyHeader text="Certifications" />
-          <div className="grid grid-cols-2 gap-8 px-8">
-            {certs.map((itm, itmIdex) => (
-              <CertItem key={`folio-item-${itmIdex}`} {...itm} />
-            ))}
-          </div> */}
       </section>
 
       <section id="technologies-wrapper" className="@container flex flex-col">
