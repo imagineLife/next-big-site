@@ -30,6 +30,11 @@ const nextConfig = {
         hostname: 'www.svgrepo.com',
         pathname: '/show/**',
       },
+      {
+        protocol: 'https',
+        hostname: 's3-us-west-2.amazonaws.com',
+        pathname: '/grainnet-com/**',
+      },
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
