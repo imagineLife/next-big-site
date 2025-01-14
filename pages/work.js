@@ -60,7 +60,7 @@ function Alteryx() {
       </details>
       <h3>Authentication Micro-Frontend</h3>
       <p>
-        Spearheded a monolith-to-microfrontend transition of of several
+        Spearheaded a monolith-to-microfrontend transition of several
         authentication-based UIs & APIs:{' '}
         <Link
           target="_blank"
