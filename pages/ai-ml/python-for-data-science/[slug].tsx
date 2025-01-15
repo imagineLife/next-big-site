@@ -1,7 +1,7 @@
 
 import Layout from '../../../components/Layout';
 import Header from '../../../components/Header';
-import BreadCrumbs from '../../../components/Breadcrumbs/index.tsx';
+import BreadCrumbs from '../../../components/Breadcrumbs/index';
 import { IpynbRenderer } from 'react-ipynb-renderer';
 import { useEffect, useState } from 'react';
 
@@ -63,7 +63,7 @@ export const getStaticProps = async ({ params }) => {
 // props
 export const getStaticPaths = () => {
   const rootPath = '/ai-ml/python-for-data-science'
-  const paths = ['mean-median-mode', 'std-dev-variance']
+  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments']
   return {
     paths: paths.map(p => `${rootPath}/${p}`),
     fallback: false,
