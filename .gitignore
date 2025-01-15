@@ -39,3 +39,10 @@ yarn-error.log*
 # static files
 /public/notebooks/.ipynb_checkpoints/
 *.zip
+
+__MACOSX
+__pycache__
+ipynb_checkpoints
+food101-10p-transfer-EfficientNetB0
+m2_10p_checkpoints_weights
+tensorflow_hub

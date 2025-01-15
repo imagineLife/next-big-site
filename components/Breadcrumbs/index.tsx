@@ -54,7 +54,13 @@ function setProps(idx, slugsArr, curSlugString) {
   return props;
 }
 
-const BreadCrumbs = ({ slugs, siblings }) => {
+const BreadCrumbs = ({
+  slugs,
+  siblings,
+}: {
+  slugs: String[],
+  siblings?: any[],
+}) => {
   const innerslugsArr = ['/', ...slugs];
   const lastItem = innerslugsArr.pop();
   return (

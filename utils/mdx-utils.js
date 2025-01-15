@@ -11,6 +11,7 @@ import html from 'remark-html';
 const cwd = process.cwd();
 const pages_dir = join(cwd, 'pages');
 const public_dir = join(cwd, 'public');
+const nb_dir = join(cwd, 'notebooks');
 
 // directories in /public/<dir-here>
 export const mongo_path = join(pages_dir, 'mongo');
@@ -50,9 +51,10 @@ const introFiles = {
     'storage-engines',
     'with-docker',
   ],
+  'ai-ml': ['python-for-data-science'],
 };
 
-async function getFileWithNode(fileSlugString) {
+async function getFileUsingNode(fileSlugString) {
   const splitPathArr = fileSlugString.split('/');
   let fullFilePath, fileContents;
 
@@ -69,12 +71,25 @@ async function getFileWithNode(fileSlugString) {
   return fileContents;
 }
 
+async function getNbUsingNode(fileSlugString) {
+  const splitPathArr = fileSlugString.split('/').filter((d) => d);
+  let fullFilePath, fileContents;
+
+  const fileName = splitPathArr.pop();
+  const dir = splitPathArr.join('/');
+
+  fullFilePath = join(nb_dir, dir, `${fileName}.ipynb`);
+
+  fileContents = readFileSync(fullFilePath, 'utf8');
+  return fileContents;
+}
+
 export async function getMdBySlugs(mdSlugString, nestedDirString) {
   let fileToFind = nestedDirString
     ? `${mdSlugString}/${nestedDirString}`
     : mdSlugString;
 
-  const fileContents = await getFileWithNode(fileToFind);
+  const fileContents = await getFileUsingNode(fileToFind);
 
   const matterResult = matter(fileContents);
 
@@ -91,6 +106,14 @@ export async function getMdBySlugs(mdSlugString, nestedDirString) {
     contentHtml,
     ...matterResult.data,
   };
+}
+
+export async function getNotebookBySlug(notebookFileName) {
+  console.log('notebookFileName');
+  console.log(notebookFileName);
+
+  const fileContents = await getNbUsingNode(notebookFileName);
+  return fileContents;
 }
 
 function onlyNbFiles(s) {

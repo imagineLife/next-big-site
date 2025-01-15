@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './../../components/Layout';
 import Seo from '../../components/Seo';
 import Header from '../../components/Header';
-import BreadCrumbs from '../../components/Breadcrumbs';
+import BreadCrumbs from '../../components/Breadcrumbs/index.tsx';
 import PostLink from '../../components/PostLink';
 
 import { getMdPostSummaries, getGlobalData } from '../../utils';

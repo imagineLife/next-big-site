@@ -5,7 +5,7 @@ import ArrowIcon from './ArrowIcon';
 import TagList from './TagList';
 import Layout from './Layout';
 import Seo from './Seo';
-import BreadCrumbs from './Breadcrumbs';
+import BreadCrumbs from './Breadcrumbs/index.tsx';
 import Header from './Header';
 
 import Head from 'next/head';

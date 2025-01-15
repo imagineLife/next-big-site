@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import GenericPost from './../../components/GenericPost'
 
 export default function AiPage() { 
@@ -20,8 +21,8 @@ export default function AiPage() {
       }}>
         
         <p><i>...coming soon...</i></p>
-        <h2>Python for Data Science</h2>
-        <p>some notes and examples of using python to explore & analyze data</p>
+        <Link href="/ai-ml/python-for-data-science" className="no-underline hover:underline"><h2>Python for Data Science</h2></Link>
+        <p>using python & common python libraries to explore & analyze data: statistics, probabiliy, Percentiles, Moments, Covariance, Correlation, Conditional Probability, & Bayes&apos; Theorem.</p>
         
         <h2>Intro to Machine Learning</h2>
         <p>Linear Regressions, Decision Trees, K-Means clustering, Ensemble learning (bagging & boosting), & building models.</p>

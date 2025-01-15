@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { getPosts, getGlobalData } from '../../../utils';
-import { IpynbRenderer } from 'react-ipynb-renderer';
+
 import Layout from '../../../components/Layout';
 import Header from '../../../components/Header';
 import BreadCrumbs from '../../../components/Breadcrumbs/index.tsx';
-const NotebookBySlug = (props) => {
-  let [loadedNotebook, setLoadedNotebook] = useState(null);
+import { IpynbRenderer } from 'react-ipynb-renderer';
+import { useEffect, useState } from 'react';
+
+export default function NotebookBySlug(props) {
+let [loadedNotebook, setLoadedNotebook] = useState(null);
 
   useEffect(() => {
     if (!loadedNotebook) {
-      const fileToLoad = `/notebooks/${props.slug}.ipynb`;
+      const fileToLoad = `/notebooks/ai-ml/python-for-data-science/${props.slug}.ipynb`;
 
       fetch(fileToLoad)
         .then(async (res) => {
@@ -26,8 +27,9 @@ const NotebookBySlug = (props) => {
   if (!loadedNotebook) {
     return <>loading...</>;
   }
-
+  
   return (
+    // @ts-expect-error
     <Layout>
       {/* <Seo
         title={`${title} - ${globalData.name}`}
@@ -35,39 +37,30 @@ const NotebookBySlug = (props) => {
         slug={slug}
         tags={tags}
       /> */}
-      <Header name={props.globalData.name} />
+      <Header name={'horse'} />
       <article className="px-6 md:px-0 mt-[40px]">
-        <BreadCrumbs slugs={props.slugArr} />
+        <BreadCrumbs slugs={props.slugArr} siblings={undefined} />
         <main className="mx-auto p-3">
           <IpynbRenderer ipynb={loadedNotebook} />
         </main>
       </article>
     </Layout>
   );
-};
+}
 
-export default NotebookBySlug;
+export const getStaticProps = async ({ params }) => {
 
-// runs server-side
-export const getStaticPaths = (props) => {
-  // const notebookPaths = getNotebookPaths()
-  const posts = getPosts('notebooks');
-  // console.log('notebooks [slug] getStaticPaths: posts');
-  // console.log(posts);
-
-  return {
-    paths: posts.map((p) => `/ml/notebooks/${p}`),
-    fallback: false,
-  };
-};
-
-export async function getStaticProps(props) {
-  const globalData = getGlobalData();
   return {
     props: {
-      globalData,
-      slug: props.params.slug,
-      slugArr: ['ml', 'notebooks', props.params.slug],
+      slug: params.slug,
+      slugArr: ['ai-ml', 'python-for-data-science' ,params.slug],
     },
   };
-}
+};
+
+// https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
+// props
+export const getStaticPaths = () => ({
+  paths: ['/ai-ml/python-for-data-science/mean-median-mode'],
+  fallback: false,
+});
