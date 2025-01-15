@@ -1,6 +1,8 @@
+import Link from "next/link";
 import GenericPost from "../../components/GenericPost";
 
 export default function PyForDS(){
+  const rootPath = '/ai-ml/python-for-data-science'
   return <GenericPost {...{
     title: 'Learn Python for DataScience',
     name: 'Learn Python for DataScience',
@@ -11,6 +13,8 @@ export default function PyForDS(){
     ],
     slugArr: ['ai-ml','python-for-data-science']
   }}>
-    Word
+    <>
+      <Link href={`${rootPath}/mean-median-mode`}><h2>Mean, Median, & Mode</h2></Link>
+    </>
   </GenericPost>
 }

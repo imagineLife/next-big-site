@@ -61,7 +61,11 @@ export const getStaticProps = async ({ params }) => {
 
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 // props
-export const getStaticPaths = () => ({
-  paths: ['/ai-ml/python-for-data-science/mean-median-mode'],
-  fallback: false,
-});
+export const getStaticPaths = () => {
+  const rootPath = '/ai-ml/python-for-data-science'
+  const paths = ['mean-median-mode', 'std-dev-variance']
+  return {
+    paths: paths.map(p => `${rootPath}/${p}`),
+    fallback: false,
+  }
+};
