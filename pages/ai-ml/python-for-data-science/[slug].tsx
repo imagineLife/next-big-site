@@ -49,7 +49,8 @@ let [loadedNotebook, setLoadedNotebook] = useState(null);
 }
 
 export const getStaticProps = async ({ params }) => {
-
+  console.log('py-for-ds getStaticProps params')
+  console.log(params)
   return {
     props: {
       slug: params.slug,
