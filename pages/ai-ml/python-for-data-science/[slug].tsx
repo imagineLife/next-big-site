@@ -61,7 +61,7 @@ export const getStaticProps = async ({ params }) => {
 // props
 export const getStaticPaths = () => {
   const rootPath = '/ai-ml/python-for-data-science'
-  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression']
+  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression','multiple-regression', 'train-test']
   return {
     paths: paths.map(p => `${rootPath}/${p}`),
     fallback: false,
