@@ -24,10 +24,6 @@ let [loadedNotebook, setLoadedNotebook] = useState(null);
     }
   }, [loadedNotebook, props.slug]);
 
-  if (!loadedNotebook) {
-    return <>loading...</>;
-  }
-  
   return (
     // @ts-expect-error
     <Layout>
@@ -41,7 +37,9 @@ let [loadedNotebook, setLoadedNotebook] = useState(null);
       <article className="px-6 md:px-0 mt-[40px]">
         <BreadCrumbs slugs={props.slugArr} siblings={undefined} />
         <main className="mx-auto p-3">
-          <IpynbRenderer ipynb={loadedNotebook} />
+          {!loadedNotebook && <p>loading...</p>
+          }
+          {loadedNotebook && <IpynbRenderer ipynb={loadedNotebook} />}
         </main>
       </article>
     </Layout>
@@ -63,7 +61,7 @@ export const getStaticProps = async ({ params }) => {
 // props
 export const getStaticPaths = () => {
   const rootPath = '/ai-ml/python-for-data-science'
-  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability']
+  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression']
   return {
     paths: paths.map(p => `${rootPath}/${p}`),
     fallback: false,
