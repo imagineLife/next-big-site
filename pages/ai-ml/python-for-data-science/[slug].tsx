@@ -5,6 +5,7 @@ import BreadCrumbs from '../../../components/Breadcrumbs/index';
 import { IpynbRenderer } from 'react-ipynb-renderer';
 import { useEffect, useState } from 'react';
 
+const pyForDsNotebooks = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression','multiple-regression', 'train-test', 'naive-bayes', 'k-means', 'xgboost']
 export default function NotebookBySlug(props) {
 let [loadedNotebook, setLoadedNotebook] = useState(null);
 
@@ -61,7 +62,7 @@ export const getStaticProps = async ({ params }) => {
 // props
 export const getStaticPaths = () => {
   const rootPath = '/ai-ml/python-for-data-science'
-  const paths = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression','multiple-regression', 'train-test', 'naive-bayes']
+  const paths = pyForDsNotebooks
   return {
     paths: paths.map(p => `${rootPath}/${p}`),
     fallback: false,

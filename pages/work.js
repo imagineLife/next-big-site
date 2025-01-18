@@ -103,9 +103,13 @@ function Alteryx() {
           // todo: is this the right name?
           'umzug (db migrations)',
           'Figma',
+          'Design System',
+          'Component Library',
           'cross-functional collaboration',
           'docker',
           'kubernetes',
+          'kafka',
+          'confluent',
           'gitlab',
           'webpack',
           'rspack',
