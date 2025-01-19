@@ -1,13 +1,20 @@
 
-import Layout from '../../../components/Layout';
-import Header from '../../../components/Header';
-import BreadCrumbs from '../../../components/Breadcrumbs/index';
 import { IpynbRenderer } from 'react-ipynb-renderer';
 import { useEffect, useState } from 'react';
+import useAiPaths, { PathObj } from '../../../hooks/useAiPaths';
+import GenericPost from '../../../components/GenericPost';
 
-const pyForDsNotebooks = ['mean-median-mode', 'std-dev-variance', 'data-distribution', 'percentiles', 'moments', 'covariance-correlation', 'conditional-probability', 'linear-regression', 'polynomial-regression','multiple-regression', 'train-test', 'naive-bayes', 'k-means', 'xgboost']
 export default function NotebookBySlug(props) {
-let [loadedNotebook, setLoadedNotebook] = useState(null);
+  const pathsArr = useAiPaths('python-for-data-science');
+  let otherPages = []
+  let thisPathObj = {} as PathObj;
+
+  pathsArr.forEach(o => {
+    if(o.path === props.slug) thisPathObj = o
+      otherPages.push(o)
+  })
+  
+  let [loadedNotebook, setLoadedNotebook] = useState(null);
 
   useEffect(() => {
     if (!loadedNotebook) {
@@ -24,32 +31,28 @@ let [loadedNotebook, setLoadedNotebook] = useState(null);
         });
     }
   }, [loadedNotebook, props.slug]);
-
+  
   return (
-    // @ts-expect-error
-    <Layout>
-      {/* <Seo
-        title={`${title} - ${globalData.name}`}
-        excerpt={excerpt}
-        slug={slug}
-        tags={tags}
-      /> */}
-      <Header name={'horse'} />
-      <article className="px-6 md:px-0 mt-[40px]">
-        <BreadCrumbs slugs={props.slugArr} siblings={undefined} />
-        <main className="mx-auto p-3">
-          {!loadedNotebook && <p>loading...</p>
-          }
-          {loadedNotebook && <IpynbRenderer ipynb={loadedNotebook} />}
-        </main>
-      </article>
-    </Layout>
+    <GenericPost {...{
+      title: thisPathObj.title,
+      name: thisPathObj.title,
+      descript  : '...',
+      excerpt: '...',
+      slug: thisPathObj.path,
+      slugArr: props.slugArr,
+      siblings: otherPages.map(p => ({
+        title: p.title,
+        slug: `/ai-ml/python-for-data-science/${p.path}`
+      })),
+      tags: ['python', 'data-science', 'jupyter', 'learning', 'numpy']
+    }}>
+      {!loadedNotebook && <p>loading...</p>}
+      {loadedNotebook && <IpynbRenderer ipynb={loadedNotebook} />}
+    </GenericPost>
   );
 }
 
 export const getStaticProps = async ({ params }) => {
-  console.log('py-for-ds getStaticProps params')
-  console.log(params)
   return {
     props: {
       slug: params.slug,
@@ -61,8 +64,9 @@ export const getStaticProps = async ({ params }) => {
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 // props
 export const getStaticPaths = () => {
+  const pathsArr = useAiPaths('python-for-data-science');
   const rootPath = '/ai-ml/python-for-data-science'
-  const paths = pyForDsNotebooks
+  const paths = pathsArr.map(d => d.path)
   return {
     paths: paths.map(p => `${rootPath}/${p}`),
     fallback: false,

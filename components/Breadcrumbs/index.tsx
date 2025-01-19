@@ -59,7 +59,7 @@ const BreadCrumbs = ({
   siblings,
 }: {
   slugs: String[],
-  siblings?: any[],
+  siblings?: any[]
 }) => {
   const innerslugsArr = ['/', ...slugs];
   const lastItem = innerslugsArr.pop();

@@ -3,6 +3,12 @@ import { usePathname } from 'next/navigation';
 
 export default function SiblingButton({ siblings, curSlug }) {
   const curPath = usePathname();
+  console.log(
+    '%c siblingsButton, siblings',
+    'background-color: orange; color: black;'
+  );
+  console.log('siblings');
+  console.log(siblings);
 
   const [open, setOpen] = useState(false);
   function toggleOpen(e) {
@@ -54,7 +60,7 @@ export default function SiblingButton({ siblings, curSlug }) {
             .map((s) => (
               <li key={`${s.title}`} className="underline">
                 <a
-                  href={`/${s.slug}`}
+                  href={`${s.slug}`}
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 hover:text-blue-500"
                 >
                   {s.title}
