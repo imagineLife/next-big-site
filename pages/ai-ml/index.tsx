@@ -20,7 +20,6 @@ export default function AiPage() {
         slugArr: ['ai'],
       }}>
         
-        <p><i>...coming soon...</i></p>
         <Link href="/ai-ml/python-for-data-science" className="no-underline hover:underline"><h2>Python for Data Science</h2></Link>
         <p>using python & common python libraries to explore & analyze data: statistics, probabiliy, Percentiles, Moments, Covariance, Correlation, Conditional Probability, & Bayes&apos; Theorem.</p>
         
@@ -36,7 +35,7 @@ export default function AiPage() {
         <h2>Computer Vision</h2>
         <p>Processing images, using convolutional neural networks (CNNs).</p>
 
-        <h2>Depoloying models to the world</h2>
+        <h2>Deploying models to the world</h2>
         
       </GenericPost>)
 }

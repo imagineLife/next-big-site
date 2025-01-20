@@ -16,7 +16,8 @@ export default function PyForDS(){
     slugArr: ['ai-ml','python-for-data-science']
   }}>
     <>
-    <p>A handful of jupyter notebooks exploring some python & ML topics:</p>
+    <p>A handful of jupyter notebooks exploring some python & ML topics.</p>
+    <p>Python libraries used in these examples inclide numpy, matplotlib, sklearn, pylab, scipy, pandas, statsmodels, and more.</p>
       {apiPaths.map(o => <Link href={`${rootPath}/${o.path}`} key={`${rootPath}/${o.path}`}><h3>{o.title}</h3></Link>)}
     </>
   </GenericPost>
