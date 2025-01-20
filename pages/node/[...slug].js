@@ -28,10 +28,6 @@ export default function NodeBySlug({
 }
 
 export const getStaticProps = async ({ params }) => {
-  // console.log('node ...slug getStaticProps params, rest');
-  // console.log('params?.slug');
-  // console.log(params?.slug);
-
   const globalData = getGlobalData();
   const siblings = await getSiblingTitleSlugs(['node', ...params.slug]);
 

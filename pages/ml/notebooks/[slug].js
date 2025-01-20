@@ -50,11 +50,7 @@ export default NotebookBySlug;
 
 // runs server-side
 export const getStaticPaths = (props) => {
-  // const notebookPaths = getNotebookPaths()
   const posts = getPosts('notebooks');
-  // console.log('notebooks [slug] getStaticPaths: posts');
-  // console.log(posts);
-
   return {
     paths: posts.map((p) => `/ml/notebooks/${p}`),
     fallback: false,

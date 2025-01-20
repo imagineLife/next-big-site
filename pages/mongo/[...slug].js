@@ -16,8 +16,6 @@ export default function MongoBySlug({
     slugArr,
     ...frontMatter,
   };
-  console.log('slugArr');
-  console.log(slugArr);
 
   if (!conditionalChildren.length) {
     return (
@@ -46,7 +44,6 @@ export const getStaticProps = async ({ params }) => {
     await getMdBySlugs(`mongo/${params.slug[0]}`, params?.slug[1]);
   let conditionalChildren = [];
   if (params?.slug?.length === 1) {
-    // console.log('LOOK UP CHILDREN');
     conditionalChildren = await getMdPostSummaries('mongo', true);
     conditionalChildren = conditionalChildren.filter(
       (d) => d.slug && d.slug.includes(params.slug[0])
