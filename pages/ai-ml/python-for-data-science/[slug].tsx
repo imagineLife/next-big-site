@@ -1,7 +1,7 @@
 
 import { IpynbRenderer } from 'react-ipynb-renderer';
 import { useEffect, useState } from 'react';
-import useAiPaths, { PathObj } from '../../../hooks/useAiPaths';
+import useAiPaths, { getAiPaths, PathObj } from '../../../hooks/useAiPaths';
 import GenericPost from '../../../components/GenericPost';
 
 export default function NotebookBySlug(props) {
@@ -64,7 +64,7 @@ export const getStaticProps = async ({ params }) => {
 // https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths
 // props
 export const getStaticPaths = () => {
-  const pathsArr = useAiPaths('python-for-data-science');
+  const pathsArr = getAiPaths('python-for-data-science');
   const rootPath = '/ai-ml/python-for-data-science'
   const paths = pathsArr.map(d => d.path)
   return {
