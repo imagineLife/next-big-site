@@ -97,3 +97,5 @@ export default function useAiPaths(rootDir: string): PathObj[]{
   }
   return pathsLookup[rootDir]
 }
+
+export const getAiPaths = useAiPaths;
