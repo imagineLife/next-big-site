@@ -1,11 +1,11 @@
 
 import { IpynbRenderer } from 'react-ipynb-renderer';
 import { useEffect, useState } from 'react';
-import useAiPaths, { getAiPaths, PathObj } from '../../../hooks/useAiPaths';
+import getAiPaths, { PathObj } from '../../../hooks/useAiPaths';
 import GenericPost from '../../../components/GenericPost';
 
 export default function NotebookBySlug(props) {
-  const pathsArr = useAiPaths('python-for-data-science');
+  const pathsArr = getAiPaths('python-for-data-science');
   let otherPages = []
   let thisPathObj = {} as PathObj;
 

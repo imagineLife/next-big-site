@@ -1,9 +1,9 @@
 import Link from "next/link";
 import GenericPost from "../../components/GenericPost";
-import useAiPaths from "../../hooks/useAiPaths";
+import getAiPaths from "../../hooks/useAiPaths";
 export default function PyForDS(){
   const rootPath = '/ai-ml/python-for-data-science'
-  const apiPaths = useAiPaths('python-for-data-science')
+  const apiPaths = getAiPaths('python-for-data-science')
   
   return <GenericPost {...{
     title: 'Learn Python for DataScience',

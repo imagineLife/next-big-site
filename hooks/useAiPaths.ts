@@ -2,7 +2,7 @@ export type PathObj = {
   path: string;
   title: string;
 }
-export default function useAiPaths(rootDir: string): PathObj[]{
+export default function getAiPaths(rootDir: string): PathObj[]{
   const pathsLookup = {
     'python-for-data-science': [
       {
@@ -97,5 +97,3 @@ export default function useAiPaths(rootDir: string): PathObj[]{
   }
   return pathsLookup[rootDir]
 }
-
-export const getAiPaths = useAiPaths;
