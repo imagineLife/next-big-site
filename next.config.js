@@ -41,7 +41,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-  staticPageGenerationTimeout: 160,
+  staticPageGenerationTimeout: 170,
 };
 
 module.exports = nextConfig;
