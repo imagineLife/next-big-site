@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDXRemote } from 'next-mdx-remote';
+import remarkMermaid from 'remark-mermaidjs';
 import Link from 'next/link';
 import ArrowIcon from './ArrowIcon';
 import TagList from './TagList';
@@ -60,7 +61,15 @@ export default function GenericPost(props) {
         </header>
         <main className="prose dark:prose-dark mx-auto lg:prose-lg lg:max-w-none">
           <article>
-            {source && <MDXRemote {...source} components={components} />}
+            {source && (
+              <MDXRemote
+                {...source}
+                components={components}
+                options={{
+                  remarkPlugins: [remarkMermaid],
+                }}
+              />
+            )}
             {children && children}
           </article>
           <div className="m-32" />

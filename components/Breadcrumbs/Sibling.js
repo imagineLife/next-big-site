@@ -3,13 +3,6 @@ import { usePathname } from 'next/navigation';
 
 export default function SiblingButton({ siblings, curSlug }) {
   const curPath = usePathname();
-  console.log(
-    '%c siblingsButton, siblings',
-    'background-color: orange; color: black;'
-  );
-  console.log('siblings');
-  console.log(siblings);
-
   const [open, setOpen] = useState(false);
   function toggleOpen(e) {
     e.preventDefault();

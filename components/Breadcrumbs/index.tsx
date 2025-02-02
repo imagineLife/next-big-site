@@ -40,6 +40,9 @@ function BreadcrumbLink({ includeSlash, text, link, home }) {
 function setProps(idx, slugsArr, curSlugString) {
   let props = {
     text: curSlugString,
+    link: null,
+    home: null,
+    includeSlash: null
   };
   if (idx === 0) {
     props.link = '/';
